@@ -1,0 +1,25 @@
+$dominantColor: #409EFF;
+$successColor: #67C23A;
+$warningColor: #E6A23C;
+$dangerColor: #F56C6C;
+$infoColor: #909399;
+
+
+$screen-cx-min: 0px;
+$screen-xp-min: 768px;
+$screen-zp-min: 992px;
+$screen-dp-min: 1200px;
+
+$screen-cx-max: 768px;
+$screen-xp-max: 992px;
+$screen-zp-max: 1200px;
+
+
+body,p,br,hr,h1,h2,h3,h4,h5,h6,ul,li,ol,dl,dt,dd,input,img,form,table,fieldset,legend{margin:0;padding:0;}
+ul,li,ol,dl,dt,dd{list-style:none;}
+a{text-decoration:none;color:black;}
+h1,h2,h3,h4,h5,h6{font-weight:normal;}
+img{border:none;}
+body,html{height:100%;font-size:12px;font-family:"微软雅黑";}
+.clear:after{content:"";display:block;clear:both;}
+.hidden{width:100px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}

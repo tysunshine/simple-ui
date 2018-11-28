@@ -1,0 +1,216 @@
+﻿/*变量以$开头*/
+$fontSize: 12px;
+body{
+    font-size:$fontSize;
+}
+
+
+$baseLineHeight: 1.5 !default;
+body{
+    line-height: $baseLineHeight; 
+}
+
+
+
+/*
+*默认值是!default 覆盖在default上面设置
+*/
+$baseLineHeight:        2;
+$baseLineHeight:        1.5 !default;
+body{
+    line-height: $baseLineHeight; 
+}
+
+
+
+$borderDirection:       top !default; 
+$baseFontSize:          12px !default;
+$baseLineHeight:        1.5 !default;
+
+/*应用于class和属性*/
+.border-#{$borderDirection}{
+  border-#{$borderDirection}:1px solid #ccc;
+}
+/*应用于复杂的属性值  font/border*/
+body{
+    font:#{$baseFontSize}/#{$baseLineHeight};
+}
+
+
+/*多值变量list  空格  ,  ()    使用nth(多值变量,下标)  下标从1开始*/
+$linkColor:         #08c #333 !default;//第一个值为默认值，第二个鼠标滑过值
+a{
+  color:nth($linkColor,1);
+
+  &:hover{
+    color:nth($linkColor,2);
+  }
+}
+
+
+
+/*多值变量map*/
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $header, $size in $headings {
+  #{$header} {
+    font-size: $size;
+  }
+}
+
+
+/*在一个选择器中嵌套另一个选择器来实现继承,&表示父元素选择器*/
+#top_nav{
+  line-height: 40px;
+  text-transform: capitalize;
+  background-color:#333;
+  li{
+    float:left;
+  }
+  a{
+    display: block;
+    padding: 0 10px;
+    color: #fff;
+
+    &:hover{
+      color:#ddd;
+    }
+  }
+}
+
+
+/*无参数mixin, 声明的@mixin通过@include来调用*/
+@mixin center-block {
+    margin-left:auto;
+    margin-right:auto;
+}
+.demo{
+    @include center-block;
+}
+
+/*有参数mixin, 有默认值*/
+@mixin opacity($opacity:50) {
+  opacity: $opacity / 100;
+  filter: alpha(opacity=$opacity);
+}
+.opacity{
+  @include opacity; //参数使用默认值
+}
+.opacity-80{
+  @include opacity(80); //传递参数
+}
+
+
+/*
+*多个参数mixin
+*如@include传入参数的个数小于@mixin定义参数的个数，则按照顺序表示，后面不足的使用默认值，如不足的没有默认值则报错。除此之外还可以选择性的传入参数，使用参数名与值同时传入
+ */
+@mixin horizontal-line($border:1px dashed #ccc, $padding:10px){
+    border-bottom:$border;
+    padding-top:$padding;
+    padding-bottom:$padding;  
+}
+.imgtext-h li{
+    @include horizontal-line(1px solid #ccc);
+}
+.imgtext-h--product li{
+    @include horizontal-line($padding:15px);
+}
+
+
+/*
+*如果一个参数可以有多组值，如box-shadow、transition等，那么参数则需要在变量后加三个点表示
+*box-shadow可以有多组值，所以在变量参数后面添加...
+*/
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow:$shadow;
+  box-shadow:$shadow;
+}
+.box{
+  border:1px solid #ccc;
+  @include box-shadow(0 2px 2px rgba(0,0,0,.3),0 3px 3px rgba(0,0,0,.3),0 4px 4px rgba(0,0,0,.3));
+}
+
+
+/*继承，关键词@extend*/
+h1{
+  border: 4px solid #ff9aa9;
+}
+.speaker{
+  @extend h1;
+  border-width: 2px;
+}
+
+
+/*sass具有运算的特性，可以对数值型的Value(如：数字、颜色、变量等)进行加减乘除四则运算。请注意运算符前后请留一个空格，不然会出错。*/
+$baseFontSize: 14px;
+$baseLineHeight: 1.5 !default;
+$baseGap: $baseFontSize * $baseLineHeight !default;
+$halfBaseGap: $baseGap / 2  !default;
+$samllFontSize: $baseFontSize - 2px  !default;
+
+h3{
+	font-size: $baseFontSize;
+}
+h4{
+	font-size: $samllFontSize;
+}
+
+
+/*@if可一个条件单独使用，也可以和@else结合多条件使用*/
+$lte7: true;
+$type: monster;
+.ib{
+    display:inline-block;
+    @if $lte7 {
+        *display:inline;
+        *zoom:1;
+    }
+}
+p {
+  @if $type == ocean {
+    color: blue;
+  } @else if $type == matador {
+    color: red;
+  } @else if $type == monster {
+    color: green;
+  } @else {
+    color: black;
+  }
+}
+
+
+/*三目做返回值if($condition, $if_true, $if_false)*/
+div {
+	color: if($type==monster, blue, green)
+}
+
+/*for循环有两种形式，分别为：@for $var from <start> through <end>和@for $var from <start> to <end>。$i表示变量，start表示起始值，end表示结束值，这两个的区别是关键字through表示包括end这个数，而to则不包括end这个数。*/
+@for $i from 1 through 3 {
+  .item-#{$i} { width: 2em * $i; }
+}
+
+/*@each循环 , list和map*/
+$animal-list: puma, sea-slug, egret, salamander;
+@each $animal in $animal-list {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+  }
+}
+
+/*多个字段list数据循环*/
+$animal-data: (puma, black, default),(sea-slug, blue, pointer),(egret, white, move);
+@each $animal, $color, $cursor in $animal-data {
+  .#{$animal}-icon {
+    background-image: url('/images/#{$animal}.png');
+    border: 2px solid $color;
+    cursor: $cursor;
+  }
+}
+
+/*多个字段map数据循环*/
+$headings: (h1: 2em, h2: 1.5em, h3: 1.2em);
+@each $header, $size in $headings {
+  #{$header} {
+    font-size: $size;
+  }
+}

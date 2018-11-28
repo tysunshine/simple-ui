@@ -1,0 +1,200 @@
+gulp  百度  一点   http://www.ydcss.com/archives/18#lesson7
+
+淘宝镜像  cnpm  就是每十分钟更新一次国外的然后服务器在中国   更快   https://npm.taobao.org/
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+
+1、装node.msi  x86是32  
+
+
+2、装完后  windows+r  cmd   node -v  npm -v  (node package manager)查看版本号
+
+
+	node是js在服务器的运行环境
+
+
+	作用：开发web应用程序   做动态网站   开发提供数据的服务端API（后台）  前端开发工具基础（自动化）
+
+
+	建一个test.js  然后命令行切换到这个路径下   node test运行  会执行js可以省略.js
+
+
+3、建一个英文路径下的文件夹   命令行切换到那
+
+
+4、npm init生成package.json  一路yes   或者  npm init --yes 以后安装包的时候将其--save保存到配置文件  --save-dev表明是保存到配置文件的开发环境
+
+	以后可以直接将package.json发给别人别人只需要npm install就可以下载所需要的所有东西了
+
+
+	npm install xxx -g(全局安装包)  如果你安装的是一个工具，工具要在每一个地方用，这种情况下一般全局安装
+
+
+*************所有的包  npm install
+都是先下载、然后在gulpfile.js用require引入   然后再gulp.task里面使用
+
+
+5、npm install gulp -g全局安装gulp
+
+6、npm install gulp --save-dev开发路径下安装gulp并把它放在开发环境配置中
+
+
+7、新建一个gulpfile.js一定要叫这个名，此处代码都是由node执行
+	var gulp = require('gulp');//把gulp引进来，并起名叫gulp
+
+8、在gulpfile里抽象我们需要做的任务
+
+	1、sass编译  合并  压缩
+
+	2、js合并  压缩  混淆（变量名变成看不懂的）  tool.oschina.net
+
+	3、img复制
+
+	4、html压缩
+
+	在gulpfile里面编辑
+
+9、建目录结构
+
+	src放源代码  
+
+	dist放自动化后的代码
+
+	在src里面放一个index.html
+	在src styles里新建一个app.scss文件全部换成utf-8编码
+	在src scripts里新建一个app.js文件
+	在src images里放一张图片
+
+	index.html里面引入app.css是在另外一个dist目录里面运行的app.js也是压缩合并的
+
+，
+js图片也在里面引入 
+
+	由于index.html里面引入的是css文件，所以在gulpfile中要对scss做一个处理
+	在gulpfile里面注册一个任务处理styles里面的东西，sass编译可以用gulp-sass包
+
+
+10、gulp-sass
+	sass编译
+	npm install gulp-sass --save-dev安装gulp的sass编译包装完后在mode_modules里面可以看到，在package.json里面也可以看到
+	在gulpfile.js里面var sass = require("gulp-sass")
+
+11、gulp.task('任务名', function() {任务处理})
+	在任务处理里，gulp.src先找  找完了后gulp.pipe()管道处理编译gulp-sass 压缩gulp-cssnano require引入的名字要看package.json里面依赖的名字 最后输出  如果		用到其他的就require(引进来)放到变量里调用变量方法就可以了
+	gulp-cssnano 压缩npm install gulp-cssnano --save-dev
+
+	var sass = require('gulp-sass');//css编译
+	var cssnano = require('gulp-cssnano');//css压缩
+	.pipe(sass())//管道
+	.pipe(cssnano())
+
+12、命令行  gulp 任务名 执行在dist styles里面就可以看到
+
+	每次改完gulpfile.js后就要重新执行任务 gulp style命令行执行
+
+	require的东西都是其他包  都需要npm install xxx --save-dev
+
+13、当多个.scss存在的时候最后处理会出现多个.css考虑合并到app.css一般预处理css都可以导包
+	可以导包  只编译到一个文件里面  @import '_开头的sass文件表明是被导入的文件';
+
+	gulp里面的style任务变成过滤掉"_"的导入文件  由于原来的demo.css已经生成，只覆盖不删除  所以手动删除dist
+
+	src可以写多种匹配符的 ['src/styles/*.scss', '!src/styles/_*.scss']  !不取
+
+
+14、在处理js  在gulpfile里面注册任务
+
+	先合并，混淆后会成a、b、c再合并就容易冲突
+
+15、合并gulp-concat  .pipe(concat('all.js'))
+	npm install gulp-concat  --save-dev
+
+	新建几个.js  看看执行有没有合并  合并每个文件的代码最好写在一个自执行函数里，防止变量污染
+
+	var concat = require('gulp-concat');//js合并
+	.pipe(concat('all.js'))
+
+16、压缩、混淆一个过程gulp-uglify  自执行函数空函数直接帮我们干掉
+	npm install gulp-uglify  --save-dev
+
+	var uglify = require('gulp-uglify');//js压缩混淆
+	.pipe(uglify())
+
+17、图片就做简单的复制
+	gulp.task('image', function() {
+		gulp.src('src/images/*.*')
+		.pipe(gulp.dest('dist/images'))
+		.pipe(browserSync.reload({
+			stream: true
+		}))
+	})
+
+18、html压缩gulp-htmlmin  htmlmin({collapseWhitespace: true})去掉空白字符手动配置，去注释是另外一个选项
+
+	npm uninstall xxx -g卸载 npm uninstall xxx --save-dev
+
+        具体看gulp包  www.npmjs.com/package/包名 去看api
+
+
+	removeAttributesQuotes删除引号减少字节   使用少的doctype  type="text/javascript"可省略让html更省略
+
+	gulp-htmlmin  压缩npm install gulp-htmlmin  --save-dev
+
+	var htmlmin = require('gulp-htmlmin');//html压缩
+
+	gulp.task('html', function() {
+		gulp.src('src/*.html')
+		.pipe(htmlmin({
+			collapseWhitespace: true,//去空白
+			removeComments: true//去注释
+		}))//不加参数不自动去掉空格
+		.pipe(gulp.dest('dist'))
+		.pipe(browserSync.reload({
+			stream: true
+		}))
+	})
+
+
+19、还有运行服务器   serve启动server并监视程序执行  
+	npm install browser-sync --save-dev  自动化同步工具
+
+	在gulpfile里面不需要gulp.src了只需要启动一个web服务器就可以了
+	默认把node当成了根目录   dist当成根目录就好
+
+	加一个server: {baseDir: ['dist']}
+
+	var browserSync = require('browser-sync');//开启一个服务器用法看官网
+
+	browserSync({
+		server: {
+			'baseDir': ['dist']
+		}
+	}, function(err, bs) {
+	    console.log(bs.options.getIn(["urls", "local"]));
+	});
+
+20、监视文件修改自动编译刷新  在serve里面watch文件变化执行相对应任务
+
+	gulp.watch('src/styles/*.scss', ['style']);
+	gulp.watch('src/scripts/*.js', ['script']);
+	gulp.watch('src/images/*.*', ['image']);
+	gulp.watch('src/*.html', ['html']);
+
+21、自动执行完任务还得让浏览器自动刷新在任务后面通知浏览器需要刷新了
+	每一个都加，每一个原文件改变都会在页面上刷新显示
+	.pipe(browserSync.reload({stream: true}))
+
+	复制一张图片  一开始叫副本.png  后来改名，你会发现没有监听  手动删除
+
+22、删掉dist  在gulpfile里面注册个一次性处理所有的任务列表rebulid
+
+	gulp.task('rebuild', ['style', 'script', 'image', 'html']);
+
+
+
+
+
+
+
+
+
+
