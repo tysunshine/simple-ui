@@ -49,6 +49,7 @@ body, html {
   position: relative; }
 
 .sp-col-0 {
+  display: none;
   width: 0; }
 
 .sp-col-offset-0 {
@@ -350,6 +351,7 @@ body, html {
 
 @media only screen and (max-width: 768px) {
   .sp-col-cx-0 {
+    display: none;
     width: 0; }
   .sp-col-cx-offset-0 {
     margin-left: 0; }
@@ -552,6 +554,7 @@ body, html {
 
 @media only screen and (min-width: 768px) {
   .sp-col-xp-0 {
+    display: none;
     width: 0; }
   .sp-col-xp-offset-0 {
     margin-left: 0; }
@@ -754,6 +757,7 @@ body, html {
 
 @media only screen and (min-width: 992px) {
   .sp-col-zp-0 {
+    display: none;
     width: 0; }
   .sp-col-zp-offset-0 {
     margin-left: 0; }
@@ -956,6 +960,7 @@ body, html {
 
 @media only screen and (min-width: 1200px) {
   .sp-col-dp-0 {
+    display: none;
     width: 0; }
   .sp-col-dp-offset-0 {
     margin-left: 0; }

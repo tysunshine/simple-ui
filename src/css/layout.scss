@@ -19,6 +19,7 @@
 }
 
 .sp-col-0 {
+	display: none;
 	width: 0;
 }
 .sp-col-offset-0 {
@@ -345,6 +346,7 @@
 
 @media only screen and (max-width: $screen-cx-max) {
 	.sp-col-cx-0 {
+		display: none;
 		width: 0;
 	}
 	.sp-col-cx-offset-0 {
@@ -672,6 +674,7 @@
 
 @media only screen and (min-width: $screen-xp-min) {
 	.sp-col-xp-0 {
+		display: none;
 		width: 0;
 	}
 	.sp-col-xp-offset-0 {
@@ -999,6 +1002,7 @@
 
 @media only screen and (min-width: $screen-zp-min) {
 	.sp-col-zp-0 {
+		display: none;
 		width: 0;
 	}
 	.sp-col-zp-offset-0 {
@@ -1326,6 +1330,7 @@
 
 @media only screen and (min-width: $screen-dp-min) {
 	.sp-col-dp-0 {
+		display: none;
 		width: 0;
 	}
 	.sp-col-dp-offset-0 {
