@@ -14,7 +14,19 @@ gulp.task("copySass", function () {
 	.pipe(gulp.dest("dist/css"));
 })
 
+// 拷贝js
+gulp.task("copyJs", function () {
+	gulp.src("src/js/*.js")
+	.pipe(gulp.dest("dist/js"));
+})
+
+// 拷贝手册
+gulp.task("copyManual", function () {
+	gulp.src("src/manual/**/*")
+	.pipe(gulp.dest("dist/manual"));
+})
+
 // 监听变化
 gulp.task("watchAll", function () {
-	gulp.watch("src/**/*", ["copyHtml", "copySass"]);
+	gulp.watch("src/**/*", ["copyHtml", "copySass", "copyJs", "copyManual"]);
 })

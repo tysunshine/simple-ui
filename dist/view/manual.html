@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>simple-ui</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			.content {
+				margin: 0 auto;
+				width: 1000px;
+				max-width: 90%;
+				line-height: 1.5em;
+				font-size: 14px;
+			}
+			.header {
+				position: fixed;
+				top: 0;
+				z-index: 100;
+				width: 100%;
+				background: rgba(255, 255, 255, .5);
+			}
+			.header .logo {
+				display: inline-block;
+				line-height: 100px;
+				font-size: 26px;
+			}
+
+			.main {
+				padding-top: 100px;
+			}
+			.main .left-cont {
+				position: relative;
+				float: left;
+				width: 240px;
+				line-height: 40px;
+				overflow: auto;
+			}
+			.main .left-cont dt {
+				font-size: 16px;
+				font-weight: bold;
+			}
+			.main .left-cont dd {
+				font-size: 14px;
+				color: #444;
+				cursor: pointer;
+			}
+			.main .left-cont dd:hover {
+				color: #409EFF;
+			}
+			.main .left-cont dd.is-checked {
+				color: #409EFF;
+			}
+
+			.main .right-cont {
+				float: left;
+				padding-left: 20px;
+				width: calc(100% - 240px);
+				box-sizing: border-box;
+			}
+			.main .right-cont .link-cont {
+				display: none;
+			}
+			.main .right-cont .link-cont.is-checked {
+				display: block;
+			}
+
+			.main::after {
+				content: '';
+				display: block;
+				clear: both;
+			}
+			.cs {
+				height: 1000px;
+				background: rgba(0, 255, 100, .5);
+			}
+
+			/*cont内容样式*/
+			h3 {
+				margin: 55px 0 20px;
+				font-size: 22px;
+				line-height: 30px;
+			}
+			p {
+				margin: 14px 0;
+				font-size: 14px;
+				
+				color: #5e6d82;
+			}
+			.demo-color-box {
+				padding: 20px;
+				width: 208px;
+				height: 74px;
+				border-radius: 4px;
+				box-sizing: border-box;
+				color: #fff;
+			}
+			.demo-color-box div {
+				font-size: 12px;
+				opacity: .69;
+			}
+			.bg-blue {
+				background: #409EFF;
+			}
+			.bg-success {
+				background: #67C23A;
+			}
+			.bg-warning {
+				background: #E6A23C;
+			}
+			.bg-danger {
+				background: #F56C6C;
+			}
+			.bg-info {
+				background: #909399;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="header">
+			<div class="content">
+				<span class="logo">SIMPLE-UI</span>
+			</div>
+		</div>
+		<div class="main">
+			<div class="content">
+				<div class="left-cont">
+					<dl>
+						<dt>Basic</dt>
+						<dd class="link-btn is-checked" contname="basicColor">颜色</dd>
+						<dd class="link-btn" contname="basicLayers">Layers</dd>
+					</dl>
+					<div class="cs">123</div>
+				</div>
+				<div class="right-cont">
+					<div class="link-cont is-checked"  contname="basicColor">
+						<h3>主色</h3>
+						<p>主要品牌颜色是鲜艳、友好的蓝色。</p>
+						<div class="demo-color-box bg-blue">
+							Blue
+							<div>#409EFF</div>
+						</div>
+
+						<h3>辅助色</h3>
+						<p>除了主色外的场景色，需要在不同的场景中使用（例如危险色表示危险的操作）。</p>
+						<div class="demo-color-box bg-success">
+							Success
+							<div>#67C23A</div>
+						</div>
+						<div class="demo-color-box bg-warning">
+							Warning
+							<div>#E6A23C</div>
+						</div>
+						<div class="demo-color-box bg-danger">
+							Danger
+							<div>#F56C6C</div>
+						</div>
+						<div class="demo-color-box bg-info">
+							Info
+							<div>#909399</div>
+						</div>
+					</div>
+					<div class="link-cont" contname="basicLayers">我是Layers栅格系统</div>
+				</div>
+			</div>
+		</div>
+			
+
+		<script src="../js/getViewPort.js"></script>
+		<script src="../js/getDistanceBody.js"></script>
+		<script src="../js/style.js"></script>
+		<script src="../js/class.js"></script>
+		<script>
+			
+			window.onload = function () {
+
+				var oLeftCont = document.getElementsByClassName('left-cont')[0];
+				var oRightCont = document.getElementsByClassName('right-cont')[0];
+
+				var oLinkBtns = document.getElementsByClassName('link-btn');
+				var oLinkConts = document.getElementsByClassName('link-cont');
+
+				// 设置最大高度
+				setMaxHeight(oLeftCont);
+				setMaxHeight(oRightCont);
+
+				// 左侧点击更换右侧信息
+				oLeftCont.onclick = function (evt) {
+					var e = evt || window.event;
+					evt ? e.stopPropagation() : e.cancelBubble = true;
+					evt ? e.preventDefault() : e.returnVlaue = false;
+
+					var tag = e.target || e.srcElement;
+
+					if ( !hasClass(tag, 'link-btn') ) {
+						return;
+					}
+
+					// 按钮样式
+					for ( var i = 0; i < oLinkBtns.length; i++ ) {
+						if ( tag === oLinkBtns[i] ) {
+							addClass(oLinkBtns[i], 'is-checked');
+						} else {
+							delClass(oLinkBtns[i], 'is-checked');
+						}
+					}
+
+					// 内容样式
+					var sContname = tag.getAttribute('contname');
+					for ( var i = 0; i < oLinkConts.length; i++ ) {
+						var oCont = oLinkConts[i];
+
+						if ( sContname == oCont.getAttribute('contname') ) {
+							addClass(oCont, 'is-checked');
+						} else {
+							delClass(oCont, 'is-checked');
+						}
+					}
+				}
+			}
+
+
+			// 设置最大高度
+			function setMaxHeight (obj) {
+				var iClientH = getViewPort().height;
+				var iDistanceTop = getDistanceBody(obj).top;
+
+				setStyle(obj, {
+					maxHeight: iClientH - iDistanceTop + 'px'
+				})
+			}
+
+		</script>
+	</body>
+</html>
