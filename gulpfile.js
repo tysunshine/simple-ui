@@ -2,6 +2,7 @@
 var gulp = require("gulp");
 var sass = require("gulp-sass");
 var connect = require("gulp-connect");
+var del = require("del");
 
 // 拷贝html
 gulp.task("copyHtml", function () {
@@ -42,7 +43,15 @@ gulp.task('server', function () {
 
 // 监听变化
 gulp.task("watchAll", function () {
-	gulp.watch("src/**/*", ["copyHtml", "copySass", "copyJs", "copyManual"]);
+	var watcher = gulp.watch("src/**/*", ["copyHtml", "copySass", "copyJs", "copyManual"]);
+	watcher.on("change", function (event) {
+		if ( event.type === 'deleted' ) {
+			var srcFile = event.path;
+			var distFile = srcFile.replace('\\src\\', '\\dist\\').replace('.scss', '.css');
+
+			del(distFile);
+		}
+	})
 })
 
 // 热监听
