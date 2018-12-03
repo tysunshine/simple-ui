@@ -11,7 +11,7 @@
 .main .left-cont dd {font-size: 14px;color: #444;cursor: pointer;}
 .main .left-cont dd:hover {color: #409EFF;}
 .main .left-cont dd.is-checked {color: #409EFF;}
-.main .right-cont {float: left;padding-left: 20px;padding-bottom:100px;width: calc(100% - 240px);box-sizing: border-box; 
+.main .right-cont {float: left;padding: 0 20px 100px;width: calc(100% - 240px);box-sizing: border-box; 
 	overflow-y: auto;overflow-x:hidden;}
 .main .right-cont .link-cont {display: none;}
 .main .right-cont .link-cont.is-checked {display: block;}
@@ -39,6 +39,14 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .bg-border-lighter {background: #EBEEF5; color: #303133;}
 .bg-border-extra-light {background: #F2F6FC; color: #303133;}
 
+
+.layout-group {padding: 24px; width: 100%; border: 1px solid #ebebeb; box-sizing: border-box;}
+.layout-group .sp-row {margin-bottom: 20px;}
+.layout-group .sp-row:last-child {margin-bottom: 0;}
+.layout-group .group-cont {height: 36px; border-radius: 4px;}
+.bg-blue-dark {background: #99A9BF;}
+.bg-blue {background: #D3DCE6;}
+.bg-blue-light {background: #E5E9F2;}
 
 @media only screen and (max-width: 768px) {
 	.content {max-width: 100%; padding: 0 10px; box-sizing: border-box;}

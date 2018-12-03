@@ -4,11 +4,92 @@
 		<meta charset="utf-8"/>
 		<title>simple-ui</title>
 		<link rel="stylesheet" type="text/css" href="../css/layout.css">
+		<style>
+			.group {
+				margin: 40px auto;
+				padding: 20px;
+				width: 600px;
+				border: 1px solid #ebebeb;
+			}
+			.group .sp-row {margin-bottom: 20px;}
+			.group .sp-row:last-child {margin-bottom: 0;}
+			.group .group-cont {
+				height: 34px;
+				border-radius: 4px;
+			}
+			.bg-blue-dark {background: #99A9BF;}
+			.bg-blue {background: #D3DCE6;}
+			.bg-blue-light {background: #E5E9F2;}
+
+		</style>
 	</head>
 	<body>
 		<div class="sp-row">
 			<div class="sp-col-4 sp-col-zp-12 sp-col-cx-24">天地玄宗，</div>
 			<div class="sp-col-4 sp-col-zp-12 sp-col-cx-24">万气本根。</div>
 		</div>
+
+		<div class="group">
+			<div class="sp-row">
+				<div class="sp-col-12">
+					<div class="group-cont bg-blue"></div>
+				</div>
+				<div class="sp-col-12">
+					<div class="group-cont bg-blue-light"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="group">
+			<div class="sp-row" id="spaceBox" space="20">
+				<div class="sp-col-8">
+					<div class="group-cont bg-blue"></div>
+				</div>
+				<div class="sp-col-8">
+					<div class="group-cont bg-blue-light"></div>
+				</div>
+				<div class="sp-col-8">
+					<div class="group-cont bg-blue"></div>
+				</div>
+			</div>
+			<input type="text" id="spaceIpt">
+			<button id="changeSpaceBtn">改变间距</button>
+		</div>
+
+		<div class="group">
+			<div class="sp-row">
+				<div class="sp-col-4">
+					<div class="group-cont bg-blue"></div>
+				</div>
+				<div class="sp-col-4">
+					<div class="group-cont bg-blue-light"></div>
+				</div>
+				<div class="sp-col-4">
+					<div class="group-cont bg-blue"></div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../js/index.js"></script>
+		<script>
+
+			window.onload = function () {
+				SimpleUi.init();
+
+				var oChangeSpaceBtn = document.getElementById('changeSpaceBtn');
+				var oSpaceIpt = document.getElementById('spaceIpt');
+				var oSpaceBox = document.getElementById('spaceBox');
+				oChangeSpaceBtn.onclick = function () {
+					var iSpace = parseInt(oSpaceIpt.value);
+					if ( !(iSpace > 0) ) {
+						return;
+					}
+
+					SimpleUi.Layout.setSpace(oSpaceBox, iSpace);
+				}
+			}
+			
+
+		</script>
 	</body>
 </html>
