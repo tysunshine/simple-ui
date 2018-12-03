@@ -17,8 +17,6 @@ var manual = {
 
 		// 2、设置默认显示数据
 		this.setShowCont('basicColor');
-
-		SimpleUi.init();
 	},
 
 	// 初始化事件
@@ -82,15 +80,12 @@ var manual = {
 			if ( window.contTmp ) {
 				clearInterval(timer);
 				_this.oRightCont.innerHTML = contTmp;
-
-				if ( name == 'basicLayout' ) {
-					SimpleUi.Layout.init();
-				}
 			}
 		}, 30);
 	}
 }
 
 window.onload = function () {
-	manual.init();
+	// manual.init();
+	SimpleUi.layout.init();
 }

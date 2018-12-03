@@ -19,6 +19,12 @@ gulp.task("copySass", function () {
 	.pipe(connect.reload());
 })
 
+// 拷贝fonts
+gulp.task("copyFont", function () {
+	gulp.src("src/css/fonts/*")
+	.pipe(gulp.dest("dist/css/fonts"))
+})
+
 // 拷贝js
 gulp.task("copyJs", function () {
 	gulp.src("src/js/*.js")
@@ -43,7 +49,7 @@ gulp.task('server', function () {
 
 // 监听变化
 gulp.task("watchAll", function () {
-	var watcher = gulp.watch("src/**/*", ["copyHtml", "copySass", "copyJs", "copyManual"]);
+	var watcher = gulp.watch("src/**/*", ["copyHtml", "copySass", "copyFont", "copyJs", "copyManual"]);
 	watcher.on("change", function (event) {
 		if ( event.type === 'deleted' ) {
 			var srcFile = event.path;

@@ -3,9 +3,9 @@
 .content { margin: 0 auto; width: 1000px; max-width: 90%; line-height: 1.5em; font-size: 14px;}
 .content::after {content: '';display: block;clear: both;}
 .header {position: fixed;top: 0;z-index: 100;width: 100%;background: rgba(255, 255, 255, .5);}
-.header .logo {display: inline-block;line-height: 100px;font-size: 26px;}
+.header .logo {display: inline-block;line-height: 60px;font-size: 26px;}
 
-.main {padding-top: 100px;}
+.main {padding-top: 60px;}
 .main .left-cont {float: left;width: 240px;line-height: 40px;overflow: auto;}
 .main .left-cont dt {font-size: 16px;font-weight: bold;}
 .main .left-cont dd {font-size: 14px;color: #444;cursor: pointer;}
