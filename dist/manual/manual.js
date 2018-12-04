@@ -68,6 +68,7 @@ var manual = {
 				return;
 			}
 			document.body.removeChild(oScriptCont);
+			_this.oRightCont.innerHTML = '';
 		}
 
 		oScriptCont = document.createElement('script');
@@ -80,12 +81,16 @@ var manual = {
 			if ( window.contTmp ) {
 				clearInterval(timer);
 				_this.oRightCont.innerHTML = contTmp;
+
+				switch (name) {
+					case 'basicLayout': SimpleUi.layout.init(); break;
+				}
 			}
 		}, 30);
 	}
 }
 
 window.onload = function () {
-	// manual.init();
-	SimpleUi.layout.init();
+	manual.init();
+	// SimpleUi.layout.init();
 }
