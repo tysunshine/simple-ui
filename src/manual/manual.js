@@ -5,6 +5,10 @@ var manual = {
 		this.oRightCont = document.getElementsByClassName('right-cont')[0];			// 合成内容盒子
 		this.oLinkBtns = document.getElementsByClassName('link-btn');				// 所有左侧按钮
 
+		// 页面显示代码块
+		this.oCodeBox = document.getElementsByClassName('code-box');				// 代码盒子
+		this.oTagCodeBtn = document.getElementsByClassName('tag-code-btn');			// 显示、隐藏代码按钮
+
 		this.initState();
 		this.initEvent();
 	},
@@ -45,6 +49,27 @@ var manual = {
 			var strContName = tag.getAttribute('contname');
 			_this.setShowCont(strContName);
 		}
+
+		// 右侧内容点击-事件委托
+		this.oRightCont.onclick = function (evt) {
+			var e = evt || window.event;
+			var tag = e.target || e.srcElement;
+			var classname = tag.className;
+
+
+			switch(classname) {
+				case 'tag-code-btn':
+					var oPre = tag.previousElementSibling;
+					var show = getStyle(oPre, 'display') == 'none' ? 'block' : 'none';
+					var text = show == 'none' ? '显示代码' : '隐藏代码';
+					tag.innerHTML = text;
+					setStyle(oPre, {
+						display: show
+					});
+					break;
+			}
+			return;
+		}
 	},
 
 	// 设置最大高度
@@ -81,7 +106,7 @@ var manual = {
 			if ( window.contTmp ) {
 				clearInterval(timer);
 				_this.oRightCont.innerHTML = contTmp;
-
+				
 				switch (name) {
 					case 'basicLayout': SimpleUi.layout.init(); break;
 				}
@@ -89,6 +114,8 @@ var manual = {
 		}, 30);
 	}
 }
+
+
 
 window.onload = function () {
 	// manual.init();

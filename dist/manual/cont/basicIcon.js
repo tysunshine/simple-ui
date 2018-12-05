@@ -3,9 +3,17 @@ var contTmp = `
 	<h3>使用方法</h3>
 	<p>直接通过设置类名为 el-icon-iconName 来使用即可。</p>
 	<div class="group">
-		<i class="sp-icon-edit"></i>
-		<i class="sp-icon-share"></i>
-		<i class="sp-icon-delete"></i>
+		<div class="show-box">
+			<i class="sp-icon-edit"></i>
+			<i class="sp-icon-share"></i>
+			<i class="sp-icon-delete"></i>
+		</div>
+		<div class="code-box">
+<pre><code class="html">&lt;i class="sp-icon-edit"&gt;&lt;/i&gt;
+&lt;i class="sp-icon-share"&gt;&lt;/i&gt;
+&lt;i class="sp-icon-delete"&gt;&lt;/i&gt;</code></pre>
+			<button class="tag-code-btn">显示代码</button>
+		</div>
 	</div>
 
 	<h3>图标集合</h3>
