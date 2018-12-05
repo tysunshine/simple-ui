@@ -91,6 +91,6 @@ var manual = {
 }
 
 window.onload = function () {
-	manual.init();
+	// manual.init();
 	// SimpleUi.layout.init();
 }
