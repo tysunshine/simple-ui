@@ -32,16 +32,16 @@ var manual = {
 			var e = evt || window.event;
 			var tag = e.target || e.srcElement;
 
-			if ( !hasClass(tag, 'link-btn') ) {
+			if ( !tools.hasClass(tag, 'link-btn') ) {
 				return;
 			}
 
 			// 按钮样式
 			for ( var i = 0; i < _this.oLinkBtns.length; i++ ) {
 				if ( tag === _this.oLinkBtns[i] ) {
-					addClass(_this.oLinkBtns[i], 'is-checked');
+					tools.addClass(_this.oLinkBtns[i], 'is-checked');
 				} else {
-					delClass(_this.oLinkBtns[i], 'is-checked');
+					tools.delClass(_this.oLinkBtns[i], 'is-checked');
 				}
 			}
 
@@ -60,10 +60,10 @@ var manual = {
 			switch(classname) {
 				case 'tag-code-btn':
 					var oPre = tag.previousElementSibling;
-					var show = getStyle(oPre, 'display') == 'none' ? 'block' : 'none';
+					var show = tools.getStyle(oPre, 'display') == 'none' ? 'block' : 'none';
 					var text = show == 'none' ? '显示代码' : '隐藏代码';
 					tag.innerHTML = text;
-					setStyle(oPre, {
+					tools.setStyle(oPre, {
 						display: show
 					});
 					break;
@@ -74,10 +74,10 @@ var manual = {
 
 	// 设置最大高度
 	setMaxHeight: function (obj) {
-		var iClientH = getViewPort().height;
-		var iDistanceTop = getDistanceBody(obj).top;
+		var iClientH = tools.getViewPort().height;
+		var iDistanceTop = tools.getDistanceBody(obj).top;
 
-		setStyle(obj, {
+		tools.setStyle(obj, {
 			maxHeight: iClientH - iDistanceTop + 'px'
 		})
 	},
@@ -107,6 +107,10 @@ var manual = {
 				clearInterval(timer);
 				_this.oRightCont.innerHTML = contTmp;
 				
+				// 初始化代码块
+				lightCode.init();
+
+				// 初始化栅格系统
 				switch (name) {
 					case 'basicLayout': SimpleUi.layout.init(); break;
 				}
@@ -118,6 +122,6 @@ var manual = {
 
 
 window.onload = function () {
-	// manual.init();
+	manual.init();
 	// SimpleUi.layout.init();
 }

@@ -1,0 +1,20 @@
+.lc-name {
+	color: #3182bd;
+}
+.lc-attrname {
+	color: #3182bd;
+}
+.lc-attrvalue {
+	color: #756bb1;
+}
+.lc-text {
+	color: #000;
+}
+pre {
+	padding: 18px 24px;
+	background: #FAFAFA;
+	color: #3182bd;
+	font-family: "Menlo","Monaco","Consolas","Courier","monospace";
+	font-size: 12px;
+	line-height: 1.8;
+}

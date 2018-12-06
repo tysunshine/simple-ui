@@ -23,7 +23,7 @@ h3 {margin: 55px 0 20px;font-size: 22px;line-height: 30px;font-weight:normal;}
 p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .group {width: 100%; border: 1px solid #ebebeb; box-sizing: border-box;}
 .group .show-box {padding: 24px;}
-.group .code-box pre {display: none;padding: 10px 0;border-top: 1px solid #ebebeb;}
+.group .code-box pre {display: none;border-top: 1px solid #ebebeb;}
 .group .tag-code-btn {width: 100%;border: none;background: #fff;line-height: 36px;font-size: 16px;text-align: center;
 	outline: medium;cursor: pointer; color: #409EFF;border-top: 1px solid #ebebeb;}
 .group .tag-code-btn:hover {background: #efefef;}

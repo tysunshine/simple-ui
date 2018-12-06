@@ -9,7 +9,7 @@ var contTmp = `
 			<i class="sp-icon-delete"></i>
 		</div>
 		<div class="code-box">
-<pre><code class="html">&lt;i class="sp-icon-edit"&gt;&lt;/i&gt;
+<pre><code>&lt;i class="sp-icon-edit"&gt;&lt;/i&gt;
 &lt;i class="sp-icon-share"&gt;&lt;/i&gt;
 &lt;i class="sp-icon-delete"&gt;&lt;/i&gt;</code></pre>
 			<button class="tag-code-btn">显示代码</button>
