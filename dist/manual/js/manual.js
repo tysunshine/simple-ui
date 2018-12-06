@@ -92,7 +92,7 @@ var manual = {
 		oScriptCont.id = 'scriptCont';
 		oScriptCont.setAttribute('contname', name);
 		document.body.appendChild(oScriptCont);
-		oScriptCont.src = './cont/' + name + '.js';
+		oScriptCont.src = './js/cont/' + name + '.js';
 		
 		timer = setInterval(function () {
 			if ( window.contTmp ) {

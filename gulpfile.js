@@ -6,29 +6,29 @@ var del = require("del");
 
 // 拷贝html
 gulp.task("copyHtml", function () {
-	gulp.src("src/view/*.html")
-	.pipe(gulp.dest("dist/view"))
+	gulp.src("src/simple-ui/view/*.html")
+	.pipe(gulp.dest("dist/simple-ui/view"))
 	.pipe(connect.reload());
 })
 
 // 解析sass，并拷贝到css
 gulp.task("copySass", function () {
-	gulp.src("src/css/*.scss")
+	gulp.src("src/simple-ui/css/*.scss")
 	.pipe(sass())
-	.pipe(gulp.dest("dist/css"))
+	.pipe(gulp.dest("dist/simple-ui/css"))
 	.pipe(connect.reload());
 })
 
 // 拷贝fonts
 gulp.task("copyFont", function () {
-	gulp.src("src/css/fonts/*")
-	.pipe(gulp.dest("dist/css/fonts"))
+	gulp.src("src/simple-ui/css/fonts/*")
+	.pipe(gulp.dest("dist/simple-ui/css/fonts"))
 })
 
 // 拷贝js
 gulp.task("copyJs", function () {
-	gulp.src("src/js/*.js")
-	.pipe(gulp.dest("dist/js"))
+	gulp.src("src/simple-ui/js/*.js")
+	.pipe(gulp.dest("dist/simple-ui/js"))
 	.pipe(connect.reload());
 })
 
