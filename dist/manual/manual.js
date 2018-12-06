@@ -88,14 +88,6 @@ var manual = {
 		var oScriptCont = document.getElementById('scriptCont');
 		var timer = null;
 
-		if ( oScriptCont ) {
-			if ( oScriptCont.getAttribute('contname') == name ) {
-				return;
-			}
-			document.body.removeChild(oScriptCont);
-			_this.oRightCont.innerHTML = '';
-		}
-
 		oScriptCont = document.createElement('script');
 		oScriptCont.id = 'scriptCont';
 		oScriptCont.setAttribute('contname', name);
@@ -106,6 +98,7 @@ var manual = {
 			if ( window.contTmp ) {
 				clearInterval(timer);
 				_this.oRightCont.innerHTML = contTmp;
+				document.body.removeChild(oScriptCont);
 				
 				// 初始化代码块
 				lightCode.init();
@@ -123,5 +116,8 @@ var manual = {
 
 window.onload = function () {
 	manual.init();
-	// SimpleUi.layout.init();
+	SimpleUi.layout.init();
+
+	// 测试单项内容时需使用的配置
+	// lightCode.init();
 }

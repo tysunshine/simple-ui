@@ -12,14 +12,15 @@ var lightCode = {
 			var oCode = this.oPre[i].children[0];
 			var innerHtml = oCode.innerHTML;
 			oCode.innerHTML = this.replaceHtml(innerHtml);
+			// this.replaceHtml(innerHtml);
 		}
 	},
 
 	// 替换
 	replaceHtml: function (html) {
 		var nameReg = /&lt;([a-zA-Z-_]+)\b/g;			// 元素名正则
-		var attrnameReg = /\b([a-zA-Z]+)=/g;			// 属性名正则
-		var attrvalueReg = /("[a-zA-Z-_]+")/g;			// 属性值正则
+		var attrnameReg = /\b([0-9a-zA-Z-_]+)=/g;			// 属性名正则
+		var attrvalueReg = /("[0-9a-zA-Z-_\s]+")/g;			// 属性值正则
 		var textReg = /&gt;(.+)&lt;/g;					// 文本正则
 		var endReg = /&lt;\/([a-zA-Z-_]+)&gt;/g;		// 元素结尾正则
 
@@ -31,15 +32,10 @@ var lightCode = {
 			return '&lt;' + item;
 		})
 
-		// 使用空格分割
+		// 按=将属性与属性值切出来
 		var brr = [];
 		for ( var i = 0; i < arr.length; i++ ) {
-			var res = arr[i].split(' ');
-			for ( var j = 0; j < res.length; j++ ) {
-				if ( j < res.length-1 ) {
-					res[j]+=' ';
-				}
-			}
+			var res = arr[i].split(/(\b[a-zA-Z]+[a-zA-Z0-9-_]*="[a-zA-Z0-9-_\s]+")/);
 			brr = brr.concat(res);
 		}
 
