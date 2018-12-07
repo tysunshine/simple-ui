@@ -13,8 +13,10 @@
 pre {
 	padding: 18px 24px;
 	background: #FAFAFA;
+	box-sizing: border-box;
 	color: #3182bd;
 	font-family: "Menlo","Monaco","Consolas","Courier","monospace";
 	font-size: 12px;
 	line-height: 1.5;
+	overflow: auto;
 }

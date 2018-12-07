@@ -143,7 +143,9 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;div class="sp-row" space="20"&gt;
+<pre><code>使用间隔需要在初始化（dispaly设为非none或加载完成）的时候调用SimpleUi.init();或者调用SimpleUi.layout.init();
+
+&lt;div class="sp-row" space="20"&gt;
     &lt;div class="sp-col-8"&gt;
         &lt;div class="group-cont bg-blue"&gt;&lt;/div&gt;
     &lt;/div&gt;
