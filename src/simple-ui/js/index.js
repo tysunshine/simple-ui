@@ -1,4 +1,5 @@
 (function (win, doc) {
+
 	// 栅格系统
 	var Layout = {
 		init: function () {
@@ -44,19 +45,44 @@
 		}
 	}
 
+	// 单选按钮
+	var Radio = {
+		init: function () {
+			this.oSpRadio = Lib.getByClass('sp-radio');
 
+			this.initState();
+		},
+
+		initState: function () {
+			var _this = this;
+
+			this.oSpRadio.forEach(function (item, index) {
+				_this.changeHtml(item);
+			})
+		},
+
+		initEvent: function () {
+		},
+
+		// 更换html代码
+		changeHtml: function (oRadio) {
+			console.log(oRadio);
+		}
+	}
+	
 	// 简单的UI
 	var SimpleUi = {
-
 		init: function () {
 			this.layout = Layout;
-			
+			this.radio = Radio;
+
 			this.initState();
 			this.initEvent();
 		},
 
 		initState: function () {
 			this.layout.init();
+			this.radio.init();
 		},
 
 		initEvent: function () {
@@ -64,18 +90,6 @@
 	}
 
 	var Lib = {
-		// 获取class节点
-		getByClass: function (className) {
-			var aElm = doc.getElementsByTagName("*");
-			var arr = [];
-			for(var i=0; i<aElm.length; i++) {
-				if(aElm[i].className == className) {
-					arr.push(aElm[i]);
-				}
-			}
-			return arr;
-		},
-
 		// 获取样式
 		getStyle: function (obj, name) {
 		    if(win.getComputedStyle) {
@@ -89,6 +103,84 @@
 		    for(var i in oStyle) {
 		        obj.style[i] = oStyle[i];
 		    }
+		},
+
+		// 获取class节点
+		getByClass: function (className) {
+			var arr = [];
+			if ( doc.querySelectorAll ) {
+				var aElm = doc.querySelectorAll('.' + className);
+				for(var i=0; i<arr.length; i++) {
+					arr.push(aElm[i]);
+				}
+			} else {
+				var aElm = doc.getElementsByTagName("*");
+				
+				for(var i=0; i<aElm.length; i++) {
+					if(this.hasClass(aElm[i], className)) {
+						arr.push(aElm[i]);
+					}
+				}
+			}
+			return arr;
+		},
+
+		// 获取节点的class列表
+		getClassList: function (obj) {
+			var sClass = obj.className;
+			var aClass = sClass.split(' ');
+			var list = [];
+			aClass.forEach(function (item, index) {
+				if ( item ) {
+					list.push(item);
+				}
+			})
+			return list;
+		},
+
+		// 判断是否存在class
+		hasClass: function (obj, name) {
+			var sClass = obj.className;
+			var reg = new RegExp('\\b' + name + '\\b');
+			if ( reg.test(sClass) ) {
+				return true;
+			}
+			return false;
+		},
+
+		// 添加样式名
+		addClass: function (obj, name) {
+			var hasName = hasClass(obj, name);
+
+			if ( !hasName ) {
+				var aClass = getClassList(obj);
+				var sClass = '';
+				aClass.push(name);
+
+				aClass.forEach(function (item, index, arr) {
+					sClass += item;
+					if ( index < arr.length - 1) {
+						sClass += ' ';
+					}
+				})
+
+				obj.className = sClass;
+			}
+		},
+
+		// 删除样式名
+		delClass: function (obj, name) {
+			var hasName = hasClass(obj, name);
+
+			if ( hasName ) {
+				var sClass = obj.className;
+				var arr = sClass.split(name);
+				sClass = '';
+				arr.forEach(function (item) {
+					sClass += item;
+				})
+				obj.className = sClass;
+			}
 		},
 	}
 

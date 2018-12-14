@@ -7,6 +7,7 @@
 
 .main {padding-top: 60px;}
 .main .left-cont {float: left;width: 240px;line-height: 40px;overflow: auto;}
+.main .left-cont dl {margin-bottom: 15px;}
 .main .left-cont dt {font-size: 16px;font-weight: bold;}
 .main .left-cont dd {font-size: 14px;color: #444;cursor: pointer;}
 .main .left-cont dd:hover {color: #409EFF;}
@@ -15,8 +16,6 @@
 	overflow-y: auto;overflow-x:hidden;}
 .main .right-cont .link-cont {display: none;}
 .main .right-cont .link-cont.is-checked {display: block;}
-
-.cs {height: 1000px;background: rgba(0, 255, 100, .5);}
 
 /*cont内容样式*/
 h3 {margin: 55px 0 20px;font-size: 22px;line-height: 30px;font-weight:normal;}
