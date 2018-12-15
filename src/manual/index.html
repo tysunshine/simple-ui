@@ -13,6 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="../simple-ui/css/layout.css">
 		<link rel="stylesheet" type="text/css" href="../simple-ui/css/icon.css">
 		<link rel="stylesheet" type="text/css" href="../simple-ui/css/button.css">
+		<link rel="stylesheet" type="text/css" href="../simple-ui/css/radio.css">
 		<link rel="stylesheet" type="text/css" href="css/manual.css">
 	</head>
 	<body>
@@ -38,6 +39,52 @@
 				</div>
 				<div class="right-cont">
 					<div class="radio-box">
+						<h3>基础用法</h3>
+						<p>默认不分组，所以都可以选中，使用sp-radio类名，进行初始化，使用data-text属性设置文本。</p>
+						<div class="group">
+							<div class="show-box">
+								<input class="sp-radio" type="radio" data-text="篮球">
+								<input class="sp-radio" type="radio" data-text="足球">
+								<input class="sp-radio" type="radio" data-text="棒球">
+							</div>
+							<div class="code-box">
+<pre><code>&lt;input class="sp-radio" type="radio" data-text="篮球"&gt;
+&lt;input class="sp-radio" type="radio" data-text="足球"&gt;
+&lt;input class="sp-radio" type="radio" data-text="棒球"&gt;</code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+
+						<h3>单选框组</h3>
+						<p>使用name属性对单选框进行分组，checked默认选中。</p>
+						<div class="group">
+							<div class="show-box">
+								<div class="row">
+									<input class="sp-radio" type="radio" name="hobby" checked data-text="篮球">
+									<input class="sp-radio" type="radio" name="hobby" data-text="足球">
+									<input class="sp-radio" type="radio" name="hobby" data-text="棒球">
+								</div>
+								<div class="row">
+									<input class="sp-radio" type="radio" name="course" data-text="数学">
+									<input class="sp-radio" type="radio" name="course" checked data-text="语文">
+									<input class="sp-radio" type="radio" name="course" data-text="英语">
+								</div>
+							</div>
+							<div class="code-box">
+<pre><code>&lt;div class="row"&gt;
+	&lt;input class="sp-radio" type="radio" name="hobby" checked data-text="篮球"&gt;
+	&lt;input class="sp-radio" type="radio" name="hobby" data-text="足球"&gt;
+	&lt;input class="sp-radio" type="radio" name="hobby" data-text="棒球"&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+	&lt;input class="sp-radio" type="radio" name="course" data-text="数学"&gt;
+	&lt;input class="sp-radio" type="radio" name="course" checked data-text="语文"&gt;
+	&lt;input class="sp-radio" type="radio" name="course" data-text="英语"&gt;
+&lt;/div&gt;</code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>

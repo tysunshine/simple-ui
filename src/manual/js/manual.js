@@ -20,7 +20,7 @@ var manual = {
 		this.setMaxHeight(this.oRightCont);
 
 		// 2、设置默认显示数据
-		this.setShowCont('basicColor');
+		// this.setShowCont('basicColor');
 	},
 
 	// 初始化事件
@@ -117,6 +117,5 @@ window.onload = function () {
 	manual.init();
 
 	// 测试单项内容时需使用的配置
-	// manual.init();
-	// lightCode.init();
+	lightCode.init();
 }

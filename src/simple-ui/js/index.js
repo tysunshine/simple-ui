@@ -49,24 +49,69 @@
 	var Radio = {
 		init: function () {
 			this.oSpRadio = Lib.getByClass('sp-radio');
-
+			
 			this.initState();
 		},
 
 		initState: function () {
 			var _this = this;
 
-			this.oSpRadio.forEach(function (item, index) {
-				_this.changeHtml(item);
-			})
-		},
-
-		initEvent: function () {
+			for ( var i = 0 ; i < this.oSpRadio.length; i++ ) {
+				// 判断是否已经初始化过了
+				var oRadio = this.oSpRadio[i];
+				if ( !(Lib.hasClass(oRadio.parentNode, 'sp-radio-input') && Lib.hasClass(oRadio.parentNode.parentNode, 'sp-radio-label')) ) {
+					this.setLabelHtml(oRadio);
+				}
+			}
 		},
 
 		// 更换html代码
-		changeHtml: function (oRadio) {
-			console.log(oRadio);
+		setLabelHtml: function (oRadio) {
+			var oP = oRadio.parentNode;
+			var oLabel = document.createElement('label');
+			var oInput = document.createElement('span');
+			var oText = document.createElement('span');
+			var oFragment = document.createDocumentFragment();
+
+			oLabel.className = 'sp-radio-label';
+			oP.replaceChild(oLabel, oRadio);
+			if ( oRadio.checked ) {
+				Lib.addClass(oLabel, 'is-checked');
+			}
+
+			oInput.className = 'sp-radio-input';
+			oInput.appendChild(oRadio);
+
+			oText.className = 'sp-radio-text';
+			oText.innerHTML = oRadio.getAttribute('data-text') || '';
+			oRadio.removeAttribute('data-text');
+
+			oFragment.appendChild(oInput);
+			oFragment.appendChild(oText);
+			oLabel.appendChild(oFragment);
+
+			// 给radio绑定事件
+			this.bindRadioClick(oRadio);
+		},
+
+		// 给radio绑定事件
+		bindRadioClick: function (oRadio) {
+			var _this = this;
+
+			oRadio.onclick = function () {
+				var sName = this.name;
+
+				for ( var i = 0; i < _this.oSpRadio.length; i++ ) {
+					var oR = _this.oSpRadio[i];
+					if ( oR.name == sName ) {
+						if ( oR.checked ) {
+							Lib.addClass(oR.parentNode.parentNode, 'is-checked');
+						} else {
+							Lib.delClass(oR.parentNode.parentNode, 'is-checked');
+						}
+					}
+				}
+			}
 		}
 	}
 	
@@ -90,6 +135,29 @@
 	}
 
 	var Lib = {
+		//兼容版事件监听函数
+		addEvent: function (target,type,fn) {
+			if(target.addEventListener) {
+				//寻常浏览器
+				target.addEventListener(type,fn);
+			} else if(target.attachEvent) {
+				//ie低版本兼容
+				target.attachEvent("on"+type,fn);
+			} else {
+				//ie5兼容
+				target["on"+type] = fn;
+			}
+		},
+		//兼容版移除事件监听函数
+		removeEvent: function (target,type,fn) {
+			if(target.removeEventListener) {
+				target.removeEventListener(type,fn);
+			} else if(target.detachEvent) {
+				target.detachEvent("on"+type,fn);
+			} else {
+				target["on"+type] = null;
+			}
+		},
 		// 获取样式
 		getStyle: function (obj, name) {
 		    if(win.getComputedStyle) {
@@ -106,15 +174,18 @@
 		},
 
 		// 获取class节点
-		getByClass: function (className) {
+		getByClass: function (className, obj) {
+			if ( !obj ) {
+				obj = doc;
+			}
 			var arr = [];
 			if ( doc.querySelectorAll ) {
-				var aElm = doc.querySelectorAll('.' + className);
-				for(var i=0; i<arr.length; i++) {
+				var aElm = obj.querySelectorAll('.' + className);
+				for(var i=0; i<aElm.length; i++) {
 					arr.push(aElm[i]);
 				}
 			} else {
-				var aElm = doc.getElementsByTagName("*");
+				var aElm = obj.getElementsByTagName("*");
 				
 				for(var i=0; i<aElm.length; i++) {
 					if(this.hasClass(aElm[i], className)) {
@@ -130,11 +201,12 @@
 			var sClass = obj.className;
 			var aClass = sClass.split(' ');
 			var list = [];
-			aClass.forEach(function (item, index) {
+			for ( var i = 0; i < aClass.length; i++ ) {
+				var item = aClass[i];
 				if ( item ) {
 					list.push(item);
 				}
-			})
+			}
 			return list;
 		},
 
@@ -150,19 +222,20 @@
 
 		// 添加样式名
 		addClass: function (obj, name) {
-			var hasName = hasClass(obj, name);
+			var hasName = this.hasClass(obj, name);
 
 			if ( !hasName ) {
-				var aClass = getClassList(obj);
+				var aClass = this.getClassList(obj);
 				var sClass = '';
 				aClass.push(name);
 
-				aClass.forEach(function (item, index, arr) {
+				for ( var i = 0; i < aClass.length; i++ ) {
+					var item = aClass[i];
 					sClass += item;
-					if ( index < arr.length - 1) {
+					if ( i < aClass.length - 1) {
 						sClass += ' ';
 					}
-				})
+				}
 
 				obj.className = sClass;
 			}
@@ -170,22 +243,24 @@
 
 		// 删除样式名
 		delClass: function (obj, name) {
-			var hasName = hasClass(obj, name);
+			var hasName = this.hasClass(obj, name);
 
 			if ( hasName ) {
 				var sClass = obj.className;
 				var arr = sClass.split(name);
 				sClass = '';
-				arr.forEach(function (item) {
+
+				for ( var i = 0; i < arr.length; i++ ) {
+					var item = arr[i];
 					sClass += item;
-				})
+				}
 				obj.className = sClass;
 			}
 		},
 	}
 
 	win.SimpleUi = SimpleUi;
-	win.addEventListener('load', function () {
+	Lib.addEvent(win, 'load', function () {
 		SimpleUi.init();
 	})
 })(window, document)

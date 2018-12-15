@@ -14,17 +14,49 @@
 			padding: 30px 0;
 			width: 800px;
 		}
+		.show-box {
+			display: none;
+		}
 	</style>
 </head>
 <body>
 
 	<div class="main">
-		
-		<input class="sp-radio" id="rad1" type="radio" data-text="首选项">
-		<input class="a sp-radio" id="rad1" type="radio" data-text="首选项">
+		<input class="sp-radio" type="radio" checked data-text="男" name="sex">
+		<input class="a sp-radio" type="radio" data-text="女" name="sex">
+		<br><br>
+		<input class="sp-radio" id="rad3" type="radio" data-text="乒乓球" name="love">
+		<input class="sp-radio" id="rad4" type="radio" data-text="篮球" name="love">
+		<input class="sp-radio" id="rad5" type="radio" data-text="足球" name="love">
+		<br><br>
+		<input class="sp-radio" id="rad6" type="radio" data-text="游泳">
 
+		<div class="show-box">
+			<input type="radio" class="sp-radio" data-text="登山">
+		</div>
+		<div class="add-box">
+		</div>
+			
+		<br>
+		<br>
+		<button onclick="showRadio()">显示</button>
+		<button onclick="addRadio()">添加</button>
 	</div>
 
 	<script src="../js/index.js"></script>
+	<script>
+		var oShowBox = document.querySelector('.show-box');
+		var oAddBox = document.querySelector('.add-box');
+
+		function showRadio () {
+			oShowBox.style.display = 'block';
+		}
+
+		function addRadio () {
+			oAddBox.innerHTML = '<input type="radio" class="sp-radio" data-text="跳山">';
+			SimpleUi.radio.init();
+		}
+
+	</script>
 </body>
 </html>
