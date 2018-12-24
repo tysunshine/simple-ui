@@ -3,7 +3,7 @@
 	// 栅格系统
 	var Layout = {
 		init: function () {
-			this.oSpRow = Lib.getByClass('sp-row');
+			this.oSpRow = doc.querySelectorAll('.sp-row');
 			
 			this.initState();
 		},
@@ -48,7 +48,7 @@
 	// 单选按钮
 	var Radio = {
 		init: function () {
-			this.oSpRadio = Lib.getByClass('sp-radio');
+			this.oSpRadio = doc.querySelectorAll('.sp-radio');
 			
 			this.initState();
 		},
@@ -78,13 +78,15 @@
 			if ( oRadio.checked ) {
 				Lib.addClass(oLabel, 'is-checked');
 			}
+			if ( oRadio.disabled ) {
+				Lib.addClass(oLabel, 'is-disabled');
+			}
 
 			oInput.className = 'sp-radio-input';
 			oInput.appendChild(oRadio);
 
 			oText.className = 'sp-radio-text';
 			oText.innerHTML = oRadio.getAttribute('data-text') || '';
-			oRadio.removeAttribute('data-text');
 
 			oFragment.appendChild(oInput);
 			oFragment.appendChild(oText);
@@ -171,29 +173,6 @@
 		    for(var i in oStyle) {
 		        obj.style[i] = oStyle[i];
 		    }
-		},
-
-		// 获取class节点
-		getByClass: function (className, obj) {
-			if ( !obj ) {
-				obj = doc;
-			}
-			var arr = [];
-			if ( doc.querySelectorAll ) {
-				var aElm = obj.querySelectorAll('.' + className);
-				for(var i=0; i<aElm.length; i++) {
-					arr.push(aElm[i]);
-				}
-			} else {
-				var aElm = obj.getElementsByTagName("*");
-				
-				for(var i=0; i<aElm.length; i++) {
-					if(this.hasClass(aElm[i], className)) {
-						arr.push(aElm[i]);
-					}
-				}
-			}
-			return arr;
 		},
 
 		// 获取节点的class列表

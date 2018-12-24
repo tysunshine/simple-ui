@@ -1,3 +1,66 @@
+
+
+
+var oRadio = {
+	init: function () {
+		this.oHobyRadio = document.getElementsByName('hoby');
+		this.oHobyRadioBox = document.querySelector('.hoby-radio-box');
+		this.oHobyIpt = document.querySelector('.hoby-ipt');
+		this.oAddHobyBtn = document.querySelector('.add-hoby-btn');
+		this.oShowHobyBtn = document.querySelector('.show-hoby-btn');
+		this.oShowHobyBox = document.querySelector('.show-hoby-box');
+
+		this.initState();
+		this.initEvent();
+	},
+
+	initState: function () {
+		
+	},
+
+	initEvent: function () {
+		var _this = this;
+
+		// 添加爱好
+		if ( this.oAddHobyBtn.onclick != this.addRadio ) {
+			this.oAddHobyBtn.onclick = this.addRadio.bind(this);
+		}
+		
+
+		// 显示爱好
+		if ( this.oShowHobyBtn.onclick != this.showValue ) {
+			this.oShowHobyBtn.onclick = this.showValue.bind(this);
+		}
+	},
+
+	// 添加
+	addRadio: function () {
+		if ( this.oHobyIpt.value.trim() == '' ) {
+			return;
+		}
+		var oIpt = document.createElement('input');
+		oIpt.className = 'sp-radio';
+		oIpt.type = 'radio';
+		oIpt.name = 'hoby';
+		oIpt.setAttribute('data-text', this.oHobyIpt.value);
+		this.oHobyRadioBox.appendChild(oIpt);
+		SimpleUi.radio.init();
+
+		this.oHobyIpt.value = '';
+	},
+	// 显示
+	showValue: function () {
+		for ( var i = 0; i < this.oHobyRadio.length; i++ ) {
+			var item = this.oHobyRadio[i];
+			if ( item.checked ) {
+				this.oShowHobyBox.innerHTML = item.getAttribute('data-text');
+				break;
+			}
+		}
+	}
+}
+
+
 var manual = {
 	init: function () {
 		// 节点
@@ -20,7 +83,7 @@ var manual = {
 		this.setMaxHeight(this.oRightCont);
 
 		// 2、设置默认显示数据
-		// this.setShowCont('basicColor');
+		this.setShowCont('basicColor');
 	},
 
 	// 初始化事件
@@ -59,13 +122,17 @@ var manual = {
 			switch(classname) {
 				// 点击显示代码
 				case 'tag-code-btn':
-					var oPre = tag.previousElementSibling;
-					var show = tools.getStyle(oPre, 'display') == 'none' ? 'block' : 'none';
+					var oCodeBox = tag.parentNode;
+					var oPre = oCodeBox.getElementsByTagName('pre');
+					var show = tools.getStyle(oPre[0], 'display') == 'none' ? 'block' : 'none';
 					var text = show == 'none' ? '显示代码' : '隐藏代码';
 					tag.innerHTML = text;
-					tools.setStyle(oPre, {
-						display: show
-					});
+					for ( var i = 0; i < oPre.length; i++ ) {
+						var item = oPre[i];
+						tools.setStyle(item, {
+							display: show
+						});
+					}
 					break;
 			}
 			return;
@@ -101,11 +168,12 @@ var manual = {
 				document.body.removeChild(oScriptCont);
 				
 				// 初始化代码块
-				lightCode.init();
+				hljs.initHighlighting();
 
 				// 初始化栅格系统
 				switch (name) {
 					case 'basicLayout': SimpleUi.layout.init(); break;
+					case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
 				}
 			}
 		}, 30);
@@ -117,5 +185,5 @@ window.onload = function () {
 	manual.init();
 
 	// 测试单项内容时需使用的配置
-	lightCode.init();
+	hljs.initHighlighting();
 }

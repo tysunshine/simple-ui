@@ -10,7 +10,10 @@
 .sp-btn.is-round {border-radius: 20px;}
 .sp-btn.is-loading {position: relative;pointer-events: none;}
 .sp-btn.is-loading:before {content: ''; position: absolute; top: -1px; right: -1px; bottom: -1px; left: -1px; background: rgba(255, 255, 255, .35); border-radius: inherit;pointer-events: none;}
-
+.sp-btn.btn-medium {padding: 10px 20px;}
+.sp-btn.btn-small {padding: 9px 15px;border-radius: 3px; font-size: 12px;}
+.sp-btn.btn-mini {padding: 7px 15px; font-size: 12px; border-radius: 3px;}
+.sp-btn.is-block {display: block; width: 100%;}
 
 .sp-btn-primary {background-color: #409eff; border-color: #409eff; color: #fff;}
 .sp-btn-primary:focus, .sp-btn-primary:hover {background-color: #66b1ff; border-color: #66b1ff; color: #fff;}

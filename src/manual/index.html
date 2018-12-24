@@ -4,7 +4,7 @@
 		<meta charset="utf-8"/>
 		<title>simple-ui</title>
 		<!-- 代码块样式 -->
-		<link rel="stylesheet" type="text/css" href="lib/lightCode/lightCode.css">
+		<link rel="stylesheet" type="text/css" href="lib/hgihlight/styles/a11y-light.css">
 		<!-- iconfont图标样式 -->
 		<link rel="stylesheet" type="text/css" href="css/iconfont/iconfont.css">
 		<!-- simple-ui样式 -->
@@ -34,63 +34,20 @@
 					</dl>
 					<dl>
 						<dt>Form</dt>
-						<dd class="link-btn" contname="basicRadio">Radio 单选框</dd>
+						<dd class="link-btn" contname="formRadio">Radio 单选框</dd>
+					</dl>
+					<dl>
+						<dt>Data</dt>
+						<dd class="link-btn" contname="dataTable">Table 表格</dd>
 					</dl>
 				</div>
 				<div class="right-cont">
-					<div class="radio-box">
-						<h3>基础用法</h3>
-						<p>默认不分组，所以都可以选中，使用sp-radio类名，进行初始化，使用data-text属性设置文本。</p>
-						<div class="group">
-							<div class="show-box">
-								<input class="sp-radio" type="radio" data-text="篮球">
-								<input class="sp-radio" type="radio" data-text="足球">
-								<input class="sp-radio" type="radio" data-text="棒球">
-							</div>
-							<div class="code-box">
-<pre><code>&lt;input class="sp-radio" type="radio" data-text="篮球"&gt;
-&lt;input class="sp-radio" type="radio" data-text="足球"&gt;
-&lt;input class="sp-radio" type="radio" data-text="棒球"&gt;</code></pre>
-								<button class="tag-code-btn">显示代码</button>
-							</div>
-						</div>
-
-						<h3>单选框组</h3>
-						<p>使用name属性对单选框进行分组，checked默认选中。</p>
-						<div class="group">
-							<div class="show-box">
-								<div class="row">
-									<input class="sp-radio" type="radio" name="hobby" checked data-text="篮球">
-									<input class="sp-radio" type="radio" name="hobby" data-text="足球">
-									<input class="sp-radio" type="radio" name="hobby" data-text="棒球">
-								</div>
-								<div class="row">
-									<input class="sp-radio" type="radio" name="course" data-text="数学">
-									<input class="sp-radio" type="radio" name="course" checked data-text="语文">
-									<input class="sp-radio" type="radio" name="course" data-text="英语">
-								</div>
-							</div>
-							<div class="code-box">
-<pre><code>&lt;div class="row"&gt;
-	&lt;input class="sp-radio" type="radio" name="hobby" checked data-text="篮球"&gt;
-	&lt;input class="sp-radio" type="radio" name="hobby" data-text="足球"&gt;
-	&lt;input class="sp-radio" type="radio" name="hobby" data-text="棒球"&gt;
-&lt;/div&gt;
-&lt;div class="row"&gt;
-	&lt;input class="sp-radio" type="radio" name="course" data-text="数学"&gt;
-	&lt;input class="sp-radio" type="radio" name="course" checked data-text="语文"&gt;
-	&lt;input class="sp-radio" type="radio" name="course" data-text="英语"&gt;
-&lt;/div&gt;</code></pre>
-								<button class="tag-code-btn">显示代码</button>
-							</div>
-						</div>
-
-					</div>
+					
 				</div>
 			</div>
 		</div>
 
-		<script src="lib/lightCode/lightCode.js"></script>
+		<script src="lib/hgihlight/highlight.pack.js"></script>
 		<script src="js/tools.js"></script>
 		<script src="../simple-ui/js/index.js"></script>
 		<script src="js/manual.js"></script>

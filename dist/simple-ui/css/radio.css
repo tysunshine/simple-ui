@@ -1,11 +1,20 @@
 .sp-radio {
   opacity: 0;
-  visibility: hidden; }
+  visibility: hidden;
+  color: #606266;
+  white-space: nowrap;
+  outline: 0;
+  line-height: 1;
+  font-weight: normal; }
 
 .sp-radio-label {
   display: inline-block;
   position: relative;
   cursor: pointer; }
+
+.sp-radio-label.is-disabled {
+  cursor: not-allowed;
+  color: #c0c4cc; }
 
 .sp-radio-label .sp-radio-input {
   position: absolute;
@@ -31,6 +40,10 @@
   background: #409eff;
   border-color: #409eff; }
 
+.sp-radio-label.is-disabled.is-checked .sp-radio-input::before {
+  background: #fff;
+  border-color: #dcdfe6; }
+
 .sp-radio-label .sp-radio-input::after {
   content: '';
   position: absolute;
@@ -48,6 +61,9 @@
 
 .sp-radio-label.is-checked .sp-radio-input::after {
   transform: scale(1); }
+
+.sp-radio-label.is-disabled.is-checked .sp-radio-input::after {
+  background-color: #c0c4cc; }
 
 .sp-radio-label input[type=radio] {
   position: absolute;

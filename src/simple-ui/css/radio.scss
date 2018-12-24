@@ -1,10 +1,13 @@
-.sp-radio {opacity: 0; visibility: hidden;}
+.sp-radio {opacity: 0; visibility: hidden; color: #606266; white-space: nowrap; outline: 0; line-height: 1; font-weight: normal;}
 .sp-radio-label {display: inline-block;position: relative;cursor: pointer;}
+.sp-radio-label.is-disabled {cursor: not-allowed; color: #c0c4cc;}
 .sp-radio-label .sp-radio-input {position: absolute;width: 14px;height: 14px;top: 50%;margin-top: -7px;}
 .sp-radio-label .sp-radio-input::before {content: '';position: absolute;top: 0;left: 0;right: 0;bottom: 0;z-index: 0;border-radius: 100%;background: #fff;border: 1px solid #dcdfe6;box-sizing: border-box;}
 .sp-radio-label.is-checked .sp-radio-input::before {background: #409eff;border-color: #409eff;}
+.sp-radio-label.is-disabled.is-checked .sp-radio-input::before {background: #fff; border-color: #dcdfe6;}
 .sp-radio-label .sp-radio-input::after {content: '';position: absolute;width: 4px;height: 4px;top: 50%;left: 50%;z-index: 1;margin-top: -2px;margin-left: -2px;background: #fff;border-radius: 100%;transform: scale(0);transition: transform .15s ease-in;}
 .sp-radio-label.is-checked .sp-radio-input::after {transform: scale(1);}
+.sp-radio-label.is-disabled.is-checked .sp-radio-input::after {background-color: #c0c4cc;}
 .sp-radio-label input[type=radio] {position: absolute;top: 0;right: 0;bottom: 0;left: 0;z-index: -1;opacity: 0; visibility: hidden;}
 .sp-radio-label .sp-radio-text {display: inline-block;padding-left: 24px;}
 .sp-radio-label+.sp-radio-label {margin-left:30px;}

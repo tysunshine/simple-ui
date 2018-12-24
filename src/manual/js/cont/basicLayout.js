@@ -64,7 +64,7 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;div class="sp-row"&gt;
+<pre><code class="html">&lt;div class="sp-row"&gt;
     &lt;div class="sp-col-24"&gt;
         &lt;div class="group-cont bg-blue-dark"&gt;&lt;/div&gt;
     &lt;/div&gt;
@@ -143,7 +143,7 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;div class="sp-row" space="20"&gt;
+<pre><code class="html">&lt;div class="sp-row" space="20"&gt;
     &lt;div class="sp-col-8"&gt;
         &lt;div class="group-cont bg-blue"&gt;&lt;/div&gt;
     &lt;/div&gt;
@@ -182,7 +182,7 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;div class="sp-row"&gt;
+<pre><code class="html">&lt;div class="sp-row"&gt;
     &lt;div class="sp-col-6"&gt;
         &lt;div class="group-cont bg-blue"&gt;&lt;/div&gt;
     &lt;/div&gt;

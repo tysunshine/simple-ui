@@ -35,7 +35,7 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;div class="row"&gt;
+<pre><code class="html">&lt;div class="row"&gt;
     &lt;button class="sp-btn"&gt;默认按钮&lt;/button&gt;
     &lt;a class="sp-btn" href="#"&gt;默认按钮&lt;/a&gt;
     &lt;input class="sp-btn" type="button" value="默认按钮"&gt;
@@ -90,7 +90,7 @@ var contTmp = `
 			</div>
 		</div>
 		<div class="code-box">
-<pre><code>默认使用的是:diasbled选择器添加的样式，可以给节点添加is-disabled样式表示未选中<br>
+<pre><code class="html">默认使用的是:diasbled选择器添加的样式，可以给节点添加is-disabled样式表示未选中<br>
 &lt;div class="row"&gt;
     &lt;button class="sp-btn" disabled&gt;默认按钮&lt;/button&gt;
     &lt;button class="sp-btn sp-btn-primary" disabled&gt;主要按钮&lt;/button&gt;
@@ -132,7 +132,7 @@ var contTmp = `
 			</button>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;button class="sp-btn sp-btn-primary"&gt;
+<pre><code class="html">&lt;button class="sp-btn sp-btn-primary"&gt;
     &lt;i class="sp-icon-edit"&gt;&lt;/i&gt;
 &lt;/button&gt;
 &lt;button class="sp-btn sp-btn-primary"&gt;
@@ -161,12 +161,46 @@ var contTmp = `
 			</button>
 		</div>
 		<div class="code-box">
-<pre><code>加载中.is-loading类的原理是使用before在按钮上添加一层半透明的遮罩，让button点击不到。<br>
+<pre><code class="html">加载中.is-loading类的原理是使用before在按钮上添加一层半透明的遮罩，让button点击不到。<br>
 &lt;button class="sp-btn sp-btn-primary"&gt;加载&lt;/button&gt;
 &lt;button class="sp-btn sp-btn-primary is-loading"&gt;
     &lt;i class="sp-icon-loading"&gt;&lt;/i&gt;&lt;span&gt;加载中&lt;/span&gt;
 &lt;/button&gt;
 </code></pre>
+			<button class="tag-code-btn">显示代码</button>
+		</div>
+	</div>
+
+	<h3>尺寸</h3>
+	<p>额外的尺寸，使用 .btn-medium 、.btn-small 或 .btn-mini 就可以获得不同尺寸的按钮。</p>
+	<div class="group">
+		<div class="show-box">
+			<button class="sp-btn">默认按钮</button>
+			<button class="sp-btn btn-medium">中等按钮</button>
+			<button class="sp-btn btn-small">小型按钮</button>
+			<button class="sp-btn btn-mini">超小按钮</button>
+		</div>
+		<div class="code-box">
+<pre><code class="html">&lt;button class="sp-btn"&gt;默认按钮&lt;/button&gt;
+&lt;button class="sp-btn btn-medium"&gt;中等按钮&lt;/button&gt;
+&lt;button class="sp-btn btn-small"&gt;小型按钮&lt;/button&gt;
+&lt;button class="sp-btn btn-mini"&gt;超小按钮&lt;/button&gt;</code></pre>
+			<button class="tag-code-btn">显示代码</button>
+		</div>
+	</div>
+
+	<h3>块级元素</h3>
+	<p>通过给按钮添加 .is-block 类可以将其拉伸至父元素100%的宽度，而且按钮也变为了块级（block）元素。</p>
+	<div class="group">
+		<div class="show-box">
+			<div class="sp-row">
+				<div class="sp-col-12 sp-col-offset-6">
+					<button class="sp-btn sp-btn-primary is-block">块级元素</button>
+				</div>
+			</div>
+		</div>
+		<div class="code-box">
+<pre><code class="html">&lt;button class="sp-btn sp-btn-primary is-block"&gt;块级元素&lt;/button&gt;</code></pre>
 			<button class="tag-code-btn">显示代码</button>
 		</div>
 	</div>

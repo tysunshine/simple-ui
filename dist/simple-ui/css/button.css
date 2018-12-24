@@ -62,6 +62,23 @@
   border-radius: inherit;
   pointer-events: none; }
 
+.sp-btn.btn-medium {
+  padding: 10px 20px; }
+
+.sp-btn.btn-small {
+  padding: 9px 15px;
+  border-radius: 3px;
+  font-size: 12px; }
+
+.sp-btn.btn-mini {
+  padding: 7px 15px;
+  font-size: 12px;
+  border-radius: 3px; }
+
+.sp-btn.is-block {
+  display: block;
+  width: 100%; }
+
 .sp-btn-primary {
   background-color: #409eff;
   border-color: #409eff;
