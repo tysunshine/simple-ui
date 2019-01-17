@@ -1,4 +1,4 @@
-(function (win, doc) {
+(function (window, document) {
 
 var tools = {
 
@@ -69,7 +69,7 @@ var tools = {
 	 * ------------------------------------------
 	 */
 	getStyle: function (obj, name) {
-	    if(win.getComputedStyle) {
+	    if(window.getComputedStyle) {
 	        return getComputedStyle(obj, null)[name];
 	    } else {
 	        return obj.currentStyle[name];
@@ -88,15 +88,15 @@ var tools = {
 	 * ------------------------------------------
 	 */
 	getViewPort: function () {
-	    if(doc.compatMode == "BackCompat") {   //浏览器嗅探，混杂模式
+	    if(document.compatMode == "BackCompat") {   //浏览器嗅探，混杂模式
 	        return {
-	            width: doc.body.clientWidth,
-	            height: doc.body.clientHeight
+	            width: document.body.clientWidth,
+	            height: document.body.clientHeight
 	        };
 	    } else {
 	        return {
-	            width: doc.documentElement.clientWidth,
-	            height: doc.documentElement.clientHeight
+	            width: document.documentElement.clientWidth,
+	            height: document.documentElement.clientHeight
 	        };
 	    }
 	},
@@ -108,8 +108,8 @@ var tools = {
 	 * ------------------------------------------
 	 */
 	getDistanceBody: function (obj) {
-		var oBody = doc.body;
-	    var oHtml = doc.documentElement;
+		var oBody = document.body;
+	    var oHtml = document.documentElement;
 	    var oParent = null;
 	    var oDistance = {
 	        top: 0,
@@ -128,5 +128,5 @@ var tools = {
 	}
 }
 
-win.tools = tools;
+window.tools = tools;
 })(window, document);
