@@ -1,9 +1,9 @@
-(function (win, doc) {
+(function (window, document) {
 
 	// 栅格系统
 	var Layout = {
 		init: function () {
-			this.oSpRow = doc.querySelectorAll('.sp-row');
+			this.oSpRow = document.querySelectorAll('.sp-row');
 			
 			this.initState();
 		},
@@ -48,7 +48,7 @@
 	// 单选按钮
 	var Radio = {
 		init: function () {
-			this.oSpRadio = doc.querySelectorAll('.sp-radio');
+			this.oSpRadio = document.querySelectorAll('.sp-radio');
 			
 			this.initState();
 		},
@@ -162,7 +162,7 @@
 		},
 		// 获取样式
 		getStyle: function (obj, name) {
-		    if(win.getComputedStyle) {
+		    if(window.getComputedStyle) {
 		        return getComputedStyle(obj, null)[name];
 		    } else {
 		        return obj.currentStyle[name];
@@ -238,8 +238,8 @@
 		},
 	}
 
-	win.SimpleUi = SimpleUi;
-	Lib.addEvent(win, 'load', function () {
+	window.SimpleUi = SimpleUi;
+	Lib.addEvent(window, 'load', function () {
 		SimpleUi.init();
 	})
 })(window, document)
