@@ -185,5 +185,5 @@ window.onload = function () {
 	manual.init();
 
 	// 测试单项内容时需使用的配置
-	// hljs.initHighlighting();
+	hljs.initHighlighting();
 }
