@@ -48,72 +48,61 @@
 	// 单选按钮
 	var Radio = {
 		init: function () {
-			this.oSpRadio = document.querySelectorAll('.sp-radio');
-			
-			this.initState();
+			this.oLabelsList = document.querySelectorAll('.sp-radio');
+			this.oRadiosList = document.querySelectorAll('.sp-radio input[type=radio]');
+
+			this.initEvent();
 		},
 
-		initState: function () {
+		initEvent: function () {
 			var _this = this;
 
-			for ( var i = 0 ; i < this.oSpRadio.length; i++ ) {
-				// 判断是否已经初始化过了
-				var oRadio = this.oSpRadio[i];
-				if ( !(Lib.hasClass(oRadio.parentNode, 'sp-radio-input') && Lib.hasClass(oRadio.parentNode.parentNode, 'sp-radio-label')) ) {
-					this.setLabelHtml(oRadio);
+			// 给每一个单选按钮绑定点击事件
+			for (var i = 0; i < this.oLabelsList.length; i++) {
+				
+				// 保证事件只绑定一次
+				if ( !this.oLabelsList[i].hasEvent ) {
+					this.oLabelsList[i].hasEvent = true;
+					this.bindRadioClick(i);
 				}
 			}
 		},
 
-		// 更换html代码
-		setLabelHtml: function (oRadio) {
-			var oP = oRadio.parentNode;
-			var oLabel = document.createElement('label');
-			var oInput = document.createElement('span');
-			var oText = document.createElement('span');
-			var oFragment = document.createDocumentFragment();
-
-			oLabel.className = 'sp-radio-label';
-			oP.replaceChild(oLabel, oRadio);
-			if ( oRadio.checked ) {
-				Lib.addClass(oLabel, 'is-checked');
-			}
-			if ( oRadio.disabled ) {
-				Lib.addClass(oLabel, 'is-disabled');
-			}
-
-			oInput.className = 'sp-radio-input';
-			oInput.appendChild(oRadio);
-
-			oText.className = 'sp-radio-text';
-			oText.innerHTML = oRadio.getAttribute('data-text') || '';
-
-			oFragment.appendChild(oInput);
-			oFragment.appendChild(oText);
-			oLabel.appendChild(oFragment);
-
-			// 给radio绑定事件
-			this.bindRadioClick(oRadio);
-		},
-
 		// 给radio绑定事件
-		bindRadioClick: function (oRadio) {
+		bindRadioClick: function (idx) {
 			var _this = this;
+			var oLabel = this.oLabelsList[idx];
+			var oRadio = this.oRadiosList[idx];
 
 			oRadio.onclick = function () {
 				var sName = this.name;
 
-				for ( var i = 0; i < _this.oSpRadio.length; i++ ) {
-					var oR = _this.oSpRadio[i];
+				// 已经选中的状态就不执行了
+				if ( Lib.hasClass(oLabel, 'is-checked') ) {
+					return false;
+				}
+
+				for ( var i = 0; i < _this.oRadiosList.length; i++ ) {
+					var oR = _this.oRadiosList[i];
+
 					if ( oR.name == sName ) {
-						if ( oR.checked ) {
-							Lib.addClass(oR.parentNode.parentNode, 'is-checked');
+						var oL = _this.oLabelsList[i];
+						
+						if ( oL == oLabel ) {
+							Lib.addClass(oL, 'is-checked');
 						} else {
-							Lib.delClass(oR.parentNode.parentNode, 'is-checked');
+							Lib.delClass(oL, 'is-checked');
 						}
 					}
 				}
 			}
+		},
+		bindSetChecked: function (idx) {
+			var _this = this;
+			var oRadio = this.oRadiosList[idx];
+
+			
+
 		}
 	}
 	

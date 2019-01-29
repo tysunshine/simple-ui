@@ -14,7 +14,7 @@
 			padding: 30px 0;
 			width: 800px;
 		}
-		.show-box {
+		.hide-ipt {
 			display: none;
 		}
 	</style>
@@ -22,39 +22,69 @@
 <body>
 
 	<div class="main">
-		<input class="sp-radio" type="radio" checked data-text="男" name="sex">
-		<input class="a sp-radio" type="radio" data-text="女" name="sex">
+
+		<label class="sp-radio is-checked">
+			<input type="radio" name="sex" value="nan">男
+		</label>
+		<label class="sp-radio">
+			<input type="radio" name="sex" value="nv">女
+		</label>
+
 		<br><br>
-		<input class="sp-radio" id="rad3" type="radio" data-text="乒乓球" name="love">
-		<input class="sp-radio" id="rad4" type="radio" data-text="篮球" name="love">
-		<input class="sp-radio" id="rad5" type="radio" data-text="足球" name="love">
+
+		<label class="sp-radio is-checked">
+			<input type="radio" name="love">乒乓球
+		</label>
+		<label class="sp-radio">
+			<input type="radio" name="love">篮球
+		</label>
+		<label class="sp-radio">
+			<input type="radio" name="love">足球
+		</label>
+
 		<br><br>
-		<input class="sp-radio" id="rad6" type="radio" data-text="游泳">
 
 		<div class="show-box">
-			<input type="radio" class="sp-radio" data-text="登山">
+			<button onclick="showRadio()">显示</button>
+			<p>这儿有一个隐藏的单选框</p>
+			<label class="sp-radio hide-ipt">
+				<input type="radio">登山
+			</label>
 		</div>
+
+		<br><br>
+
 		<div class="add-box">
 		</div>
-			
-		<br>
-		<br>
-		<button onclick="showRadio()">显示</button>
+
+		<br><br>
+		
 		<button onclick="addRadio()">添加</button>
+
+		<br><br>
+		<button onclick="setChecked">设置选中状态</button>&nbsp;&nbsp;
+		<label class="sp-radio">
+			<input id="rd1" type="radio">我要当飞行员
+		</label>
 	</div>
 
 	<script src="../js/index.js"></script>
 	<script>
-		var oShowBox = document.querySelector('.show-box');
+		var oHideIpt = document.querySelector('.hide-ipt');
 		var oAddBox = document.querySelector('.add-box');
+		var oRd1 = document.querySelector('#rd1');
 
 		function showRadio () {
-			oShowBox.style.display = 'block';
+			oHideIpt.style.display = 'block';
 		}
 
 		function addRadio () {
-			oAddBox.innerHTML = '<input type="radio" class="sp-radio" data-text="跳山">';
+			oAddBox.innerHTML = `<label class="sp-radio"><input type="radio">跳山</label>`;
 			SimpleUi.radio.init();
+		}
+
+		function setChecked () {
+			
 		}
 
 	</script>

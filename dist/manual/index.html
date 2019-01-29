@@ -46,7 +46,135 @@
 					</dl>
 				</div>
 				<div class="right-cont">
-					
+					<div class="radio-box">
+						<h3>基础用法</h3>
+						<p>默认不分组，所以都可以选中，使用sp-radio类名，进行初始化，使用data-text属性设置文本。</p>
+						<div class="group">
+							<div class="show-box">
+								<label class="sp-radio is-checked">
+									<input type="radio" checked>
+									<span>篮球</span>
+								</label>
+								<label class="sp-radio">
+									<input type="radio">
+									<span>足球</span>
+								</label>
+								<label class="sp-radio">
+									<input type="radio">
+									<span>棒球</span>
+								</label>
+							</div>
+							<div class="code-box">
+								<pre><code></code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+
+						<h3>禁用状态</h3>
+						<p>单选框不可用的状态，在.sp-radio上添加disabled属性，即可设置禁用状态。</p>
+						<div class="group">
+							<div class="show-box">
+								<label class="sp-radio is-disabled">
+									<input type="radio" disabled>
+									<span>篮球</span>
+								</label>
+								<label class="sp-radio is-checked is-disabled">
+									<input type="radio" disabled checked>
+									<span>足球</span>
+								</label>
+							</div>
+							<div class="code-box">
+								<pre><code></code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+
+						<h3>单选框组</h3>
+						<p>使用name属性对单选框进行分组，checked默认选中。</p>
+						<div class="group">
+							<div class="show-box">
+								<div class="row">
+									<label class="sp-radio">
+										<input type="radio" name="hobby1">
+										<span>篮球</span>
+									</label>
+									<label class="sp-radio is-checked">
+										<input type="radio" name="hobby1" checked>
+										<span>足球</span>
+									</label>
+									<label class="sp-radio">
+										<input type="radio" name="hobby1">
+										<span>棒球</span>
+									</label>
+								</div>
+								<div class="row">
+									<label class="sp-radio is-checked">
+										<input type="radio" name="course" checked>
+										<span>数学</span>
+									</label>
+									<label class="sp-radio">
+										<input type="radio" name="course">
+										<span>语文</span>
+									</label>
+									<label class="sp-radio">
+										<input type="radio" name="course">
+										<span>英语</span>
+									</label>
+								</div>
+							</div>
+							<div class="code-box">
+								<pre><code class="html"></code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+
+						<h3>重新初始化</h3>
+						<p>在页面单选按钮数量改变时，需要调用init函数重新初始化。</p>
+						<div class="group">
+							<div class="show-box">
+								<div class="sp-row">
+									<div class="sp-col-2">爱好：</div>
+									<div class="sp-col-22 hoby-radio-box">
+										<label class="sp-radio is-checked">
+											<input type="radio" name="hobby2" checked>
+											<span>篮球</span>
+										</label>
+										<label class="sp-radio">
+											<input type="radio" name="hobby2">
+											<span>足球</span>
+										</label>
+										<label class="sp-radio">
+											<input type="radio" name="hobby2">
+											<span>棒球</span>
+										</label>
+									</div>
+								</div>
+								<br><br>
+								<div class="sp-row">
+									<div class="sp-col-8">
+										<input class="hoby-ipt" type="text">
+									</div>
+									<div class="sp-col-4">
+										<button class="sp-btn btn-mini is-block add-hoby-btn">添加</button>
+									</div>
+									<div class="sp-col-4 sp-col-offset-1">
+										<button class="sp-btn btn-mini is-block show-hoby-btn">显示爱好</button>
+									</div>
+								</div>
+								<div class="row">
+									我的爱好：<span class="show-hoby-box"></span>
+								</div>
+							</div>
+							<div class="code-box">
+								<pre><code class="html"></code></pre>
+
+								<pre><code class="js"></code></pre>
+
+								<pre><code class="js"></code></pre>
+								<button class="tag-code-btn">显示代码</button>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
