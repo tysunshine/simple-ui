@@ -107,10 +107,10 @@
 	// 单选按钮
 	var SpRadio = {
 		init: function () {
-			this.oLabelsList = document.querySelectorAll('.sp-radio');
-			this.oRadiosList = document.querySelectorAll('.sp-radio input[type=radio]');
+			this.oLabelList = document.querySelectorAll('.sp-radio');
+			this.oRadioList = document.querySelectorAll('.sp-radio input[type=radio]');
 
-			if ( this.oLabelsList.length != this.oRadiosList.length ) {
+			if ( this.oLabelList.length != this.oRadioList.length ) {
 				return false;
 			}
 
@@ -118,18 +118,16 @@
 		},
 
 		initEvent: function () {
-			var _this = this;
-
 			// 给每一个单选按钮绑定点击事件
-			for (var i = 0; i < this.oLabelsList.length; i++) {
+			for (var i = 0; i < this.oLabelList.length; i++) {
 				
 				// 保证事件只绑定一次
-				if ( !this.oLabelsList[i].hasEvent ) {
-					this.oLabelsList[i].hasEvent = true;
-					// 绑定点击事件
-					this.oRadiosList[i].onclick = this.bindClick;
-					this.oRadiosList[i].setChecked = this.bindChecked;
-					this.oRadiosList[i].setDisabled = this.bindDisabled;
+				if ( !this.oLabelList[i].hasEvent ) {
+					this.oLabelList[i].hasEvent = true;
+					// 绑定事件
+					this.oRadioList[i].onclick = this.bindClick;
+					this.oRadioList[i].setChecked = this.bindChecked;
+					this.oRadioList[i].setDisabled = this.bindDisabled;
 				}
 			}
 		},
@@ -147,11 +145,11 @@
 				return false;
 			}
 
-			for ( var i = 0; i < _this.oRadiosList.length; i++ ) {
-				var oR = _this.oRadiosList[i];
+			for ( var i = 0; i < _this.oRadioList.length; i++ ) {
+				var oR = _this.oRadioList[i];
 
 				if ( oR.name == sName ) {
-					var oL = _this.oLabelsList[i];
+					var oL = _this.oLabelList[i];
 					
 					if ( oL == oLabel ) {
 						Lib.addClass(oL, 'is-checked');
@@ -190,12 +188,68 @@
 			}
 		}
 	}
+
+	// 复选按钮
+	var SpCheckbox = {
+		init: function () {
+			this.oLabelList = document.querySelectorAll('.sp-checkbox');
+			this.oCheckList = document.querySelectorAll('.sp-checkbox input[type=checkbox]');
+
+			if ( this.oLabelList.length != this.oCheckList.length ) {
+				return false;
+			}
+			console.log(123);
+			this.initEvent();
+		},
+
+		initEvent: function () {
+			// 给每一个单选按钮绑定点击事件
+			for ( var i = 0; i < this.oLabelList.length; i++ ) {
+				if ( !this.oLabelList[i].hasEvent ) {
+					this.oLabelList[i].hasEvent = true;
+					// 绑定事件
+					this.oCheckList[i].onclick = this.bindClick;
+					this.oCheckList[i].setDisabled = this.bindDisabled;
+				}
+			}
+		},
+
+		/**
+		 * 给复选框绑定点击事件
+		 */
+		bindClick: function () {
+			var _this = SpCheckbox;
+			var oLabel = this.parentNode;
+
+			if ( this.checked ) {
+				Lib.addClass(oLabel, 'is-checked');
+			} else {
+				Lib.delClass(oLabel, 'is-checked');
+			}
+		},
+
+		/**
+		 * 绑定不可选择
+		 * bl true为可选
+		 */
+		bindDisabled: function (bl) {
+			var oLabel = this.parentNode;
+			if ( bl ) {
+				this.disabled = true;
+				Lib.addClass(oLabel, 'is-disabled');
+			} else {
+				this.disabled = false;
+				Lib.delClass(oLabel, 'is-disabled');
+			}
+		}
+	}
 	
 	// 简单的UI
 	var SimpleUi = {
 		init: function () {
 			this.layout = SpLayout;
 			this.radio = SpRadio;
+			this.checkbox = SpCheckbox;
 
 			this.initState();
 			this.initEvent();
@@ -204,6 +258,7 @@
 		initState: function () {
 			this.layout.init();
 			this.radio.init();
+			this.checkbox.init();
 		},
 
 		initEvent: function () {

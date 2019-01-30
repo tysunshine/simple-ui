@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>复选框</title>
+	<link rel="stylesheet" type="text/css" href="../css/checkbox.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 30px 0;
+			width: 800px;
+		}
+		p {
+			margin-bottom: 10px;
+		}
+		.group {
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<p>1、样式</p>
+		<p>2、选中与未选中状态checked</p>
+		<p>3、是否可以选择disabled</p>
+		<p>4、点击事件</p>
+		<p>5、获取值</p>
+		<br><br>
+		<div class="group">
+			<p>喜欢的：</p>
+			<label class="sp-checkbox">
+				<input type="checkbox">听音乐
+			</label>
+			<label class="sp-checkbox is-checked">
+				<input type="checkbox" checked>看电影
+			</label>
+			<label class="sp-checkbox is-disabled">
+				<input type="checkbox" disabled>打篮球
+			</label>
+		</div>
+	</div>
+	<script src="../js/index.js"></script>
+</body>
+</html>

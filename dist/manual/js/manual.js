@@ -98,17 +98,18 @@ var manual = {
 
 	// 初始化状态
 	initState: function () {
-		// 1、设置left-cont与right-cont最大高度
-		this.setMaxHeight(this.oLeftCont);
-		this.setMaxHeight(this.oRightCont);
-
-		// 2、设置默认显示数据
+		// 1、设置默认显示数据
 		this.setShowCont('basicColor');
 	},
 
 	// 初始化事件
 	initEvent: function () {
 		var _this = this;
+
+		// 左侧禁止滚动冒泡
+		this.oLeftCont.onscroll = function (event) {
+			event ? event.stopPropagation() : window.event.cancelBubble = true;
+		}
 
 		// 左侧按钮点击事件
 		this.oLeftCont.onclick = function (evt) {
@@ -157,16 +158,6 @@ var manual = {
 			}
 			return;
 		}
-	},
-
-	// 设置最大高度
-	setMaxHeight: function (obj) {
-		var iClientH = tools.getViewPort().height;
-		var iDistanceTop = tools.getDistanceBody(obj).top;
-
-		tools.setStyle(obj, {
-			maxHeight: iClientH - iDistanceTop + 'px'
-		})
 	},
 
 	// 设置显示数据
