@@ -29,10 +29,10 @@ var contTmp = `
 	</div>
 
 	<h3>表格边框</h3>
-	<p>添加sp-table-bordered类</p>
+	<p>添加border类</p>
 	<div class="group">
 		<div class="show-box">
-			<table class="sp-table sp-table-bordered">
+			<table class="sp-table border">
 				<thead>
 					<tr><th>#</th><th>姓名</th><th>性别</th><th>年龄</th><th>学院</th><th>专业</th></tr>
 				</thead>
@@ -46,7 +46,7 @@ var contTmp = `
 			</table>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;table class="sp-table sp-table-bordered"&gt;
+<pre><code>&lt;table class="sp-table border"&gt;
     &lt;thead&gt;
         &lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;姓名&lt;/th&gt;&lt;th&gt;性别&lt;/th&gt;&lt;th&gt;年龄&lt;/th&gt;&lt;th&gt;学院&lt;/th&gt;&lt;th&gt;专业&lt;/th&gt;&lt;/tr&gt;
     &lt;/thead&gt;
@@ -63,10 +63,10 @@ var contTmp = `
 	</div>
 
 	<h3>条纹状表格</h3>
-	<p>添加sp-table-striped类，让tbody中的tr隔行换色</p>
+	<p>添加stripe类，让tbody中的tr隔行换色</p>
 	<div class="group">
 		<div class="show-box">
-			<table class="sp-table sp-table-striped">
+			<table class="sp-table stripe">
 				<thead>
 					<tr><td>#</td><td>姓名</td><td>性别</td><td>年龄</td><td>学院</td><td>专业</td></tr>
 				</thead>
@@ -80,7 +80,7 @@ var contTmp = `
 			</table>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;table class="sp-table sp-table-striped"&gt;
+<pre><code>&lt;table class="sp-table stripe"&gt;
     &lt;thead&gt;
         &lt;tr&gt;&lt;td&gt;#&lt;/td&gt;&lt;td&gt;姓名&lt;/td&gt;&lt;td&gt;性别&lt;/td&gt;&lt;td&gt;年龄&lt;/td&gt;&lt;td&gt;学院&lt;/td&gt;&lt;td&gt;专业&lt;/td&gt;&lt;/tr&gt;
     &lt;/thead&gt;
@@ -97,10 +97,10 @@ var contTmp = `
 	</div>
 
 	<h3>鼠标悬停</h3>
-	<p>添加sp-table-hover类，让tbody中的tr在鼠标以上时变色</p>
+	<p>添加hover类，让tbody中的tr在鼠标以上时变色</p>
 	<div class="group">
 		<div class="show-box">
-			<table class="sp-table sp-table-hover">
+			<table class="sp-table hover">
 				<thead>
 					<tr><td>#</td><td>姓名</td><td>性别</td><td>年龄</td><td>学院</td><td>专业</td></tr>
 				</thead>
@@ -114,7 +114,7 @@ var contTmp = `
 			</table>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;table class="sp-table sp-table-hover"&gt;
+<pre><code>&lt;table class="sp-table hover"&gt;
     &lt;thead&gt;
         &lt;tr&gt;&lt;td&gt;#&lt;/td&gt;&lt;td&gt;姓名&lt;/td&gt;&lt;td&gt;性别&lt;/td&gt;&lt;td&gt;年龄&lt;/td&gt;&lt;td&gt;学院&lt;/td&gt;&lt;td&gt;专业&lt;/td&gt;&lt;/tr&gt;
     &lt;/thead&gt;
@@ -131,10 +131,10 @@ var contTmp = `
 	</div>
 
 	<h3>设置宽度</h3>
-	<p>只需在每一列中选中一个td设置width属性，即可设置宽度，td默认为box-sizing</p>
+	<p>只需在每一列中选中一个td或th设置width属性，即可设置宽度，td默认为box-sizing</p>
 	<div class="group">
 		<div class="show-box">
-			<table class="sp-table sp-table-hover">
+			<table class="sp-table hover">
 				<thead>
 					<tr><td width="100px">#</td><td>姓名</td><td>性别</td><td>年龄</td><td>学院</td><td>专业</td></tr>
 				</thead>
@@ -148,7 +148,7 @@ var contTmp = `
 			</table>
 		</div>
 		<div class="code-box">
-<pre><code>&lt;table class="sp-table sp-table-hover"&gt;
+<pre><code>&lt;table class="sp-table hover"&gt;
     &lt;thead&gt;
         &lt;tr&gt;&lt;td width="100px"&gt;#&lt;/td&gt;&lt;td&gt;姓名&lt;/td&gt;&lt;td&gt;性别&lt;/td&gt;&lt;td&gt;年龄&lt;/td&gt;&lt;td&gt;学院&lt;/td&gt;&lt;td&gt;专业&lt;/td&gt;&lt;/tr&gt;
     &lt;/thead&gt;
@@ -163,5 +163,17 @@ var contTmp = `
 			<button class="tag-code-btn">显示代码</button>
 		</div>
 	</div>
+
+	<table class="sp-table border mt40">
+		<thead>
+			<tr><td width="100">类名</td><td>说明</td></tr>
+		</thead>
+		<tbody>
+			<tr><td>.sp-table</td><td>必须。默认表格</td></tr>
+			<tr><td>.border</td><td>有边框的表格</td></tr>
+			<tr><td>.stripe</td><td>隔行变色</td></tr>
+			<tr><td>.hover</td><td>鼠标悬停变色</td></tr>
+		</tbody>
+	</table>
 </div>
 `;

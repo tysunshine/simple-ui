@@ -62,9 +62,25 @@
 		<button onclick="addRadio()">添加</button>
 
 		<br><br>
-		<button onclick="setChecked">设置选中状态</button>&nbsp;&nbsp;
+		<button onclick="setChecked()">设置选中状态</button>&nbsp;&nbsp;
 		<label class="sp-radio">
-			<input id="rd1" type="radio">我要当飞行员
+			<input id="rd1" type="radio" name="hobby">飞行员
+		</label>
+		<label class="sp-radio">
+			<input type="radio" name="hobby">宇航员
+		</label>
+		<label class="sp-radio is-checked">
+			<input type="radio" name="hobby" checked>老师
+		</label>
+		
+		<br><br>
+
+		<button onclick="setDisabled()">设置是否可选</button>&nbsp;&nbsp;
+		<label class="sp-radio">
+			<input id="rd2" type="radio" name="website">爱奇艺
+		</label>
+		<label class="sp-radio">
+			<input type="radio" name="website">优酷
 		</label>
 	</div>
 
@@ -73,6 +89,9 @@
 		var oHideIpt = document.querySelector('.hide-ipt');
 		var oAddBox = document.querySelector('.add-box');
 		var oRd1 = document.querySelector('#rd1');
+		var oRd2 = document.querySelector('#rd2');
+		var bl1 = true;
+		var bl2 = true;
 
 		function showRadio () {
 			oHideIpt.style.display = 'block';
@@ -84,7 +103,13 @@
 		}
 
 		function setChecked () {
-			
+			oRd1.setChecked(bl1);
+			bl1 = !bl1;
+		}
+
+		function setDisabled () {
+			oRd2.setDisabled(bl2);
+			bl2 = !bl2;
 		}
 
 	</script>

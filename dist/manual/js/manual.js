@@ -1,60 +1,80 @@
 
-
-
-var oRadio = {
+var oLayout = {
 	init: function () {
-		this.oHobyRadio = document.getElementsByName('hoby');
-		this.oHobyRadioBox = document.querySelector('.hoby-radio-box');
-		this.oHobyIpt = document.querySelector('.hoby-ipt');
-		this.oAddHobyBtn = document.querySelector('.add-hoby-btn');
-		this.oShowHobyBtn = document.querySelector('.show-hoby-btn');
-		this.oShowHobyBox = document.querySelector('.show-hoby-box');
+		this.oLayoutBox = document.querySelector('.layout-box');
+		if ( !this.oLayoutBox ) {
+			return false;
+		}
+		this.oSpaceRow = this.oLayoutBox.querySelector('.space-row');
+		this.oSpaceIpt = this.oLayoutBox.querySelector('.space-ipt');
+		this.oSpaceBtn = this.oLayoutBox.querySelector('.space-btn');
 
-		this.initState();
 		this.initEvent();
 	},
 
-	initState: function () {
+	initEvent: function () {
+		var _this = this;
 		
+		// 设置间隔
+		this.oSpaceBtn.onclick = function () {
+			var iNum = _this.oSpaceIpt.value;
+
+			if ( !(iNum > 0) ) {
+				_this.oSpaceIpt.value = 0;
+				return false;
+			}
+
+			SimpleUi.layout.setSpace(_this.oSpaceRow, iNum);
+		}
+	}
+}
+
+var oRadio = {
+	init: function () {
+		this.oRadioBox = document.querySelector('.radio-box');
+		if ( !this.oRadioBox ) {
+			return false;
+		}
+		this.oShowBtn = this.oRadioBox.querySelector('.show-btn');
+		this.oInitHideRadio = this.oRadioBox.querySelector('.init-hide-radio');
+		this.oAddBtn = this.oRadioBox.querySelector('.add-btn');
+		this.oAddRadioBox = this.oRadioBox.querySelector('.add-radio-box');
+		this.oSingerBtn = this.oRadioBox.querySelector('.show-singer-btn');
+		this.oSingerText = this.oRadioBox.querySelector('.show-singer-text');
+
+		this.initEvent();
 	},
 
 	initEvent: function () {
 		var _this = this;
 
-		// 添加爱好
-		if ( this.oAddHobyBtn.onclick != this.addRadio ) {
-			this.oAddHobyBtn.onclick = this.addRadio.bind(this);
+		// 显示
+		this.oShowBtn.onclick = function () {
+			_this.oInitHideRadio.style.display = 'inline-block';
 		}
-		
 
-		// 显示爱好
-		if ( this.oShowHobyBtn.onclick != this.showValue ) {
-			this.oShowHobyBtn.onclick = this.showValue.bind(this);
+		// 添加
+		this.oAddBtn.onclick = function () {
+			if ( _this.oAddRadioBox.children.length >= 3 ) {
+				return false;
+			}
+
+			var oLabel = document.createElement('label');
+			oLabel.className = 'sp-radio';
+			oLabel.innerHTML = '<input type="radio" name="hobby4"/>按钮一个';
+
+			_this.oAddRadioBox.appendChild(oLabel);
+			SimpleUi.radio.init();
 		}
-	},
 
-	// 添加
-	addRadio: function () {
-		if ( this.oHobyIpt.value.trim() == '' ) {
-			return;
-		}
-		var oIpt = document.createElement('input');
-		oIpt.className = 'sp-radio';
-		oIpt.type = 'radio';
-		oIpt.name = 'hoby';
-		oIpt.setAttribute('data-text', this.oHobyIpt.value);
-		this.oHobyRadioBox.appendChild(oIpt);
-		SimpleUi.radio.init();
-
-		this.oHobyIpt.value = '';
-	},
-	// 显示
-	showValue: function () {
-		for ( var i = 0; i < this.oHobyRadio.length; i++ ) {
-			var item = this.oHobyRadio[i];
-			if ( item.checked ) {
-				this.oShowHobyBox.innerHTML = item.getAttribute('data-text');
-				break;
+		// 获取选中的按钮值
+		this.oSingerBtn.onclick = function () {
+			var oSinger = _this.oRadioBox.querySelectorAll('[type=radio][name=singer]');
+			for ( var i = 0; i < oSinger.length; i++ ) {
+				if ( oSinger[i].checked ) {
+					_this.oSingerText.innerHTML = oSinger[i].value;
+					break;
+				}
 			}
 		}
 	}
@@ -172,18 +192,18 @@ var manual = {
 
 				// 初始化栅格系统
 				switch (name) {
-					case 'basicLayout': SimpleUi.layout.init(); break;
+					case 'basicLayout': oLayout.init(); SimpleUi.layout.init(); break;
 					case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
 				}
 			}
-		}, 30);
+		}, 100);
 	}
 }
 
 
 window.onload = function () {
-	// manual.init();
+	manual.init();
 
 	// 测试单项内容时需使用的配置
-	hljs.initHighlighting();
+	// hljs.initHighlighting();
 }

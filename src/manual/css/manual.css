@@ -3,7 +3,7 @@
 .content { margin: 0 auto; width: 1000px; max-width: 90%; line-height: 1.5em; font-size: 14px;}
 .content::after {content: '';display: block;clear: both;}
 .header {position: fixed;top: 0;z-index: 100;width: 100%;background: rgba(255, 255, 255, .5);}
-.header .logo {display: inline-block;line-height: 60px;font-size: 26px;}
+.header .logo {display: inline-block;line-height: 60px;font-size: 26px; color: #409EFF;}
 
 .main {padding-top: 60px;}
 .main .left-cont {float: left;width: 240px;line-height: 40px;overflow: auto;}
@@ -26,6 +26,8 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .group .tag-code-btn {width: 100%;border: none;background: #fff;line-height: 36px;font-size: 16px;text-align: center;
 	outline: medium;cursor: pointer; color: #409EFF;border-top: 1px solid #ebebeb;}
 .group .tag-code-btn:hover {background: #efefef;}
+.mt10 {margin-top: 10px;}
+.mt40 {margin-top: 40px;}
 
 .color-box .color-row {margin-left: -5px;margin-right: -5px;}
 .color-box .color-col {padding: 0 5px;}
@@ -38,10 +40,11 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 
 .layout-box .group .sp-row {margin-bottom: 20px;}
 .layout-box .group .sp-row:last-child {margin-bottom: 0;}
-.layout-box .group .group-cont {height: 36px; border-radius: 4px;}
+.layout-box .group .group-cont {height: 36px; border-radius: 4px;line-height: 36px;}
 .layout-box .bg-blue-dark {background: #99A9BF;}
 .layout-box .bg-blue {background: #D3DCE6;}
 .layout-box .bg-blue-light {background: #E5E9F2;}
+.layout-box input[type="text"] {border: 1px solid #ccc; padding: 0 15px; width: 100px; height: 36px; line-height: 34px; box-sizing: border-box; border-radius: 4px;}
 
 .icon-box .group .show-box [class*="sp-icon-"] {font-size: 20px;margin-right: 20px;}
 .icon-box .icon-lists {width: 100%; border: 1px solid #ebebeb; box-sizing: border-box;}
@@ -56,6 +59,10 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .button-box .row+.row {margin-top: 20px;}
 
 .radio-box .hoby-ipt {padding: 3px 5px;width: 90%;height: 30px;box-sizing: border-box;border-radius: 3px;border: 1px solid #999;outline: 0;}
+.radio-box .init-box {position: relative;}
+.radio-box .init-box+.init-box {margin-top: 10px;}
+.radio-box .init-radio-box {position: absolute; left: 140px; top: 0; line-height: 28px;}
+.radio-box .init-radio-box .init-hide-radio {display: none;}
 
 @media only screen and (max-width: 768px) {
 	.content {max-width: 100%; padding: 0 10px; box-sizing: border-box;}

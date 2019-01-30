@@ -31,7 +31,7 @@
 
 		<div class="group">
 			<div class="sp-row">
-				<div class="sp-col-12">
+				<div class="sp-col-12" offset="0">
 					<div class="group-cont bg-blue"></div>
 				</div>
 				<div class="sp-col-12">
@@ -58,7 +58,7 @@
 
 		<div class="group">
 			<div class="sp-row">
-				<div class="sp-col-4">
+				<div class="sp-col-4" offset="50">
 					<div class="group-cont bg-blue"></div>
 				</div>
 				<div class="sp-col-4">
@@ -74,8 +74,6 @@
 		<script>
 
 			window.onload = function () {
-				SimpleUi.init();
-
 				var oChangeSpaceBtn = document.getElementById('changeSpaceBtn');
 				var oSpaceIpt = document.getElementById('spaceIpt');
 				var oSpaceBox = document.getElementById('spaceBox');
@@ -85,7 +83,7 @@
 						return;
 					}
 
-					SimpleUi.Layout.setSpace(oSpaceBox, iSpace);
+					SimpleUi.layout.setSpace(oSpaceBox, iSpace);
 				}
 			}
 			

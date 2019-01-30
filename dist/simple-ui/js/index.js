@@ -1,30 +1,49 @@
 (function (window, document) {
 
 	// 栅格系统
-	var Layout = {
+	var SpLayout = {
 		init: function () {
-			this.oSpRow = document.querySelectorAll('.sp-row');
-			
+			this.oSpRowSpace = document.querySelectorAll('.sp-row[space]');
+			this.oSpColOffset = document.querySelectorAll('.sp-row [class*=sp-col-][offset]');
+			this.oSpColPush = document.querySelectorAll('.sp-row [class*=sp-col-][push]');
+			this.oSpColPull = document.querySelectorAll('.sp-row [class*=sp-col-][pull]');
+
 			this.initState();
 		},
 
 		initState: function () {
-			this.setColSpace();
+			this.setDistance();
 		},
 
 		// 设置所有sp-col的间隔
-		setColSpace: function () {
-			for ( var i = 0; i < this.oSpRow.length; i++ ) {
-				this.setSpace(this.oSpRow[i], this.oSpRow[i].getAttribute('space'));
+		setDistance: function () {
+			// 所有有space的sp-row
+			for ( var i = 0; i < this.oSpRowSpace.length; i++ ) {
+				this.setSpace(this.oSpRowSpace[i], this.oSpRowSpace[i].getAttribute('space'));
+			}
+
+			// 所有有offset的sp-col
+			for ( var i = 0; i < this.oSpColOffset.length; i++ ) {
+				this.setOffset(this.oSpColOffset[i], this.oSpColOffset[i].getAttribute('offset'));
+			}
+
+			// 所有有push的sp-col
+			for ( var i = 0; i < this.oSpColPush.length; i++ ) {
+				this.setPush(this.oSpColPush[i], this.oSpColPush[i].getAttribute('push'));
+			}
+
+			// 所有有pull的sp-col
+			for ( var i = 0; i < this.oSpColPull.length; i++ ) {
+				this.setPull(this.oSpColPull[i], this.oSpColPull[i].getAttribute('pull'));
 			}
 		},
 
 		// 设置单个sp-col间隔
 		setSpace: function (oRow, iSpace) {
-			var oCol = oRow.children;
+			var oCol = oRow.querySelectorAll('[class*=sp-col-]');
 
 			if ( !(iSpace > 0) ) {
-				return;
+				return false;
 			}
 
 			oRow.setAttribute('space', iSpace);
@@ -42,14 +61,58 @@
 					})
 				}
 			}
+		},
+
+		// 设置sp-col的margin-left
+		setOffset: function (oCol, iNum) {
+			if ( !(iNum > 0) ) {
+				return false;
+			}
+
+			oCol.setAttribute('offset', iNum);
+			Lib.setStyle(oCol, {
+				marginLeft: iNum + 'px'
+			})
+		},
+
+		// 设置sp-col的left
+		setPush: function (oCol, iNum) {
+			if ( !(iNum > 0) ) {
+				return false;
+			}
+
+			oCol.setAttribute('push', iNum);
+			Lib.setStyle(oCol, {
+				position: 'relative',
+				left: iNum + 'px',
+				right: 'auto'
+			})
+		},
+
+		// 设置sp-col的right
+		setPull: function (oCol, iNum) {
+			if ( !(iNum > 0) ) {
+				return false;
+			}
+
+			oCol.setAttribute('pull', iNum);
+			Lib.setStyle(oCol, {
+				position: 'relative',
+				right: iNum + 'px',
+				left: 'auto'
+			})
 		}
 	}
 
 	// 单选按钮
-	var Radio = {
+	var SpRadio = {
 		init: function () {
 			this.oLabelsList = document.querySelectorAll('.sp-radio');
 			this.oRadiosList = document.querySelectorAll('.sp-radio input[type=radio]');
+
+			if ( this.oLabelsList.length != this.oRadiosList.length ) {
+				return false;
+			}
 
 			this.initEvent();
 		},
@@ -63,54 +126,76 @@
 				// 保证事件只绑定一次
 				if ( !this.oLabelsList[i].hasEvent ) {
 					this.oLabelsList[i].hasEvent = true;
-					this.bindRadioClick(i);
+					// 绑定点击事件
+					this.oRadiosList[i].onclick = this.bindClick;
+					this.oRadiosList[i].setChecked = this.bindChecked;
+					this.oRadiosList[i].setDisabled = this.bindDisabled;
 				}
 			}
 		},
 
-		// 给radio绑定事件
-		bindRadioClick: function (idx) {
-			var _this = this;
-			var oLabel = this.oLabelsList[idx];
-			var oRadio = this.oRadiosList[idx];
+		/**
+		 * 所有单选按钮的点击事件指向同一个click处理函数
+		 */
+		bindClick: function () {
+			var _this = SpRadio;
+			var oLabel = this.parentNode;
+			var sName = this.name;
 
-			oRadio.onclick = function () {
-				var sName = this.name;
+			// 已经选中的状态就不执行了
+			if ( Lib.hasClass(oLabel, 'is-checked') ) {
+				return false;
+			}
 
-				// 已经选中的状态就不执行了
-				if ( Lib.hasClass(oLabel, 'is-checked') ) {
-					return false;
-				}
+			for ( var i = 0; i < _this.oRadiosList.length; i++ ) {
+				var oR = _this.oRadiosList[i];
 
-				for ( var i = 0; i < _this.oRadiosList.length; i++ ) {
-					var oR = _this.oRadiosList[i];
-
-					if ( oR.name == sName ) {
-						var oL = _this.oLabelsList[i];
-						
-						if ( oL == oLabel ) {
-							Lib.addClass(oL, 'is-checked');
-						} else {
-							Lib.delClass(oL, 'is-checked');
-						}
+				if ( oR.name == sName ) {
+					var oL = _this.oLabelsList[i];
+					
+					if ( oL == oLabel ) {
+						Lib.addClass(oL, 'is-checked');
+					} else {
+						Lib.delClass(oL, 'is-checked');
 					}
 				}
 			}
 		},
-		bindSetChecked: function (idx) {
-			var _this = this;
-			var oRadio = this.oRadiosList[idx];
 
-			
+		/**
+		 * 设置单选按钮的选中状态
+		 * bl true为选中，false为未选中
+		 */
+		bindChecked: function (bl) {
+			if ( bl ) {
+				this.click();
+			} else {
+				this.checked = false;
+				Lib.delClass(this.parentNode, 'is-checked');
+			}
+		},
 
+		/**
+		 * 设置单选按钮的可选状态
+		 * bl true为可选择，false为不可选择
+		 */
+		bindDisabled: function (bl) {
+			var oLabel = this.parentNode;
+			if ( bl ) {
+				this.disabled = true;
+				Lib.addClass(oLabel, 'is-disabled');
+			} else {
+				this.disabled = false;
+				Lib.delClass(oLabel, 'is-disabled');
+			}
 		}
 	}
 	
 	// 简单的UI
 	var SimpleUi = {
 		init: function () {
-			this.layout = Layout;
-			this.radio = Radio;
+			this.layout = SpLayout;
+			this.radio = SpRadio;
 
 			this.initState();
 			this.initEvent();
