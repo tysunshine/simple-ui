@@ -198,7 +198,6 @@
 			if ( this.oLabelList.length != this.oCheckList.length ) {
 				return false;
 			}
-			console.log(123);
 			this.initEvent();
 		},
 
