@@ -1,4 +1,4 @@
-var contTmp = `
+var basicColor = `
 <div class="color-box">
 	<h3>主色</h3>
 	<p>主要品牌颜色是鲜艳、友好的蓝色。</p>

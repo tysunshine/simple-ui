@@ -1,4 +1,4 @@
-var contTmp = `
+var basicIcon = `
 <div class="icon-box">
 	<h3>使用方法</h3>
 	<p>直接通过设置类名为 el-icon-iconName 来使用即可。</p>

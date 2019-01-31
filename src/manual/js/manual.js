@@ -84,6 +84,7 @@ var oRadio = {
 var manual = {
 	init: function () {
 		// 节点
+		this.oLogo = document.querySelector('.header .logo');						// logo
 		this.oLeftCont = document.getElementsByClassName('left-cont')[0];			// 左侧按钮盒子
 		this.oRightCont = document.getElementsByClassName('right-cont')[0];			// 合成内容盒子
 		this.oLinkBtns = document.getElementsByClassName('link-btn');				// 所有左侧按钮
@@ -92,19 +93,27 @@ var manual = {
 		this.oCodeBox = document.getElementsByClassName('code-box');				// 代码盒子
 		this.oTagCodeBtn = document.getElementsByClassName('tag-code-btn');			// 显示、隐藏代码按钮
 
+		this.home = 'basicColor';
+
 		this.initState();
 		this.initEvent();
 	},
 
 	// 初始化状态
 	initState: function () {
-		// 1、设置默认显示数据
-		this.setShowCont('basicColor');
+		var hash = (location.hash || '#' + this.home).slice(1);
+		// 1、根据hash显示数据
+		this.setShowCont(hash);
 	},
 
 	// 初始化事件
 	initEvent: function () {
 		var _this = this;
+
+		// 点击logo调到首页
+		this.oLogo.onclick = function () {
+			_this.setShowCont(_this.home);
+		}
 
 		// 左侧禁止滚动冒泡
 		this.oLeftCont.onscroll = function (event) {
@@ -118,15 +127,6 @@ var manual = {
 
 			if ( !tools.hasClass(tag, 'link-btn') ) {
 				return;
-			}
-
-			// 按钮样式
-			for ( var i = 0; i < _this.oLinkBtns.length; i++ ) {
-				if ( tag === _this.oLinkBtns[i] ) {
-					tools.addClass(_this.oLinkBtns[i], 'is-checked');
-				} else {
-					tools.delClass(_this.oLinkBtns[i], 'is-checked');
-				}
 			}
 
 			// 更换内容
@@ -162,32 +162,34 @@ var manual = {
 
 	// 设置显示数据
 	setShowCont: function (name) {
-		var _this = this;
-		var oScriptCont = document.getElementById('scriptCont');
-		var timer = null;
 
-		oScriptCont = document.createElement('script');
-		oScriptCont.id = 'scriptCont';
-		oScriptCont.setAttribute('contname', name);
-		document.body.appendChild(oScriptCont);
-		oScriptCont.src = './js/cont/' + name + '.js';
+		// 设置hash
+		location.hash = name;
 		
-		timer = setInterval(function () {
-			if ( window.contTmp ) {
-				clearInterval(timer);
-				_this.oRightCont.innerHTML = contTmp;
-				document.body.removeChild(oScriptCont);
-				
-				// 初始化代码块
-				hljs.initHighlighting();
+		// 设置右边主要内容
+		this.oRightCont.innerHTML = window[name];
 
-				// 初始化栅格系统
-				switch (name) {
-					case 'basicLayout': oLayout.init(); SimpleUi.layout.init(); break;
-					case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
-				}
+		// 设置滚动高度
+		document.documentElement.scrollTop = document.body.scrollTop = 0;
+
+		// 初始化内容
+		switch (name) {
+			case 'basicLayout': oLayout.init(); SimpleUi.layout.init(); break;
+			case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
+			case 'formCheckbox': SimpleUi.checkbox.init(); break;
+		}
+
+		// 初始化代码块
+		hljs.initHighlighting();
+
+		// 设置按钮选中状态
+		for ( var i = 0; i < this.oLinkBtns.length; i++ ) {
+			if ( this.oLinkBtns[i].getAttribute('contname') == name ) {
+				tools.addClass(this.oLinkBtns[i], 'is-checked');
+			} else {
+				tools.delClass(this.oLinkBtns[i], 'is-checked');
 			}
-		}, 100);
+		}
 	}
 }
 

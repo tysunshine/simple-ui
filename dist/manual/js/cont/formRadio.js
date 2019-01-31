@@ -1,4 +1,4 @@
-var contTmp = `
+var formRadio = `
 <div class="radio-box">
 	<h3>基础用法</h3>
 	<p>默认不分组，所以都可以选中，使用sp-radio类名，进行初始化，使用data-text属性设置文本。</p>

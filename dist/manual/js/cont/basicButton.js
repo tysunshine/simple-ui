@@ -1,4 +1,4 @@
-var contTmp = `
+var basicButton = `
 <div class="button-box">
 	<h3>基础用法</h3>
 	<p>基础的按钮用法。为&lt;a&gt;、&lt;input&gt;、&lt;button&gt;添加按钮类即可使用。</p>

@@ -1,4 +1,4 @@
-var contTmp = `
+var formCheckbox = `
 <div class="checkbox-box">
 	<h3>基础用法</h3>
 	<p>单独使用可以表示两种状态之间的切换。</p>

@@ -1,4 +1,4 @@
-var contTmp = `
+var dataTable = `
 <div class="table-box">
 	<h3>基本表格</h3>
 	<p>添加sp-table类，th默认加粗</p>

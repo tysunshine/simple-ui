@@ -1,4 +1,4 @@
-var contTmp = `
+var basicLayout = `
 <div class="layout-box">
 	<h3>基础布局</h3>
 	<p>使用单一分栏创建基础的栅格布局。</p>

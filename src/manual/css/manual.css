@@ -1,20 +1,23 @@
 * {margin: 0;padding: 0;}
 
-.content { margin: 0 auto; width: 1000px; max-width: 90%; line-height: 1.5em; font-size: 14px;}
+.content { margin: 0 auto; width: 1000px; line-height: 1.5em; font-size: 14px;}
 .content::after {content: '';display: block;clear: both;}
-.header {position: fixed;top: 0;z-index: 100;width: 100%;background: rgba(255, 255, 255, .5);}
-.header .logo {display: inline-block;line-height: 60px;font-size: 26px; color: #409EFF;}
+.header {position: fixed;top: 0;z-index: 100;width: 100%;background: rgba(255, 255, 255, .8);border-bottom: 1px solid #eee;}
+.header .logo {display: inline-block;cursor: pointer;line-height: 60px;font-size: 26px; color: #409EFF;}
 
-.main {padding-top: 60px;}
-.main .left-cont {position: fixed; top: 60px; bottom: 0;width: 240px;line-height: 40px;overflow: auto;}
+.main {padding-top: 61px;}
+.main .left-cont {position: fixed; top: 61px; bottom: 0;width: 240px;line-height: 40px;overflow: auto; background: #fff;}
 .main .left-cont dl {margin-bottom: 15px;}
 .main .left-cont dt {font-size: 16px;font-weight: bold;}
 .main .left-cont dd {font-size: 14px;color: #444;cursor: pointer;}
 .main .left-cont dd:hover {color: #409EFF;}
 .main .left-cont dd.is-checked {color: #409EFF;}
-.main .right-cont {padding: 0 20px 100px 260px;box-sizing: border-box;overflow-y: auto;overflow-x:hidden;}
+.main .right-cont {padding: 0 20px 100px 260px;box-sizing: border-box;}
 .main .right-cont .link-cont {display: none;}
 .main .right-cont .link-cont.is-checked {display: block;}
+.main .jump-top-btn {position: fixed; bottom: 40px; left: 50%; margin-left: 540px; border: 1px solid #ccc; width: 40px; height: 40px;
+	border-radius: 50%; box-sizing: border-box; box-shadow:0 0 6px rgba(0,0,0, .12); background:rgba(255, 255, 255, .8); cursor: pointer;}
+.main .jump-top-btn i {display: block;line-height: 38px;color: #409EFF;font-size: 20px;text-align: center;}
 
 /*cont内容样式*/
 h3 {margin: 55px 0 20px;font-size: 22px;line-height: 30px;font-weight:normal;}
@@ -63,9 +66,10 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .radio-box .init-radio-box {position: absolute; left: 140px; top: 0; line-height: 28px;}
 .radio-box .init-radio-box .init-hide-radio {display: none;}
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1000px) {
 	.content {max-width: 100%; padding: 0 10px; box-sizing: border-box;}
 
 	.main .left-cont {display: none;}
 	.main .right-cont {padding-left: 0; width: 100%;}
+	.main .jump-top-btn {margin-left: 0;left: auto; right: 40px;}
 }
