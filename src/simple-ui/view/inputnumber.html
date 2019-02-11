@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>计数器</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 30px 0;
+			width: 800px;
+			line-height: 24px;
+			font-size: 14px;
+		}
+		.group {
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="group">
+			1、默认样式左边减号，右边加号，中间输入框<br>
+			2、输入框失去焦点后判断数据类型，如果不是数字类型，重置为默认值<br>
+			3、默认值为1，可通过value属性设置默认值<br>
+			4、默认加减步数为1，可通过step属性设置加减步数<br>
+			5、默认小数点个数为0，可通过precision设置小数点个数，大等于0<br>
+			6、禁用状态disabled属性为true时禁用<br>
+			7、最小最大值，min最小，max最大，达到边界后加减按钮禁用，失去焦点时校正<br>
+			8、通过size属性设置计数器尺寸，值medium、small、mini，通过添加medium、small、mini类名改变尺寸<br>
+			9、是否使用按钮controls<br>
+			10、按钮位置controls-position，值left、right、bothsides(默认)，通过添加is-controls-right、is-controls-left类名改变按钮位置。
+		</div>
+	</div>
+</body>
+</html>

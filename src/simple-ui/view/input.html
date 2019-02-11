@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>输入框</title>
+	<link rel="stylesheet" type="text/css" href="../css/input.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.main {
+			margin: 0 auto;
+			padding: 30px 0;
+			width: 800px;
+		}
+		.group {
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="main">
+		<p class="group">
+			1、默认样式<br>
+			2、鼠标以移上框变色 #c0c4cc<br>
+			3、获取焦点边框变色 #409EFF<br>
+			4、禁用状态鼠标移上不变色<br>
+			5、设置is-block类站一行<br>
+			6、不同尺寸
+		</p>
+		<div class="group">
+			<input class="sp-input" type="text" placeholder="请输入内容">
+		</div>
+		<div class="group">
+			<input class="sp-input" type="text" placeholder="请输入内容" disabled>
+		</div>
+		<div class="group">
+			<input class="sp-input is-block" type="text" placeholder="请输入内容">
+		</div>
+		<div class="group">
+			<input class="sp-input medium" type="text" placeholder="请输入内容">
+		</div>
+		<div class="group">
+			<input class="sp-input small" type="text" placeholder="请输入内容">
+		</div>
+		<div class="group">
+			<input class="sp-input mini" type="text" placeholder="请输入内容">
+		</div>
+	</div>
+</body>
+</html>

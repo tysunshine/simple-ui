@@ -1,0 +1,25 @@
+.sp-textarea {
+  display: inline-block;
+  padding: 5px 15px;
+  min-height: 30px;
+  border: 1px solid #dcdfe6;
+  background: #fff;
+  box-sizing: border-box;
+  outline: medium;
+  border-radius: 4px;
+  transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .sp-textarea:hover {
+    border-color: #c0c4cc; }
+  .sp-textarea:focus {
+    border-color: #409EFF; }
+  .sp-textarea.is-block {
+    width: 100%; }
+  .sp-textarea:disabled {
+    cursor: not-allowed;
+    background: #f5f7fa;
+    color: #c0c4cc;
+    border-color: #e4e7ed; }
+  .sp-textarea:disabled:hover {
+    border-color: #e4e7ed; }
+  .sp-textarea.is-noresize {
+    resize: none; }

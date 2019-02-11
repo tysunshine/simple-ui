@@ -1,0 +1,33 @@
+.sp-textarea {
+	display: inline-block;
+	padding: 5px 15px;
+	min-height: 30px;
+	border: 1px solid #dcdfe6;
+	background: #fff;
+	box-sizing: border-box;
+	outline: medium;
+	border-radius: 4px;
+	transition: border-color .2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+	&:hover {
+		border-color: #c0c4cc;
+	}
+	&:focus {
+		border-color: #409EFF;
+	}
+	&.is-block {
+		width: 100%;
+	}
+	&:disabled {
+		cursor: not-allowed;
+		background: #f5f7fa;
+		color: #c0c4cc;
+		border-color: #e4e7ed;
+	}
+	&:disabled:hover {
+		border-color: #e4e7ed;
+	}
+	&.is-noresize {
+		resize: none;
+	}
+}

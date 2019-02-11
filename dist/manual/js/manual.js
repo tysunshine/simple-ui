@@ -87,13 +87,13 @@ var manual = {
 		this.oLogo = document.querySelector('.header .logo');						// logo
 		this.oLeftCont = document.getElementsByClassName('left-cont')[0];			// 左侧按钮盒子
 		this.oRightCont = document.getElementsByClassName('right-cont')[0];			// 合成内容盒子
-		this.oLinkBtns = document.getElementsByClassName('link-btn');				// 所有左侧按钮
+		this.oLinkBtns = this.oLeftCont.querySelectorAll('a');						// 所有左侧按钮
 
 		// 页面显示代码块
 		this.oCodeBox = document.getElementsByClassName('code-box');				// 代码盒子
 		this.oTagCodeBtn = document.getElementsByClassName('tag-code-btn');			// 显示、隐藏代码按钮
 
-		this.home = 'basicColor';
+		this.home = '#basicColor';
 
 		this.initState();
 		this.initEvent();
@@ -101,7 +101,7 @@ var manual = {
 
 	// 初始化状态
 	initState: function () {
-		var hash = (location.hash || '#' + this.home).slice(1);
+		var hash = location.hash || this.home;
 		// 1、根据hash显示数据
 		this.setShowCont(hash);
 	},
@@ -125,13 +125,13 @@ var manual = {
 			var e = evt || window.event;
 			var tag = e.target || e.srcElement;
 
-			if ( !tools.hasClass(tag, 'link-btn') ) {
+			if ( tag.tagName.toLowerCase() != 'a' ) {
 				return;
 			}
 
 			// 更换内容
-			var strContName = tag.getAttribute('contname');
-			_this.setShowCont(strContName);
+			var hash = tag.getAttribute('href');
+			_this.setShowCont(hash);
 		}
 
 		// 右侧内容点击-事件委托
@@ -161,10 +161,9 @@ var manual = {
 	},
 
 	// 设置显示数据
-	setShowCont: function (name) {
-
-		// 设置hash
-		location.hash = name;
+	setShowCont: function (hash) {
+		// 获取name
+		name = hash.slice(1);
 		
 		// 设置右边主要内容
 		this.oRightCont.innerHTML = window[name];
@@ -184,7 +183,7 @@ var manual = {
 
 		// 设置按钮选中状态
 		for ( var i = 0; i < this.oLinkBtns.length; i++ ) {
-			if ( this.oLinkBtns[i].getAttribute('contname') == name ) {
+			if ( this.oLinkBtns[i].getAttribute('href') == hash ) {
 				tools.addClass(this.oLinkBtns[i], 'is-checked');
 			} else {
 				tools.delClass(this.oLinkBtns[i], 'is-checked');
@@ -198,5 +197,5 @@ window.onload = function () {
 	manual.init();
 
 	// 测试单项内容时需使用的配置
-	// hljs.initHighlighting();
+	hljs.initHighlighting();
 }
