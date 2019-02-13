@@ -450,14 +450,14 @@ var basicIcon = `
 	<p>这儿使用iconfont。下载iconfont代码，保存到css目录下iconfont中。</p>
 	<div class="group">
 		<div class="show-box">
-			<i class="icon iconfont icon-iconfont5"></i>
 			<i class="icon iconfont icon-gouwuche"></i>
 			<i class="icon iconfont icon-cuowu"></i>
+			<i class="icon iconfont icon-caidan"></i>
 		</div>
 		<div class="code-box">
-<pre><code class="html">&lt;i class="icon iconfont icon-iconfont5"&gt;&lt;/i&gt;
-&lt;i class="icon iconfont icon-gouwuche"&gt;&lt;/i&gt;
-&lt;i class="icon iconfont icon-cuowu"&gt;&lt;/i&gt;</code></pre>
+<pre><code class="html">&lt;i class="icon iconfont gouwuche"&gt;&lt;/i&gt;
+&lt;i class="icon iconfont icon-cuowu"&gt;&lt;/i&gt;
+&lt;i class="icon iconfont icon-caidan"&gt;&lt;/i&gt;</code></pre>
 			<button class="tag-code-btn">显示代码</button>
 		</div>
 	</div>

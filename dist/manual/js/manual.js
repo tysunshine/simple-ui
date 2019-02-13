@@ -85,6 +85,8 @@ var manual = {
 	init: function () {
 		// 节点
 		this.oLogo = document.querySelector('.header .logo');						// logo
+		this.oMenuBtn = document.querySelector('.header .menu-btn');				// 菜单按钮
+		this.oMain = document.querySelector('.main');								// 主体盒子
 		this.oLeftCont = document.getElementsByClassName('left-cont')[0];			// 左侧按钮盒子
 		this.oRightCont = document.getElementsByClassName('right-cont')[0];			// 合成内容盒子
 		this.oLinkBtns = this.oLeftCont.querySelectorAll('a');						// 所有左侧按钮
@@ -93,6 +95,7 @@ var manual = {
 		this.oCodeBox = document.getElementsByClassName('code-box');				// 代码盒子
 		this.oTagCodeBtn = document.getElementsByClassName('tag-code-btn');			// 显示、隐藏代码按钮
 
+		// 默认初始hash
 		this.home = '#basicColor';
 
 		this.initState();
@@ -113,6 +116,48 @@ var manual = {
 		// 点击logo调到首页
 		this.oLogo.onclick = function () {
 			_this.setShowCont(_this.home);
+		}
+
+		// 头部显示菜单按钮切换状态
+		this.oMenuBtn.onclick = function () {
+			// 隐藏菜单
+			if ( this.type == 'show' ) {
+				this.type = 'hide';
+				tools.setStyle(_this.oRightCont, {
+					display: 'block'
+				})
+				_this.delay(function () {
+					tools.setStyle(_this.oLeftCont, {
+						transition: 'all .6s',
+						opacity: 0,
+						top: '-80%'
+					})
+				}, function () {
+					tools.setStyle(_this.oLeftCont, {
+						display: 'none'
+					})
+				}, 630)
+
+			// 显示菜单
+			} else {
+				this.type = 'show';
+				tools.setStyle(_this.oRightCont, {
+					display: 'none'
+				})
+				_this.delay(function () {
+					tools.setStyle(_this.oLeftCont, {
+						display: 'block',
+						opacity: 0,
+						top: '-80%'
+					})
+				}, function () {
+					tools.setStyle(_this.oLeftCont, {
+						transition: 'all .6s',
+						opacity: 1,
+						top: '61px'
+					})
+				})
+			}
 		}
 
 		// 左侧禁止滚动冒泡
@@ -189,6 +234,16 @@ var manual = {
 				tools.delClass(this.oLinkBtns[i], 'is-checked');
 			}
 		}
+	},
+
+	/**
+	 * 延迟事件
+	 */
+	delay: function (prevFn, nextFn, time) {
+		prevFn();
+		setTimeout(function () {
+			nextFn();
+		}, time || 30);
 	}
 }
 

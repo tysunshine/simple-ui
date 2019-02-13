@@ -3,7 +3,14 @@
 .content { margin: 0 auto; width: 1000px; line-height: 1.5em; font-size: 14px;}
 .content::after {content: '';display: block;clear: both;}
 .header {position: fixed;top: 0;z-index: 100;width: 100%;background: rgba(255, 255, 255, .8);border-bottom: 1px solid #eee;}
+.header .content {position: relative;}
 .header .logo {display: inline-block;cursor: pointer;line-height: 60px;font-size: 26px; color: #409EFF;}
+.header .menu-btn {display: none;position: absolute; right: 15px; top: 50%;margin-top: -11px;height: 22px;width: 22px;cursor: pointer;}
+.header .menu-btn span {display: inline-block;font-size: 22px;line-height: 22px;}
+.header .menu-btn span:hover {color: #409EFF;}
+.header .menu-btn .close {display: none;}
+.header .menu-btn.is-close .menu{display: none;}
+.header .menu-btn.is-close .close {display: inline-block;}
 
 .main {padding-top: 61px;}
 .main .left-cont {position: fixed; top: 61px; bottom: 0;width: 240px;line-height: 40px;overflow: auto; background: #fff;}
@@ -68,8 +75,10 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 
 @media only screen and (max-width: 780px) {
 	.content {max-width: 100%; padding: 0 15px; box-sizing: border-box;}
+	.header .menu-btn {display: inline-block;}
 
-	.main .left-cont {display: none;}
+	.main .left-cont {display: none; top: 61px; left: 0; padding: 0 15px; width: 100%; z-index: 99;}
+	.main .left-cont a {display: inline-block;width: 100%;}
 	.main .right-cont {padding-left: 0; width: 100%;}
 	.main .jump-top-btn {margin-left: 0;left: auto; right: 40px;}
 }
