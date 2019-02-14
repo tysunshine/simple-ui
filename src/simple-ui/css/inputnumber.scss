@@ -1,0 +1,78 @@
+.sp-inputnumber {
+	position: relative;
+	width: 180px;
+	height: 40px;
+	display: inline-block;
+
+	.decrease, .increase {
+		position: absolute;
+		top: 1px;
+		width: 41px;
+		height: 38px;
+		line-height: 38px;
+		font-size: 14px;
+		text-align: center;
+		box-sizing: border-box;
+		background: #f5f7fa;
+		cursor: pointer;
+	}
+	.decrease {
+		left: 1px;
+		border-right: 1px solid #dcdfe6;
+		border-radius: 4px 0 0 4px;
+	}
+	.increase {
+		right: 1px;
+		border-left: 1px solid #dcdfe6;
+		border-radius: 0 4px 4px 0;
+	}
+	.decrease.is-disabled, .increase.is-disabled {
+		cursor: not-allowed;
+		color: #c0c4cc;
+	}
+	.sp-input {
+		padding: 0 50px;
+		width: 100%;
+		text-align: center;
+	}
+
+	&.medium {
+		height: 36px;
+	}
+	&.medium .decrease, &.medium .increase {
+		width: 37px;
+		height: 34px;
+		line-height: 35px;
+	}
+	&.medium .sp-input {
+		padding: 0 43px;
+	}
+
+	&.small {
+		width: 130px;
+		height: 32px;
+	}
+	&.small .decrease, &.small .increase {
+		width:33px;
+		height: 30px;
+		line-height: 31px;
+		font-size: 13px;
+	}
+	&.small .sp-input {
+		padding: 0 39px;
+	}
+
+	&.mini {
+		width: 130px;
+		height: 28px;
+	}
+	&.mini .decrease, &.mini .increase {
+		width: 29px;
+		height: 26px;
+		line-height: 27px;
+		font-size: 12px;
+	}
+	&.mini .sp-input {
+		padding: 0 35px;
+	}
+}

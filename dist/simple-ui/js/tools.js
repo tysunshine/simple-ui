@@ -1,6 +1,34 @@
 (function (window, document) {
 
 var tools = {
+	/**
+	 * ------------------------------------------
+	 * 事件监听与移除
+	 * ------------------------------------------
+	 */
+	//兼容版事件监听函数
+	addEvent: function (target,type,fn) {
+		if(target.addEventListener) {
+			//寻常浏览器
+			target.addEventListener(type,fn);
+		} else if(target.attachEvent) {
+			//ie低版本兼容
+			target.attachEvent("on"+type,fn);
+		} else {
+			//ie5兼容
+			target["on"+type] = fn;
+		}
+	},
+	//兼容版移除事件监听函数
+	removeEvent: function (target,type,fn) {
+		if(target.removeEventListener) {
+			target.removeEventListener(type,fn);
+		} else if(target.detachEvent) {
+			target.detachEvent("on"+type,fn);
+		} else {
+			target["on"+type] = null;
+		}
+	},
 
 	/**
 	 * ------------------------------------------
@@ -81,7 +109,6 @@ var tools = {
 	    }
 	},
 
-
 	/**
 	 * ------------------------------------------
 	 * 获取可视窗口的大小
@@ -100,7 +127,6 @@ var tools = {
 	        };
 	    }
 	},
-
 
 	/**
 	 * ------------------------------------------

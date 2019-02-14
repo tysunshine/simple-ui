@@ -50,13 +50,13 @@
 
 			for ( var j = 0; j < oCol.length; j++ ) {
 				if ( j != 0 ) {
-					Lib.setStyle(oCol[j], {
+					tools.setStyle(oCol[j], {
 						paddingLeft: iSpace / 2 + 'px'
 					})
 				}
 
 				if ( j != oCol.length - 1 ) {
-					Lib.setStyle(oCol[j], {
+					tools.setStyle(oCol[j], {
 						paddingRight: iSpace / 2 + 'px'
 					})
 				}
@@ -70,7 +70,7 @@
 			}
 
 			oCol.setAttribute('offset', iNum);
-			Lib.setStyle(oCol, {
+			tools.setStyle(oCol, {
 				marginLeft: iNum + 'px'
 			})
 		},
@@ -82,7 +82,7 @@
 			}
 
 			oCol.setAttribute('push', iNum);
-			Lib.setStyle(oCol, {
+			tools.setStyle(oCol, {
 				position: 'relative',
 				left: iNum + 'px',
 				right: 'auto'
@@ -96,7 +96,7 @@
 			}
 
 			oCol.setAttribute('pull', iNum);
-			Lib.setStyle(oCol, {
+			tools.setStyle(oCol, {
 				position: 'relative',
 				right: iNum + 'px',
 				left: 'auto'
@@ -141,7 +141,7 @@
 			var sName = this.name;
 
 			// 已经选中的状态就不执行了
-			if ( Lib.hasClass(oLabel, 'is-checked') ) {
+			if ( tools.hasClass(oLabel, 'is-checked') ) {
 				return false;
 			}
 
@@ -152,9 +152,9 @@
 					var oL = _this.oLabelList[i];
 					
 					if ( oL == oLabel ) {
-						Lib.addClass(oL, 'is-checked');
+						tools.addClass(oL, 'is-checked');
 					} else {
-						Lib.delClass(oL, 'is-checked');
+						tools.delClass(oL, 'is-checked');
 					}
 				}
 			}
@@ -169,7 +169,7 @@
 				this.click();
 			} else {
 				this.checked = false;
-				Lib.delClass(this.parentNode, 'is-checked');
+				tools.delClass(this.parentNode, 'is-checked');
 			}
 		},
 
@@ -181,10 +181,10 @@
 			var oLabel = this.parentNode;
 			if ( bl ) {
 				this.disabled = true;
-				Lib.addClass(oLabel, 'is-disabled');
+				tools.addClass(oLabel, 'is-disabled');
 			} else {
 				this.disabled = false;
-				Lib.delClass(oLabel, 'is-disabled');
+				tools.delClass(oLabel, 'is-disabled');
 			}
 		}
 	}
@@ -221,9 +221,9 @@
 			var oLabel = this.parentNode;
 
 			if ( this.checked ) {
-				Lib.addClass(oLabel, 'is-checked');
+				tools.addClass(oLabel, 'is-checked');
 			} else {
-				Lib.delClass(oLabel, 'is-checked');
+				tools.delClass(oLabel, 'is-checked');
 			}
 		},
 
@@ -235,11 +235,54 @@
 			var oLabel = this.parentNode;
 			if ( bl ) {
 				this.disabled = true;
-				Lib.addClass(oLabel, 'is-disabled');
+				tools.addClass(oLabel, 'is-disabled');
 			} else {
 				this.disabled = false;
-				Lib.delClass(oLabel, 'is-disabled');
+				tools.delClass(oLabel, 'is-disabled');
 			}
+		}
+	}
+
+	// 计数器
+	var SpInputnumber = {
+		init: function () {
+			this.oIpnumberList = document.querySelectorAll('.sp-inputnumber');
+
+			this.initState();
+		},
+
+		initState: function () {
+
+			for ( var i = 0 ; i < this.oIpnumberList.length; i++ ) {
+				var oNumber = this.oIpnumberList[i];
+				
+				// 判断该节点是否已经初始化完成
+				if ( !oNumber.isInited ) {
+					this.initHtml(oNumber);
+				}
+			}
+
+		},
+
+		initEvent: function () {
+
+		},
+
+		/**
+		 * 初始化html代码
+		 */
+		initHtml: function (oNumber) {
+			// 设置节点已经初始化的标志，不会再重新初始化
+			oNumber.isInited = true;
+
+			// 尺寸
+			var size = tools.hasClass(oNumber, 'mini') ? ' mini' : tools.hasClass(oNumber, 'small') ? ' small' : tools.hasClass(oNumber, 'medium') ? ' medium' : '';
+
+			var html = '<span class="decrease"><i class="sp-icon-minus"></i></span>';
+			html += '<span class="increase"><i class="sp-icon-plus"></i></span>';
+			html += '<input class="sp-input' + size + '" type="text">';
+
+			oNumber.innerHTML = html;
 		}
 	}
 	
@@ -249,6 +292,7 @@
 			this.layout = SpLayout;
 			this.radio = SpRadio;
 			this.checkbox = SpCheckbox;
+			this.inputnumber = SpInputnumber;
 
 			this.initState();
 			this.initEvent();
@@ -258,116 +302,15 @@
 			this.layout.init();
 			this.radio.init();
 			this.checkbox.init();
+			this.inputnumber.init();
 		},
 
 		initEvent: function () {
 		}
 	}
 
-	var Lib = {
-		//兼容版事件监听函数
-		addEvent: function (target,type,fn) {
-			if(target.addEventListener) {
-				//寻常浏览器
-				target.addEventListener(type,fn);
-			} else if(target.attachEvent) {
-				//ie低版本兼容
-				target.attachEvent("on"+type,fn);
-			} else {
-				//ie5兼容
-				target["on"+type] = fn;
-			}
-		},
-		//兼容版移除事件监听函数
-		removeEvent: function (target,type,fn) {
-			if(target.removeEventListener) {
-				target.removeEventListener(type,fn);
-			} else if(target.detachEvent) {
-				target.detachEvent("on"+type,fn);
-			} else {
-				target["on"+type] = null;
-			}
-		},
-		// 获取样式
-		getStyle: function (obj, name) {
-		    if(window.getComputedStyle) {
-		        return getComputedStyle(obj, null)[name];
-		    } else {
-		        return obj.currentStyle[name];
-		    }
-		},
-		// 设置样式
-		setStyle: function (obj, oStyle) {
-		    for(var i in oStyle) {
-		        obj.style[i] = oStyle[i];
-		    }
-		},
-
-		// 获取节点的class列表
-		getClassList: function (obj) {
-			var sClass = obj.className;
-			var aClass = sClass.split(' ');
-			var list = [];
-			for ( var i = 0; i < aClass.length; i++ ) {
-				var item = aClass[i];
-				if ( item ) {
-					list.push(item);
-				}
-			}
-			return list;
-		},
-
-		// 判断是否存在class
-		hasClass: function (obj, name) {
-			var sClass = obj.className;
-			var reg = new RegExp('\\b' + name + '\\b');
-			if ( reg.test(sClass) ) {
-				return true;
-			}
-			return false;
-		},
-
-		// 添加样式名
-		addClass: function (obj, name) {
-			var hasName = this.hasClass(obj, name);
-
-			if ( !hasName ) {
-				var aClass = this.getClassList(obj);
-				var sClass = '';
-				aClass.push(name);
-
-				for ( var i = 0; i < aClass.length; i++ ) {
-					var item = aClass[i];
-					sClass += item;
-					if ( i < aClass.length - 1) {
-						sClass += ' ';
-					}
-				}
-
-				obj.className = sClass;
-			}
-		},
-
-		// 删除样式名
-		delClass: function (obj, name) {
-			var hasName = this.hasClass(obj, name);
-
-			if ( hasName ) {
-				var sClass = obj.className;
-				var arr = sClass.split(name);
-				sClass = '';
-
-				for ( var i = 0; i < arr.length; i++ ) {
-					var item = arr[i];
-					sClass += item;
-				}
-				obj.className = sClass;
-			}
-		},
-	}
-
 	window.SimpleUi = SimpleUi;
-	Lib.addEvent(window, 'load', function () {
+	tools.addEvent(window, 'load', function () {
 		SimpleUi.init();
 	})
 })(window, document)

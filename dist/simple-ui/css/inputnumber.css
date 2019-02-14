@@ -1,0 +1,59 @@
+.sp-inputnumber {
+  position: relative;
+  width: 180px;
+  height: 40px;
+  display: inline-block; }
+  .sp-inputnumber .decrease, .sp-inputnumber .increase {
+    position: absolute;
+    top: 1px;
+    width: 41px;
+    height: 38px;
+    line-height: 38px;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+    background: #f5f7fa;
+    cursor: pointer; }
+  .sp-inputnumber .decrease {
+    left: 1px;
+    border-right: 1px solid #dcdfe6;
+    border-radius: 4px 0 0 4px; }
+  .sp-inputnumber .increase {
+    right: 1px;
+    border-left: 1px solid #dcdfe6;
+    border-radius: 0 4px 4px 0; }
+  .sp-inputnumber .decrease.is-disabled, .sp-inputnumber .increase.is-disabled {
+    cursor: not-allowed;
+    color: #c0c4cc; }
+  .sp-inputnumber .sp-input {
+    padding: 0 50px;
+    width: 100%;
+    text-align: center; }
+  .sp-inputnumber.medium {
+    height: 36px; }
+  .sp-inputnumber.medium .decrease, .sp-inputnumber.medium .increase {
+    width: 37px;
+    height: 34px;
+    line-height: 35px; }
+  .sp-inputnumber.medium .sp-input {
+    padding: 0 43px; }
+  .sp-inputnumber.small {
+    width: 130px;
+    height: 32px; }
+  .sp-inputnumber.small .decrease, .sp-inputnumber.small .increase {
+    width: 33px;
+    height: 30px;
+    line-height: 31px;
+    font-size: 13px; }
+  .sp-inputnumber.small .sp-input {
+    padding: 0 39px; }
+  .sp-inputnumber.mini {
+    width: 130px;
+    height: 28px; }
+  .sp-inputnumber.mini .decrease, .sp-inputnumber.mini .increase {
+    width: 29px;
+    height: 26px;
+    line-height: 27px;
+    font-size: 12px; }
+  .sp-inputnumber.mini .sp-input {
+    padding: 0 35px; }
