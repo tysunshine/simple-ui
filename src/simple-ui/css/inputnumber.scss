@@ -3,10 +3,17 @@
 	width: 180px;
 	height: 40px;
 	display: inline-block;
-
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	
 	.decrease, .increase {
 		position: absolute;
 		top: 1px;
+		z-index: 1;
 		width: 41px;
 		height: 38px;
 		line-height: 38px;

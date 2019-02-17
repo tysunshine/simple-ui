@@ -258,34 +258,136 @@
 				
 				// 判断该节点是否已经初始化完成
 				if ( !oNumber.isInited ) {
+					this.initParams(oNumber);
 					this.initHtml(oNumber);
 				}
 			}
 
 		},
 
-		initEvent: function () {
+		initEvent: function (oNumber) {
+			var _this = this;
+			var oDecrease = oNumber.querySelector('.decrease');
+			var oIncrease = oNumber.querySelector('.increase');
+			var oIpt = oNumber.querySelector('.sp-input');
 
+			// 减号
+			oDecrease.onclick = function () {
+				var iValue = oIpt.value;
+				if ( oNumber.params.min != 'null' && oNumber.params.min >= iValue - oNumber.params.step ) {
+					iValue = oNumber.params.min;
+				} else {
+					iValue--;
+				}
+				oIpt.value = iValue.toFixed(oNumber.params.precision);
+			}
+
+			// 加号
+			oIncrease.onclick = function () {
+				var iValue = oIpt.value;
+				if ( oNumber.params.max != 'null' && oNumber.params.max <= iValue - oNumber.params.step ) {
+					iValue = oNumber.params.max;
+				} else {
+					iValue++;
+				}
+				oIpt.value = iValue.toFixed(oNumber.params.precision);
+			}
+
+			// 文本框
+			oIpt.onblur = function () {
+				console.log('失去焦点')
+			}
+		},
+
+		/**
+		 * 初始化参数
+		 */
+		initParams: function (oNumber) {
+
+			oNumber.params = {};
+
+			// 精度
+			var iPrecision = oNumber.getAttribute('precision');
+			if ( !(iPrecision >= 0 && iPrecision <= 20) ) {
+				iPrecision = 0;
+			}
+			oNumber.params.precision = iPrecision;
+
+			// 最小值
+			var iMin = oNumber.getAttribute('min');
+			if ( !regs.number.test(iMin) ) {
+				iMin = 'null';
+			}
+			oNumber.params.min = iMin;
+
+			// 最小值
+			var iMax = oNumber.getAttribute('max');
+			if ( !regs.number.test(iMax) ) {
+				iMax = 'null';
+			}
+			if ( iMin != 'null' && iMax < iMin ) {
+				iMax = iMin;
+			}
+			oNumber.params.max = iMax;
+
+			// 步数
+			var iStep = oNumber.getAttribute('step');
+			if ( !regs.number.test(iMax) ) {
+				iStep = 1;
+			}
+			oNumber.params.step = iStep;
+
+			// 默认值
+			var iValue = oNumber.getAttribute('value');
+			if ( !regs.number.test(iValue) ) {
+				iValue = 1;
+			} else {
+				iValue = Number(iValue);
+			}
+			if ( iMin != 'null' && iValue < iMin ) {
+				iValue = iMin;
+			}
+			if ( iMax != 'null' && iValue > iMax ) {
+				iValue = iMax;
+			}
+			iValue = iValue.toFixed(iPrecision);
+			oNumber.params.value = iValue;
 		},
 
 		/**
 		 * 初始化html代码
 		 */
 		initHtml: function (oNumber) {
+			var _this = this;
 			// 设置节点已经初始化的标志，不会再重新初始化
 			oNumber.isInited = true;
 
 			// 尺寸
 			var size = tools.hasClass(oNumber, 'mini') ? ' mini' : tools.hasClass(oNumber, 'small') ? ' small' : tools.hasClass(oNumber, 'medium') ? ' medium' : '';
 
-			var html = '<span class="decrease"><i class="sp-icon-minus"></i></span>';
+			var html = '';
+			// 减号
+			html += '<span class="decrease"><i class="sp-icon-minus"></i></span>';
+			// 加号
 			html += '<span class="increase"><i class="sp-icon-plus"></i></span>';
-			html += '<input class="sp-input' + size + '" type="text">';
+			// 文本框
+			html += '<input class="sp-input' + size + '" type="text"';
+			html += ' value="' + oNumber.params.value + '"';
+			html += '>';
 
 			oNumber.innerHTML = html;
+
+			this.initEvent(oNumber);
 		}
 	}
 	
+
+	// 需要使用到的正则表达式
+	var regs = {
+		// 数值类型
+		number:  /^(\-|\+)?\d+(\.\d+)?$/
+	}
+
 	// 简单的UI
 	var SimpleUi = {
 		init: function () {

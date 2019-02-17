@@ -151,6 +151,15 @@ var tools = {
 	    } while(oParent && oParent != oBody && oParent != oHtml)
 
 	    return oDistance;
+	},
+
+	/**
+	 * ------------------------------------------
+	 * 判断数据是否为空:null '' undefined
+	 * ------------------------------------------
+	 */
+	isNull: function (val) {
+		return !val && val!==0 && typeof val!=="boolean"?true:false;
 	}
 }
 
