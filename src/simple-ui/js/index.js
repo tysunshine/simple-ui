@@ -271,31 +271,77 @@
 			var oIncrease = oNumber.querySelector('.increase');
 			var oIpt = oNumber.querySelector('.sp-input');
 
-			// 减号
+			// 计数器盒子设置disabled状态
+			oNumber.setDisabled = this.bindDisabled;
+			// 获取文本框的value值
+			oNumber.getValue = this.bindGetValue;
+
+			// 减号移上移出时变色
+			oDecrease.onmouseenter = function () {
+				if ( oNumber.isDisabled ) {
+					return false;
+				}
+				tools.addClass(oNumber, 'is-hover');
+			}
+			oDecrease.onmouseleave = function () {
+				tools.delClass(oNumber, 'is-hover');
+			}
+
+			// 加号移上移出时变色
+			oIncrease.onmouseenter = function () {
+				if ( oNumber.isDisabled ) {
+					return false;
+				}
+				tools.addClass(oNumber, 'is-hover');
+			}
+			oIncrease.onmouseleave = function () {
+				tools.delClass(oNumber, 'is-hover');
+			}
+
+			// 减号 点击
 			oDecrease.onclick = function () {
+				if ( tools.hasClass(this, 'is-disabled') ) {
+					return false;
+				}
 				var iValue = oIpt.value;
 				if ( oNumber.params.min != 'null' && oNumber.params.min >= iValue - oNumber.params.step ) {
 					iValue = oNumber.params.min;
+					tools.addClass(this, 'is-disabled');
 				} else {
 					iValue--;
+					tools.delClass(oIncrease, 'is-disabled');
 				}
 				oIpt.value = iValue.toFixed(oNumber.params.precision);
 			}
 
-			// 加号
+			// 加号 点击
 			oIncrease.onclick = function () {
+				if ( tools.hasClass(this, 'is-disabled') ) {
+					return false;
+				}
 				var iValue = oIpt.value;
 				if ( oNumber.params.max != 'null' && oNumber.params.max <= iValue - oNumber.params.step ) {
 					iValue = oNumber.params.max;
+					tools.addClass(this, 'is-disabled');
 				} else {
 					iValue++;
+					tools.delClass(oDecrease, 'is-disabled');
 				}
 				oIpt.value = iValue.toFixed(oNumber.params.precision);
 			}
 
-			// 文本框
+			// 文本框失去焦点 验证数据
 			oIpt.onblur = function () {
-				console.log('失去焦点')
+				var iValue = this.value;
+
+				// 验证数字类型
+				iValue = regs.number.test(iValue) ? Number(iValue) : oNumber.params.value;
+
+				// 验证大小
+				iValue = iValue <= oNumber.params.min ? oNumber.params.min : iValue >= oNumber.params.max ? oNumber.params.max : iValue;
+
+				// 验证小数及赋值
+				this.value = iValue.toFixed(oNumber.params.precision);
 			}
 		},
 
@@ -303,55 +349,46 @@
 		 * 初始化参数
 		 */
 		initParams: function (oNumber) {
-
 			oNumber.params = {};
 
 			// 精度
 			var iPrecision = oNumber.getAttribute('precision');
-			if ( !(iPrecision >= 0 && iPrecision <= 20) ) {
-				iPrecision = 0;
-			}
+			iPrecision = (iPrecision >= 0 && iPrecision <= 20) ? iPrecision : 0;
 			oNumber.params.precision = iPrecision;
 
 			// 最小值
 			var iMin = oNumber.getAttribute('min');
-			if ( !regs.number.test(iMin) ) {
-				iMin = 'null';
-			}
+			iMin = regs.number.test(iMin) ? Number(iMin) : 'null';
 			oNumber.params.min = iMin;
 
 			// 最小值
 			var iMax = oNumber.getAttribute('max');
-			if ( !regs.number.test(iMax) ) {
-				iMax = 'null';
-			}
-			if ( iMin != 'null' && iMax < iMin ) {
-				iMax = iMin;
-			}
+			iMax = regs.number.test(iMax) ? Number(iMax) : 'null';
+			iMax = (iMin != 'null' && iMax < iMin) ? iMin : iMax;
 			oNumber.params.max = iMax;
 
 			// 步数
 			var iStep = oNumber.getAttribute('step');
-			if ( !regs.number.test(iMax) ) {
-				iStep = 1;
-			}
+			iStep = regs.number.test(iMax) ? Number(iStep) : 1;
 			oNumber.params.step = iStep;
 
 			// 默认值
 			var iValue = oNumber.getAttribute('value');
-			if ( !regs.number.test(iValue) ) {
-				iValue = 1;
-			} else {
-				iValue = Number(iValue);
-			}
-			if ( iMin != 'null' && iValue < iMin ) {
-				iValue = iMin;
-			}
-			if ( iMax != 'null' && iValue > iMax ) {
-				iValue = iMax;
-			}
-			iValue = iValue.toFixed(iPrecision);
+			iValue = regs.number.test(iValue) ? Number(iValue) : 1;
+			iValue = (iMin != 'null' && iValue <= iMin) ? iMin : (iMax != 'null' && iValue >= iMax) ? iMax : iValue;
+			iValue = Number(iValue.toFixed(iPrecision));
 			oNumber.params.value = iValue;
+
+			// 使用使用控件
+			var blControls = oNumber.getAttribute('controls');
+			if ( blControls === false || blControls == 'false' ) {
+				tools.addClass(oNumber, 'is-no-controls');
+			} else {
+				var sPosition = oNumber.getAttribute('controls-position');
+				if ( sPosition == 'right' ) {
+					tools.addClass(oNumber, 'is-controls-right');
+				}
+			}
 		},
 
 		/**
@@ -367,9 +404,9 @@
 
 			var html = '';
 			// 减号
-			html += '<span class="decrease"><i class="sp-icon-minus"></i></span>';
+			html += '<span class="decrease' + (oNumber.params.min != 'null' && oNumber.params.min >= oNumber.params.value ? ' is-disabled' : '') + '"><i class="sp-icon-minus"></i></span>';
 			// 加号
-			html += '<span class="increase"><i class="sp-icon-plus"></i></span>';
+			html += '<span class="increase' + (oNumber.params.max != 'null' && oNumber.params.max <= oNumber.params.value ? ' is-disabled' : '') + '"><i class="sp-icon-plus"></i></span>';
 			// 文本框
 			html += '<input class="sp-input' + size + '" type="text"';
 			html += ' value="' + oNumber.params.value + '"';
@@ -378,6 +415,41 @@
 			oNumber.innerHTML = html;
 
 			this.initEvent(oNumber);
+		},
+
+		/**
+		 * 设置整个sp-inputnumber的disabled状态处理函数
+		 */
+		bindDisabled: function (bl) {
+			var oDecrease = this.querySelector('.decrease');
+			var oIncrease = this.querySelector('.increase');
+			var oIpt = this.querySelector('.sp-input');
+
+			if ( bl ) {
+				this.isDisabled = true;
+				tools.addClass(oDecrease, 'is-disabled');
+				tools.addClass(oIncrease, 'is-disabled');
+				oIpt.setAttribute('disabled', true);
+
+			} else {
+				this.isDisabled = false;
+				var iValue = oIpt.value;
+				if ( this.params.min == 'null' || iValue > this.params.min ) {
+					tools.delClass(oDecrease, 'is-disabled');
+				}
+				if ( this.params.max == 'null' || iValue < this.params.max ) {
+					tools.delClass(oIncrease, 'is-disabled');
+				}
+				oIpt.removeAttribute('disabled');
+			}
+		},
+
+		/**
+		 * 获取sp-inputnumber的value的处理函数
+		 */
+		bindGetValue: function () {
+			var oIpt = this.querySelector('.sp-input');
+			return oIpt.value;
 		}
 	}
 	

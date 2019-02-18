@@ -44,8 +44,8 @@
 		6、禁用状态disabled属性为true时禁用<br>
 		7、最小最大值，min最小，max最大，达到边界后加减按钮禁用，失去焦点时校正<br>
 		8、通过添加medium、small、mini类名改变尺寸<br>
-		9、是否使用按钮controls<br>
-		10、按钮位置controls-position，值left、right、bothsides(默认)，通过添加is-controls-right、is-controls-left类名改变按钮位置。
+		9、是否使用按钮controls，通过is-no-controls控制<br>
+		10、按钮位置controls-position，可选值right，通过添加is-controls-right类名改变按钮位置。
 	</div>
 
 	<!-- <div class="group">
@@ -91,7 +91,7 @@
 
 	<div class="group">
 		<h3>最大值max，最小值min</h3>
-		<div class="sp-inputnumber" max="5" min="-5"></div>
+		<div class="sp-inputnumber" max="2" min="-2" value="-2"></div>
 	</div>
 
 	<div class="group">
@@ -102,7 +102,60 @@
 		<div class="sp-inputnumber mini"></div>
 	</div>
 
+	<div class="group">
+		<h3>不适用按钮controls=false</h3>
+		<div class="sp-inputnumber" controls="false"></div>
+		<div class="sp-inputnumber medium" controls="false"></div>
+		<div class="sp-inputnumber small" controls="false"></div>
+		<div class="sp-inputnumber mini" controls="false"></div>
+	</div>
+
+	<div class="group">
+		<h3>controls-position="right"</h3>
+		<div class="sp-inputnumber" controls-position="right"></div>
+		<div class="sp-inputnumber medium" controls-position="right"></div>
+		<div class="sp-inputnumber small" controls-position="right"></div>
+		<div class="sp-inputnumber mini" controls-position="right"></div>
+	</div>
+
+	<div class="group">
+		<h3>设置disabled状态</h3>
+		<div id="nb1" class="sp-inputnumber"></div>
+		<button class="nb1-btn">切换</button>
+	</div>
+
+	<div class="group">
+		<h3>获取输入框值</h3>
+		<div id="nb2" class="sp-inputnumber"></div>
+		<button class="nb2-btn">获取</button>
+		<span class="nb2-text"></span>
+	</div>
+
 	<script src="../js/tools.js"></script>
 	<script src="../js/index.js"></script>
+	<script>
+		
+		var oNb1 = document.querySelector('#nb1');
+		var oBtn1 = document.querySelector('.nb1-btn');
+
+		oBtn1.onclick = function () {
+			if ( this.isDisabled ) {
+				this.isDisabled = false;
+				oNb1.setDisabled(false);
+			} else {
+				this.isDisabled = true;
+				oNb1.setDisabled(true);
+			}
+		}
+
+		var oNb2 = document.querySelector('#nb2');
+		var oBtn2 = document.querySelector('.nb2-btn');
+		var oText2 = document.querySelector('.nb2-text');
+
+		oBtn2.onclick = function () {
+			oText2.innerHTML = oNb2.getValue();
+		}
+
+	</script>
 </body>
 </html>

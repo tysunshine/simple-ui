@@ -36,31 +36,60 @@
     padding: 0 50px;
     width: 100%;
     text-align: center; }
+  .sp-inputnumber.is-hover .sp-input {
+    border-color: #409EFF; }
   .sp-inputnumber.medium {
     height: 36px; }
-  .sp-inputnumber.medium .decrease, .sp-inputnumber.medium .increase {
-    width: 37px;
-    height: 34px;
-    line-height: 35px; }
-  .sp-inputnumber.medium .sp-input {
-    padding: 0 43px; }
+    .sp-inputnumber.medium .decrease, .sp-inputnumber.medium .increase {
+      width: 37px;
+      height: 34px;
+      line-height: 35px; }
+    .sp-inputnumber.medium .sp-input {
+      padding: 0 43px; }
   .sp-inputnumber.small {
     width: 130px;
     height: 32px; }
-  .sp-inputnumber.small .decrease, .sp-inputnumber.small .increase {
-    width: 33px;
-    height: 30px;
-    line-height: 31px;
-    font-size: 13px; }
-  .sp-inputnumber.small .sp-input {
-    padding: 0 39px; }
+    .sp-inputnumber.small .decrease, .sp-inputnumber.small .increase {
+      width: 33px;
+      height: 30px;
+      line-height: 31px;
+      font-size: 13px; }
+    .sp-inputnumber.small .sp-input {
+      padding: 0 39px; }
   .sp-inputnumber.mini {
     width: 130px;
     height: 28px; }
-  .sp-inputnumber.mini .decrease, .sp-inputnumber.mini .increase {
-    width: 29px;
-    height: 26px;
-    line-height: 27px;
-    font-size: 12px; }
-  .sp-inputnumber.mini .sp-input {
-    padding: 0 35px; }
+    .sp-inputnumber.mini .decrease, .sp-inputnumber.mini .increase {
+      width: 29px;
+      height: 26px;
+      line-height: 27px;
+      font-size: 12px; }
+    .sp-inputnumber.mini .sp-input {
+      padding: 0 35px; }
+  .sp-inputnumber.is-controls-right .decrease {
+    top: auto;
+    bottom: 1px;
+    right: 1px;
+    left: auto;
+    border-radius: 0 0 4px 0;
+    line-height: 19px;
+    height: auto;
+    border-right: none;
+    border-left: 1px solid #dcdfe6;
+    font-size: 13px; }
+  .sp-inputnumber.is-controls-right .increase {
+    height: auto;
+    line-height: 19px;
+    border-radius: 0 4px 0 0;
+    border-bottom: 1px solid #dcdfe6;
+    font-size: 13px; }
+  .sp-inputnumber.is-controls-right.medium .decrease, .sp-inputnumber.is-controls-right.medium .increase {
+    line-height: 17px; }
+  .sp-inputnumber.is-controls-right.small .decrease, .sp-inputnumber.is-controls-right.small .increase {
+    line-height: 15px; }
+  .sp-inputnumber.is-controls-right.mini .decrease, .sp-inputnumber.is-controls-right.mini .increase {
+    line-height: 13px; }
+  .sp-inputnumber.is-no-controls .decrease, .sp-inputnumber.is-no-controls .increase {
+    display: none; }
+  .sp-inputnumber.is-no-controls .sp-input {
+    padding: 15px; }
