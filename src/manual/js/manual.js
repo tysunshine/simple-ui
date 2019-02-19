@@ -221,6 +221,7 @@ var manual = {
 			case 'basicLayout': oLayout.init(); SimpleUi.layout.init(); break;
 			case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
 			case 'formCheckbox': SimpleUi.checkbox.init(); break;
+			case 'formInputnumber': SimpleUi.inputnumber.init(); break;
 		}
 
 		// 初始化代码块

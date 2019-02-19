@@ -1,4 +1,4 @@
-.sp-inputnumber {
+.sp-input-number {
 	position: relative;
 	width: 180px;
 	height: 40px;
@@ -42,7 +42,8 @@
 		width: 100%;
 		text-align: center;
 	}
-	&.is-hover .sp-input {
+	
+	.decrease:not(.is-disabled):hover~.sp-input, .increase:not(.is-disabled):hover~.sp-input {
 		border-color: #409EFF;
 	}
 
@@ -87,24 +88,26 @@
 	}
 
 	&.is-controls-right {
+		.decrease, .increase {
+			height: auto;
+			line-height: 19px;
+			font-size: 13px;
+			[class^=sp-icon-] {
+				transform: scale(.8);
+			}
+		}
 		.decrease {
 			top: auto;
 			bottom: 1px;
 			right: 1px;
 			left: auto;
 			border-radius: 0 0 4px 0;
-			line-height: 19px;
-			height: auto;
 			border-right: none;
 			border-left: 1px solid #dcdfe6;
-			font-size: 13px;
 		}
 		.increase {
-			height: auto;
-			line-height: 19px;
 			border-radius: 0 4px 0 0;
 			border-bottom: 1px solid #dcdfe6;
-			font-size: 13px;
 		}
 		&.medium {
 			.decrease, .increase {

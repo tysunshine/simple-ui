@@ -48,86 +48,63 @@
 		10、按钮位置controls-position，可选值right，通过添加is-controls-right类名改变按钮位置。
 	</div>
 
-	<!-- <div class="group">
-		<h3>默认样式</h3>
-		<div class="sp-inputnumber">
-			<span class="decrease">
-				<i class="sp-icon-minus"></i>
-			</span>
-			<span class="increase">
-				<i class="sp-icon-plus"></i>
-			</span>
-			<input class="sp-input" type="text">
-		</div>
-	</div>
-
-	<div class="group">
-		<h3>按钮不能点击状态</h3>
-		<div class="sp-inputnumber">
-			<span class="decrease is-disabled">
-				<i class="sp-icon-minus"></i>
-			</span>
-			<span class="increase">
-				<i class="sp-icon-plus"></i>
-			</span>
-			<input class="sp-input" type="text">
-		</div>
-	</div> -->
-
 	<div class="group">
 		<h3>默认样式</h3>
-		<div class="sp-inputnumber"></div>
+		<div class="sp-input-number"></div>
 	</div>
 
 	<div class="group">
 		<h3>value初始值，默认为1</h3>
-		<div class="sp-inputnumber" value="0"></div>
+		<div class="sp-input-number" value="0"></div>
 	</div>
 
 	<div class="group">
 		<h3>precision精度，在0到20之间</h3>
-		<div class="sp-inputnumber" precision="2" value="3.14159"></div>
+		<div class="sp-input-number" precision="2" value="3.14159"></div>
 	</div>
 
 	<div class="group">
 		<h3>最大值max，最小值min</h3>
-		<div class="sp-inputnumber" max="2" min="-2" value="-2"></div>
+		<div class="sp-input-number" max="2" min="-2" value="-2"></div>
 	</div>
 
 	<div class="group">
 		<h3>尺寸</h3>
-		<div class="sp-inputnumber"></div>
-		<div class="sp-inputnumber medium"></div>
-		<div class="sp-inputnumber small"></div>
-		<div class="sp-inputnumber mini"></div>
+		<div class="sp-input-number"></div>
+		<div class="sp-input-number medium"></div>
+		<div class="sp-input-number small"></div>
+		<div class="sp-input-number mini"></div>
 	</div>
 
 	<div class="group">
 		<h3>不适用按钮controls=false</h3>
-		<div class="sp-inputnumber" controls="false"></div>
-		<div class="sp-inputnumber medium" controls="false"></div>
-		<div class="sp-inputnumber small" controls="false"></div>
-		<div class="sp-inputnumber mini" controls="false"></div>
+		<div class="sp-input-number" controls="false"></div>
+		<div class="sp-input-number medium" controls="false"></div>
+		<div class="sp-input-number small" controls="false"></div>
+		<div class="sp-input-number mini" controls="false"></div>
 	</div>
 
 	<div class="group">
 		<h3>controls-position="right"</h3>
-		<div class="sp-inputnumber" controls-position="right"></div>
-		<div class="sp-inputnumber medium" controls-position="right"></div>
-		<div class="sp-inputnumber small" controls-position="right"></div>
-		<div class="sp-inputnumber mini" controls-position="right"></div>
+		<div class="sp-input-number" controls-position="right"></div>
+		<div class="sp-input-number medium" controls-position="right" value="1" min="1"></div>
+		<div class="sp-input-number small" controls-position="right"></div>
+		<div class="sp-input-number mini" controls-position="right"></div>
 	</div>
 
 	<div class="group">
-		<h3>设置disabled状态</h3>
-		<div id="nb1" class="sp-inputnumber"></div>
-		<button class="nb1-btn">切换</button>
+		<h3>disabled状态</h3>
+		<div id="nb1" class="sp-input-number"></div>
+		<button class="nb1-set-btn">切换</button>
+		<button class="nb1-get-btn">获取</button>
+		<span class="nb1-text"></span>
 	</div>
 
 	<div class="group">
 		<h3>获取输入框值</h3>
-		<div id="nb2" class="sp-inputnumber"></div>
-		<button class="nb2-btn">获取</button>
+		<div id="nb2" class="sp-input-number"></div>
+		<button class="nb2-set-btn">设置</button>
+		<button class="nb2-get-btn">获取</button>
 		<span class="nb2-text"></span>
 	</div>
 
@@ -136,9 +113,14 @@
 	<script>
 		
 		var oNb1 = document.querySelector('#nb1');
-		var oBtn1 = document.querySelector('.nb1-btn');
+		var oBtnSet1 = document.querySelector('.nb1-set-btn');
+		var oBtnGet1 = document.querySelector('.nb1-get-btn');
+		var oText1 = document.querySelector('.nb1-text');
 
-		oBtn1.onclick = function () {
+		oBtnGet1.onclick = function () {
+			oText1.innerHTML = oNb1.getDisabled();
+		}
+		oBtnSet1.onclick = function () {
 			if ( this.isDisabled ) {
 				this.isDisabled = false;
 				oNb1.setDisabled(false);
@@ -149,11 +131,15 @@
 		}
 
 		var oNb2 = document.querySelector('#nb2');
-		var oBtn2 = document.querySelector('.nb2-btn');
+		var oBtnSet2 = document.querySelector('.nb2-set-btn');
+		var oBtnGet2 = document.querySelector('.nb2-get-btn');
 		var oText2 = document.querySelector('.nb2-text');
 
-		oBtn2.onclick = function () {
+		oBtnGet2.onclick = function () {
 			oText2.innerHTML = oNb2.getValue();
+		}
+		oBtnSet2.onclick = function () {
+			oNb2.setValue(10);
 		}
 
 	</script>

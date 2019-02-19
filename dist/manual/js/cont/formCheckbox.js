@@ -61,7 +61,8 @@ var formCheckbox = `
 		</thead>
 		<tbody>
 			<tr><td>click</td><td>设置选中状态</td></tr>
-			<tr><td>setDisabled</td><td>设置禁用状态</td></tr>
+			<tr><td>getDisabled</td><td>获取禁用状态</td></tr>
+			<tr><td>setDisabled</td><td>设置禁用状态，参数（true/false）</td></tr>
 		</tbody>
 	</table>
 </div>

@@ -126,8 +126,10 @@
 					this.oLabelList[i].hasEvent = true;
 					// 绑定事件
 					this.oRadioList[i].onclick = this.bindClick;
-					this.oRadioList[i].setChecked = this.bindChecked;
-					this.oRadioList[i].setDisabled = this.bindDisabled;
+					this.oRadioList[i].getChecked = this.bindGetChecked;
+					this.oRadioList[i].setChecked = this.bindSetChecked;
+					this.oRadioList[i].getDisabled = this.bindGetDisabled;
+					this.oRadioList[i].setDisabled = this.bindSetDisabled;
 				}
 			}
 		},
@@ -164,7 +166,10 @@
 		 * 设置单选按钮的选中状态
 		 * bl true为选中，false为未选中
 		 */
-		bindChecked: function (bl) {
+		bindGetChecked: function () {
+			return this.checked;
+		},
+		bindSetChecked: function (bl) {
 			if ( bl ) {
 				this.click();
 			} else {
@@ -177,7 +182,10 @@
 		 * 设置单选按钮的可选状态
 		 * bl true为可选择，false为不可选择
 		 */
-		bindDisabled: function (bl) {
+		bindGetDisabled: function () {
+			return this.disabled;
+		},
+		bindSetDisabled: function (bl) {
 			var oLabel = this.parentNode;
 			if ( bl ) {
 				this.disabled = true;
@@ -208,7 +216,8 @@
 					this.oLabelList[i].hasEvent = true;
 					// 绑定事件
 					this.oCheckList[i].onclick = this.bindClick;
-					this.oCheckList[i].setDisabled = this.bindDisabled;
+					this.oCheckList[i].getDisabled = this.bindGetDisabled;
+					this.oCheckList[i].setDisabled = this.bindSetDisabled;
 				}
 			}
 		},
@@ -231,7 +240,10 @@
 		 * 绑定不可选择
 		 * bl true为可选
 		 */
-		bindDisabled: function (bl) {
+		bindGetDisabled: function () {
+			return this.disabled;
+		},
+		bindSetDisabled: function (bl) {
 			var oLabel = this.parentNode;
 			if ( bl ) {
 				this.disabled = true;
@@ -246,13 +258,12 @@
 	// 计数器
 	var SpInputnumber = {
 		init: function () {
-			this.oIpnumberList = document.querySelectorAll('.sp-inputnumber');
-
+			this.oIpnumberList = document.querySelectorAll('.sp-input-number');
+			
 			this.initState();
 		},
 
 		initState: function () {
-
 			for ( var i = 0 ; i < this.oIpnumberList.length; i++ ) {
 				var oNumber = this.oIpnumberList[i];
 				
@@ -262,53 +273,28 @@
 					this.initHtml(oNumber);
 				}
 			}
-
 		},
 
-		initEvent: function (oNumber) {
+		initEvent: function (oNumber, oDecrease, oIncrease, oIpt) {
 			var _this = this;
-			var oDecrease = oNumber.querySelector('.decrease');
-			var oIncrease = oNumber.querySelector('.increase');
-			var oIpt = oNumber.querySelector('.sp-input');
 
 			// 计数器盒子设置disabled状态
-			oNumber.setDisabled = this.bindDisabled;
+			oNumber.getDisabled = this.bindGetDisabled;
+			oNumber.setDisabled = this.bindSetDisabled;
 			// 获取文本框的value值
 			oNumber.getValue = this.bindGetValue;
-
-			// 减号移上移出时变色
-			oDecrease.onmouseenter = function () {
-				if ( oNumber.isDisabled ) {
-					return false;
-				}
-				tools.addClass(oNumber, 'is-hover');
-			}
-			oDecrease.onmouseleave = function () {
-				tools.delClass(oNumber, 'is-hover');
-			}
-
-			// 加号移上移出时变色
-			oIncrease.onmouseenter = function () {
-				if ( oNumber.isDisabled ) {
-					return false;
-				}
-				tools.addClass(oNumber, 'is-hover');
-			}
-			oIncrease.onmouseleave = function () {
-				tools.delClass(oNumber, 'is-hover');
-			}
+			oNumber.setValue = this.bindSetValue;
 
 			// 减号 点击
 			oDecrease.onclick = function () {
 				if ( tools.hasClass(this, 'is-disabled') ) {
 					return false;
 				}
-				var iValue = oIpt.value;
-				if ( oNumber.params.min != 'null' && oNumber.params.min >= iValue - oNumber.params.step ) {
+				var iValue = oIpt.value - oNumber.params.step;
+				if ( oNumber.params.min != 'null' && oNumber.params.min >= iValue ) {
 					iValue = oNumber.params.min;
 					tools.addClass(this, 'is-disabled');
 				} else {
-					iValue--;
 					tools.delClass(oIncrease, 'is-disabled');
 				}
 				oIpt.value = iValue.toFixed(oNumber.params.precision);
@@ -319,12 +305,12 @@
 				if ( tools.hasClass(this, 'is-disabled') ) {
 					return false;
 				}
-				var iValue = oIpt.value;
-				if ( oNumber.params.max != 'null' && oNumber.params.max <= iValue - oNumber.params.step ) {
+				var iValue = Number(oIpt.value) + oNumber.params.step;
+				if ( oNumber.params.max != 'null' && oNumber.params.max <= iValue ) {
 					iValue = oNumber.params.max;
 					tools.addClass(this, 'is-disabled');
+
 				} else {
-					iValue++;
 					tools.delClass(oDecrease, 'is-disabled');
 				}
 				oIpt.value = iValue.toFixed(oNumber.params.precision);
@@ -369,7 +355,7 @@
 
 			// 步数
 			var iStep = oNumber.getAttribute('step');
-			iStep = regs.number.test(iMax) ? Number(iStep) : 1;
+			iStep = regs.number.test(iStep) ? Number(iStep) : 1;
 			oNumber.params.step = iStep;
 
 			// 默认值
@@ -383,10 +369,12 @@
 			var blControls = oNumber.getAttribute('controls');
 			if ( blControls === false || blControls == 'false' ) {
 				tools.addClass(oNumber, 'is-no-controls');
+
 			} else {
 				var sPosition = oNumber.getAttribute('controls-position');
 				if ( sPosition == 'right' ) {
 					tools.addClass(oNumber, 'is-controls-right');
+					oNumber.params.controlsPosition = 'right';
 				}
 			}
 		},
@@ -399,40 +387,54 @@
 			// 设置节点已经初始化的标志，不会再重新初始化
 			oNumber.isInited = true;
 
-			// 尺寸
-			var size = tools.hasClass(oNumber, 'mini') ? ' mini' : tools.hasClass(oNumber, 'small') ? ' small' : tools.hasClass(oNumber, 'medium') ? ' medium' : '';
-
-			var html = '';
+			// 文档碎片
+			var oFragment = document.createDocumentFragment();
 			// 减号
-			html += '<span class="decrease' + (oNumber.params.min != 'null' && oNumber.params.min >= oNumber.params.value ? ' is-disabled' : '') + '"><i class="sp-icon-minus"></i></span>';
+			var oDecrease = document.createElement('span');
+			oDecrease.className = 'decrease' + (oNumber.params.min != 'null' && oNumber.params.min >= oNumber.params.value ? ' is-disabled' : '');
+			oDecrease.innerHTML = '<i class="' + (oNumber.params.controlsPosition == 'right' ? 'sp-icon-arrow-down' : 'sp-icon-minus' ) + '"></i>';
+
 			// 加号
-			html += '<span class="increase' + (oNumber.params.max != 'null' && oNumber.params.max <= oNumber.params.value ? ' is-disabled' : '') + '"><i class="sp-icon-plus"></i></span>';
+			var oIncrease = document.createElement('span');
+			oIncrease.className = 'increase' + (oNumber.params.max != 'null' && oNumber.params.max <= oNumber.params.value ? ' is-disabled' : '');
+			oIncrease.innerHTML = '<i class="' + (oNumber.params.controlsPosition == 'right' ? 'sp-icon-arrow-up' : 'sp-icon-plus' ) + '"></i>';
+
 			// 文本框
-			html += '<input class="sp-input' + size + '" type="text"';
-			html += ' value="' + oNumber.params.value + '"';
-			html += '>';
+			var oIpt = document.createElement('input');
+			oIpt.type = 'text';
+			oIpt.className = 'sp-input' + (tools.hasClass(oNumber, 'mini') ? ' mini' : tools.hasClass(oNumber, 'small') ? ' small' : tools.hasClass(oNumber, 'medium') ? ' medium' : '');
+			oIpt.value = oNumber.params.value;
 
-			oNumber.innerHTML = html;
+			oFragment.appendChild(oDecrease);
+			oFragment.appendChild(oIncrease);
+			oFragment.appendChild(oIpt);
+			oNumber.appendChild(oFragment);
 
-			this.initEvent(oNumber);
+			this.initEvent(oNumber, oDecrease, oIncrease, oIpt);
 		},
 
 		/**
-		 * 设置整个sp-inputnumber的disabled状态处理函数
+		 * 设置获取disabled状态
 		 */
-		bindDisabled: function (bl) {
+		bindGetDisabled: function () {
+			var oIpt = this.querySelector('.sp-input');
+			return oIpt.getAttribute('disabled');
+		},
+
+		/**
+		 * 设置整个sp-input-number的disabled状态处理函数
+		 */
+		bindSetDisabled: function (bl) {
 			var oDecrease = this.querySelector('.decrease');
 			var oIncrease = this.querySelector('.increase');
 			var oIpt = this.querySelector('.sp-input');
 
 			if ( bl ) {
-				this.isDisabled = true;
 				tools.addClass(oDecrease, 'is-disabled');
 				tools.addClass(oIncrease, 'is-disabled');
 				oIpt.setAttribute('disabled', true);
 
 			} else {
-				this.isDisabled = false;
 				var iValue = oIpt.value;
 				if ( this.params.min == 'null' || iValue > this.params.min ) {
 					tools.delClass(oDecrease, 'is-disabled');
@@ -445,11 +447,20 @@
 		},
 
 		/**
-		 * 获取sp-inputnumber的value的处理函数
+		 * 获取sp-input-number的value的处理函数
 		 */
 		bindGetValue: function () {
 			var oIpt = this.querySelector('.sp-input');
 			return oIpt.value;
+		},
+
+		/**
+		 * 设置value值
+		 */
+		bindSetValue: function (val) {
+			var oIpt = this.querySelector('.sp-input');
+			val = (this.params.min != 'null' && val <= this.params.min) ? this.params.min : (this.params.max != 'null' && val >= this.params.max) ? this.params.max : val;
+			oIpt.value = val;
 		}
 	}
 	

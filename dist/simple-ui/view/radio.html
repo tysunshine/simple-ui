@@ -63,6 +63,7 @@
 
 		<br><br>
 		<button onclick="setChecked()">设置选中状态</button>&nbsp;&nbsp;
+		<button onclick="getChecked()">获取选中状态</button>&nbsp;&nbsp;
 		<label class="sp-radio">
 			<input id="rd1" type="radio" name="hobby">飞行员
 		</label>
@@ -72,16 +73,19 @@
 		<label class="sp-radio is-checked">
 			<input type="radio" name="hobby" checked>老师
 		</label>
+		<span class="checked-text"></span>
 		
 		<br><br>
 
 		<button onclick="setDisabled()">设置是否可选</button>&nbsp;&nbsp;
+		<button onclick="getDisabled()">获取是否可选</button>&nbsp;&nbsp;
 		<label class="sp-radio">
 			<input id="rd2" type="radio" name="website">爱奇艺
 		</label>
 		<label class="sp-radio">
 			<input type="radio" name="website">优酷
 		</label>
+		<span class="disabled-text"></span>
 	</div>
 
 	<script src="../js/tools.js"></script>
@@ -91,7 +95,6 @@
 		var oAddBox = document.querySelector('.add-box');
 		var oRd1 = document.querySelector('#rd1');
 		var oRd2 = document.querySelector('#rd2');
-		var bl1 = true;
 		var bl2 = true;
 
 		function showRadio () {
@@ -103,11 +106,16 @@
 			SimpleUi.radio.init();
 		}
 
+		function getChecked () {
+			document.querySelector('.checked-text').innerHTML = oRd1.getChecked();
+		}
 		function setChecked () {
-			oRd1.setChecked(bl1);
-			bl1 = !bl1;
+			oRd1.setChecked(true);
 		}
 
+		function getDisabled () {
+			document.querySelector('.disabled-text').innerHTML = oRd2.getDisabled();
+		}
 		function setDisabled () {
 			oRd2.setDisabled(bl2);
 			bl2 = !bl2;

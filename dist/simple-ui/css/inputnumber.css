@@ -1,4 +1,4 @@
-.sp-inputnumber {
+.sp-input-number {
   position: relative;
   width: 180px;
   height: 40px;
@@ -9,7 +9,7 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
-  .sp-inputnumber .decrease, .sp-inputnumber .increase {
+  .sp-input-number .decrease, .sp-input-number .increase {
     position: absolute;
     top: 1px;
     z-index: 1;
@@ -21,75 +21,75 @@
     box-sizing: border-box;
     background: #f5f7fa;
     cursor: pointer; }
-  .sp-inputnumber .decrease {
+  .sp-input-number .decrease {
     left: 1px;
     border-right: 1px solid #dcdfe6;
     border-radius: 4px 0 0 4px; }
-  .sp-inputnumber .increase {
+  .sp-input-number .increase {
     right: 1px;
     border-left: 1px solid #dcdfe6;
     border-radius: 0 4px 4px 0; }
-  .sp-inputnumber .decrease.is-disabled, .sp-inputnumber .increase.is-disabled {
+  .sp-input-number .decrease.is-disabled, .sp-input-number .increase.is-disabled {
     cursor: not-allowed;
     color: #c0c4cc; }
-  .sp-inputnumber .sp-input {
+  .sp-input-number .sp-input {
     padding: 0 50px;
     width: 100%;
     text-align: center; }
-  .sp-inputnumber.is-hover .sp-input {
+  .sp-input-number .decrease:not(.is-disabled):hover ~ .sp-input, .sp-input-number .increase:not(.is-disabled):hover ~ .sp-input {
     border-color: #409EFF; }
-  .sp-inputnumber.medium {
+  .sp-input-number.medium {
     height: 36px; }
-    .sp-inputnumber.medium .decrease, .sp-inputnumber.medium .increase {
+    .sp-input-number.medium .decrease, .sp-input-number.medium .increase {
       width: 37px;
       height: 34px;
       line-height: 35px; }
-    .sp-inputnumber.medium .sp-input {
+    .sp-input-number.medium .sp-input {
       padding: 0 43px; }
-  .sp-inputnumber.small {
+  .sp-input-number.small {
     width: 130px;
     height: 32px; }
-    .sp-inputnumber.small .decrease, .sp-inputnumber.small .increase {
+    .sp-input-number.small .decrease, .sp-input-number.small .increase {
       width: 33px;
       height: 30px;
       line-height: 31px;
       font-size: 13px; }
-    .sp-inputnumber.small .sp-input {
+    .sp-input-number.small .sp-input {
       padding: 0 39px; }
-  .sp-inputnumber.mini {
+  .sp-input-number.mini {
     width: 130px;
     height: 28px; }
-    .sp-inputnumber.mini .decrease, .sp-inputnumber.mini .increase {
+    .sp-input-number.mini .decrease, .sp-input-number.mini .increase {
       width: 29px;
       height: 26px;
       line-height: 27px;
       font-size: 12px; }
-    .sp-inputnumber.mini .sp-input {
+    .sp-input-number.mini .sp-input {
       padding: 0 35px; }
-  .sp-inputnumber.is-controls-right .decrease {
+  .sp-input-number.is-controls-right .decrease, .sp-input-number.is-controls-right .increase {
+    height: auto;
+    line-height: 19px;
+    font-size: 13px; }
+    .sp-input-number.is-controls-right .decrease [class^=sp-icon-], .sp-input-number.is-controls-right .increase [class^=sp-icon-] {
+      transform: scale(0.8); }
+  .sp-input-number.is-controls-right .decrease {
     top: auto;
     bottom: 1px;
     right: 1px;
     left: auto;
     border-radius: 0 0 4px 0;
-    line-height: 19px;
-    height: auto;
     border-right: none;
-    border-left: 1px solid #dcdfe6;
-    font-size: 13px; }
-  .sp-inputnumber.is-controls-right .increase {
-    height: auto;
-    line-height: 19px;
+    border-left: 1px solid #dcdfe6; }
+  .sp-input-number.is-controls-right .increase {
     border-radius: 0 4px 0 0;
-    border-bottom: 1px solid #dcdfe6;
-    font-size: 13px; }
-  .sp-inputnumber.is-controls-right.medium .decrease, .sp-inputnumber.is-controls-right.medium .increase {
+    border-bottom: 1px solid #dcdfe6; }
+  .sp-input-number.is-controls-right.medium .decrease, .sp-input-number.is-controls-right.medium .increase {
     line-height: 17px; }
-  .sp-inputnumber.is-controls-right.small .decrease, .sp-inputnumber.is-controls-right.small .increase {
+  .sp-input-number.is-controls-right.small .decrease, .sp-input-number.is-controls-right.small .increase {
     line-height: 15px; }
-  .sp-inputnumber.is-controls-right.mini .decrease, .sp-inputnumber.is-controls-right.mini .increase {
+  .sp-input-number.is-controls-right.mini .decrease, .sp-input-number.is-controls-right.mini .increase {
     line-height: 13px; }
-  .sp-inputnumber.is-no-controls .decrease, .sp-inputnumber.is-no-controls .increase {
+  .sp-input-number.is-no-controls .decrease, .sp-input-number.is-no-controls .increase {
     display: none; }
-  .sp-inputnumber.is-no-controls .sp-input {
+  .sp-input-number.is-no-controls .sp-input {
     padding: 15px; }

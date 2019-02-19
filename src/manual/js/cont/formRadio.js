@@ -221,8 +221,10 @@ this.oAddBtn.onclick = function () {
 			<tr><th>方法名</th><th>说明</th></tr>
 		</thead>
 		<tbody>
-			<tr><td>setDisabled</td><td>设置是否可选，radio节点调用，也可以直接给label添加is-disabled类，给radio添加disabled属性</td></tr>
-			<tr><td>setChecked</td><td>设置选中状态，同上</td></tr>
+			<tr><td>getDisabled</td><td>获取禁用状态</td></tr>
+			<tr><td>setDisabled</td><td>设置是否可选，radio节点调用，也可以直接给label添加is-disabled类，参数（true/false）</td></tr>
+			<tr><td>getChecked</td><td>获取选中状态</td></tr>
+			<tr><td>setChecked</td><td>设置选中状态，参数（true/false）</td></tr>
 		</tbody>
 	</table>
 </div>
