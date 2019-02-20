@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>滚动</title>
+	<link rel="stylesheet" type="text/css" href="../css/scrollbar.css">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 50px 0;
+			background: #efefef;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px 20px;
+			width: 800px;
+			box-sizing: border-box;
+			border-radius: 5px;
+			background: #fff;
+		}
+		.group+.group {
+			margin-top: 20px;
+		}
+		.group h3 {
+			font-weight: normal;
+			margin-bottom: 10px;
+		}
+		dl {
+			line-height: 30px;
+		}
+		dt {
+			background: #cc0;
+			cursor: pointer;
+		}
+		dt:hover {
+			color: #0cf;
+		}
+		.box {
+			border-radius: 5px;
+			border: 10px solid #f8c;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<p>
+			包裹成scrollbar_warp
+			滚动成scrollbar_view
+			sp-scrollbar包裹scrollbar_wrap、scrollbar__bar（滚动条）、is-horizontal（横）、is-vertical（纵）
+			通过设置warp最大高度，在view高度没有大过wrap的最大高度时，不能滚动
+			判断高度是否超出
+			鼠标移入显示滚动条
+			鼠标移出隐藏滚动条
+			高度小于最大高度隐藏滚动条
+		</p>
+
+
+		<div class="sp-scrollbar box" style="max-height: 300px;">
+			<div>
+				<div>
+					<dl>
+						<dt>第一章</dt>
+						<dd>道可道</dd>
+						<dd>非常道</dd>
+						<dd>名可名</dd>
+						<dd>非常名</dd>
+					</dl>
+					<dl>
+						<dt>第二章</dt>
+						<dd>天下皆知美之为美</dd>
+						<dd>斯恶已</dd>
+						<dd>皆知善之为善</dd>
+						<dd>斯不善已</dd>
+					</dl>
+					<dl>
+						<dt>第三章</dt>
+						<dd>不尚贤</dd>
+						<dd>使民不争</dd>
+						<dd>不贵难得之货</dd>
+						<dd>使民不为盗</dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="../js/tools.js"></script>
+	<script src="../js/index.js"></script>
+	<script>
+		var oDts = document.querySelectorAll('dt');
+
+		for ( var i = 0; i < oDts.length; i++ ) {
+			oDts[i].onclick = function () {
+				var oDds = this.parentNode.querySelectorAll('dd');
+
+				for ( var i = 0; i < oDds.length; i++ ) {
+					if ( this.isShow ) {
+						oDds[i].style.display = 'block';
+					} else {
+						oDds[i].style.display = 'none';
+					}
+				}
+
+				if ( i >= oDds.length ) {
+					this.isShow = !this.isShow;
+				}
+			}
+		}
+	</script>
+</body>
+</html>

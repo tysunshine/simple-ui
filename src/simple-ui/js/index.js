@@ -463,6 +463,105 @@
 			oIpt.value = val;
 		}
 	}
+
+	// 滚动条
+	var SpScrollbar = {
+		init: function () {
+			this.oScrollbar = document.querySelectorAll('.sp-scrollbar');
+
+			this.initState();
+		},
+
+		initState: function () {
+			for ( var i = 0; i < this.oScrollbar.length; i++ ) {
+				var oScrollbar = this.oScrollbar[i];
+				// 判断该节点是否已经初始化完成
+				if ( !oScrollbar.isInited ) {
+
+					if ( tools.getStyle(oScrollbar, 'position') == 'static' ) {
+						tools.setStyle(oScrollbar, {
+							position: 'relative'
+						});
+					}
+					this.initParams(oScrollbar);
+					if ( oScrollbar.params.maxh > 0 ) {
+						this.initHtml(oScrollbar);
+					}
+				}
+			}
+		},
+
+		initEvent: function (oScrollbar, oWrap, oView, oHidden, oHView) {
+			oHidden.onscroll = function () {
+				console.log(1);
+				// 设置初始滚动为最大值
+				oHidden.scrollLeft = oScrollbar.params.hvW;
+				oHidden.scrollTop = oScrollbar.params.hvH;
+			}
+		},
+
+		// 初始化参数
+		initParams: function (oScrollbar) {
+			oScrollbar.params = {};
+
+			// 最大高度
+			var iMaxH = tools.getStyle(oScrollbar, 'max-height');
+			iMaxH = iMaxH ? parseInt(iMaxH) : '';
+			oScrollbar.params.maxh = iMaxH;
+
+			// 隐藏内容的宽高
+			oScrollbar.params.hvW = 10000;
+			oScrollbar.params.hvH = 10000;
+		},
+
+		// 初始化html代码
+		initHtml: function (oScrollbar) {
+			oScrollbar.isInited = true;
+			var html = oScrollbar.innerHTML;
+
+			var oWrap = oScrollbar.children[0];
+			tools.addClass(oWrap, 'scrollbar_wrap');
+			
+			var oView = oWrap.children[0];
+			tools.addClass(oView, 'scrollbar_view');
+			this.setScrollSize(oScrollbar, oView);
+
+			// 主要作用是，在oView的高度改变小于或大于maxh的时候打报告
+			var oHidden = document.createElement('div');
+			oHidden.className = 'scrollbar_hidden';
+
+			var oHView = document.createElement('div');
+			oHView.className = 'scrollbar_hidden_view';
+			tools.setStyle(oHView, {
+				width: oScrollbar.params.hvW + 'px',
+				height: oScrollbar.params.hvH + 'px'
+			})
+
+			oHidden.appendChild(oHView);
+			oWrap.appendChild(oHidden);
+			// 设置初始滚动为最大值
+			oHidden.scrollLeft = oScrollbar.params.hvW;
+			oHidden.scrollTop = oScrollbar.params.hvH;
+
+			this.initEvent(oScrollbar, oWrap, oView, oHidden, oHView);
+		},
+
+		// 根据view的高度设置scrollbar的高度
+		setScrollSize: function (oScrollbar, oView) {
+			var iW = parseInt(tools.getStyle(oView, 'width'));
+			var iH = parseInt(tools.getStyle(oView, 'height'));
+
+			if ( iH > oScrollbar.params.maxh ) {
+				tools.setStyle(oScrollbar, {
+					height: oScrollbar.params.maxh + 'px'
+				})
+			} else {
+				tools.setStyle(oScrollbar, {
+					height: 'auto'
+				})
+			}
+		}
+	}
 	
 
 	// 需要使用到的正则表达式
@@ -474,10 +573,16 @@
 	// 简单的UI
 	var SimpleUi = {
 		init: function () {
+			// basic
 			this.layout = SpLayout;
+
+			// form
 			this.radio = SpRadio;
 			this.checkbox = SpCheckbox;
 			this.inputnumber = SpInputnumber;
+
+			// others
+			this.scrollbar = SpScrollbar;
 
 			this.initState();
 			this.initEvent();
@@ -485,9 +590,12 @@
 
 		initState: function () {
 			this.layout.init();
+
 			this.radio.init();
 			this.checkbox.init();
 			this.inputnumber.init();
+
+			this.scrollbar.init();
 		},
 
 		initEvent: function () {

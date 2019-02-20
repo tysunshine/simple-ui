@@ -1,0 +1,16 @@
+.sp-scrollbar {
+  overflow: hidden; }
+  .sp-scrollbar .scrollbar_wrap {
+    position: relative;
+    margin-right: -17px;
+    max-height: 100%;
+    box-sizing: border-box;
+    overflow: auto; }
+    .sp-scrollbar .scrollbar_wrap .scrollbar_hidden {
+      position: absolute;
+      z-index: 10000;
+      top: 0;
+      left: 0;
+      right: 100px;
+      bottom: 0;
+      overflow: auto; }
