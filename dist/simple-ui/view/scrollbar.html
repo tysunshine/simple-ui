@@ -11,7 +11,7 @@
 		}
 		body {
 			padding: 50px 0;
-			background: #efefef;
+			background: #ddd;
 		}
 		.group {
 			margin: 0 auto;
@@ -38,9 +38,31 @@
 		dt:hover {
 			color: #0cf;
 		}
+		dd {
+			transition: all .5s;
+			overflow: hidden;
+			height: 180px;
+		}
+		dl:nth-child(1) dd {
+			height: 120px;
+		}
+		dl dd.is-hide {
+			height: 0;
+		}
+
 		.box {
 			border-radius: 5px;
 			border: 10px solid #f8c;
+		}
+
+		.cs-box {
+			width: 300px;
+			height: 40px;
+			background: #fc0;
+			transition: width .5s;
+		}
+		.cs-box.is-hide {
+			width: 10px;
 		}
 	</style>
 </head>
@@ -64,29 +86,43 @@
 				<div>
 					<dl>
 						<dt>第一章</dt>
-						<dd>道可道</dd>
-						<dd>非常道</dd>
-						<dd>名可名</dd>
-						<dd>非常名</dd>
+						<dd>
+							<p>道可道</p>
+							<p>非常道</p>
+							<p>名可名</p>
+							<p>非常名</p>
+						</dd>
 					</dl>
 					<dl>
 						<dt>第二章</dt>
-						<dd>天下皆知美之为美</dd>
-						<dd>斯恶已</dd>
-						<dd>皆知善之为善</dd>
-						<dd>斯不善已</dd>
+						<dd>
+							<p>天下皆知美之为美</p>
+							<p>斯恶已</p>
+							<p>皆知善之为善</p>
+							<p>斯不善已</p>
+							<p>故有无相生</p>
+							<p>难易相成</p>
+						</dd>
 					</dl>
 					<dl>
 						<dt>第三章</dt>
-						<dd>不尚贤</dd>
-						<dd>使民不争</dd>
-						<dd>不贵难得之货</dd>
-						<dd>使民不为盗</dd>
+						<dd>
+							<p>不尚贤</p>
+							<p>使民不争</p>
+							<p>不贵难得之货</p>
+							<p>使民不为盗</p>
+							<p>不见可欲</p>
+							<p>使民心不乱</p>
+						</dd>
 					</dl>
 				</div>
 			</div>
 		</div>
+	</div>
 
+	<div class="group">
+		<button class="cs-btn">点击</button>
+		<div class="cs-box"></div>
 	</div>
 
 	<script src="../js/tools.js"></script>
@@ -100,15 +136,38 @@
 
 				for ( var i = 0; i < oDds.length; i++ ) {
 					if ( this.isShow ) {
-						oDds[i].style.display = 'block';
+						// oDds[i].style.display = 'block';
+						(function (i) {
+							setTimeout(function () {
+								tools.delClass(oDds[i], 'is-hide');
+							}, 30);
+						})(i)
 					} else {
-						oDds[i].style.display = 'none';
+						tools.addClass(oDds[i], 'is-hide');
+						// (function (i) {
+						// 	setTimeout(function () {
+						// 		oDds[i].style.display = 'none';
+						// 	}, 500);
+						// })(i)
 					}
 				}
 
 				if ( i >= oDds.length ) {
 					this.isShow = !this.isShow;
 				}
+			}
+		}
+
+
+		var oCsBtn = document.querySelector('.cs-btn');
+		var oCsBox = document.querySelector('.cs-box');
+		oCsBtn.onclick = function () {
+			if ( this.hide ) {
+				this.hide = false;
+				tools.delClass(oCsBox, 'is-hide');
+			} else {
+				this.hide = true;
+				tools.addClass(oCsBox, 'is-hide');
 			}
 		}
 	</script>

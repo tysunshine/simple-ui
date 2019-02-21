@@ -491,13 +491,16 @@
 			}
 		},
 
-		initEvent: function (oScrollbar, oWrap, oView, oHidden, oHView) {
-			oHidden.onscroll = function () {
-				console.log(1);
-				// 设置初始滚动为最大值
-				oHidden.scrollLeft = oScrollbar.params.hvW;
-				oHidden.scrollTop = oScrollbar.params.hvH;
-			}
+		initEvent: function (oScrollbar, oWrap, oView) {
+			var _this = this;
+
+			/**
+			 * 在oView高度改变时，oWrap高度也会改变
+			 * 当oView高度小于oScrollbar的最大高度时，去掉height与margin-right
+			 */
+			this.onelresize(oWrap, function () {
+				_this.setScrollSize(oScrollbar, oWrap);	
+			})
 		},
 
 		// 初始化参数
@@ -519,47 +522,103 @@
 			oScrollbar.isInited = true;
 			var html = oScrollbar.innerHTML;
 
+			// 包裹层
 			var oWrap = oScrollbar.children[0];
 			tools.addClass(oWrap, 'scrollbar_wrap');
-			
+				
+			// 滚动内容层
 			var oView = oWrap.children[0];
 			tools.addClass(oView, 'scrollbar_view');
-			this.setScrollSize(oScrollbar, oView);
 
-			// 主要作用是，在oView的高度改变小于或大于maxh的时候打报告
-			var oHidden = document.createElement('div');
-			oHidden.className = 'scrollbar_hidden';
-
-			var oHView = document.createElement('div');
-			oHView.className = 'scrollbar_hidden_view';
-			tools.setStyle(oHView, {
-				width: oScrollbar.params.hvW + 'px',
-				height: oScrollbar.params.hvH + 'px'
-			})
-
-			oHidden.appendChild(oHView);
-			oWrap.appendChild(oHidden);
-			// 设置初始滚动为最大值
-			oHidden.scrollLeft = oScrollbar.params.hvW;
-			oHidden.scrollTop = oScrollbar.params.hvH;
-
-			this.initEvent(oScrollbar, oWrap, oView, oHidden, oHView);
+			// 给scrollbar设置高度以及wrap设置margin-right
+			this.setScrollSize(oScrollbar, oWrap);
+			// 初始化方法
+			this.initEvent(oScrollbar, oWrap, oView);
 		},
 
-		// 根据view的高度设置scrollbar的高度
-		setScrollSize: function (oScrollbar, oView) {
-			var iW = parseInt(tools.getStyle(oView, 'width'));
-			var iH = parseInt(tools.getStyle(oView, 'height'));
+		// 根据wrap的高度设置scrollbar的高度
+		setScrollSize: function (oScrollbar, oWrap) {
+			var iW = parseInt(tools.getStyle(oWrap, 'width'));
+			var iH = parseInt(tools.getStyle(oWrap, 'height'));
+			var iHeight = 'auto';
+			var iMLeft = 0;
 
-			if ( iH > oScrollbar.params.maxh ) {
-				tools.setStyle(oScrollbar, {
-					height: oScrollbar.params.maxh + 'px'
-				})
-			} else {
-				tools.setStyle(oScrollbar, {
-					height: 'auto'
-				})
+			if ( iH >= oScrollbar.params.maxh ) {
+				iHeight = oScrollbar.params.maxh + 'px';
+				iMLeft = '-17px';
 			}
+			tools.setStyle(oScrollbar, {
+				height: iHeight
+			})
+			tools.setStyle(oWrap, {
+				marginRight: iMLeft
+			})
+		},
+
+		// 给节点绑定resize事件
+		onelresize: function (el, handler) {
+			if (!(el instanceof HTMLElement)) {
+				throw new TypeError("参数1不是HTMLElement实例对象。")
+			}
+			if (/^(area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr|script|style|textarea|title)$/i.test(el.tagName)) {
+				throw new TypeError('不支持的标签类型。更改标签或将其包装在支持的标记中（例如，DIV）。')
+			}
+			if (typeof handler !== 'function') { 
+				throw new TypeError("参数2不是类型不是方法。") 
+			}
+
+			var lastWidth = el.offsetWidth || 1
+			var lastHeight = el.offsetHeight || 1
+			var maxWidth = 10000 * (lastWidth)
+			var maxHeight = 10000 * (lastHeight)
+
+			var expand = document.createElement('div')
+			expand.style.cssText = 'position:absolute;top:0;bottom:0;left:0;right:0;z-index=-10000;overflow:hidden;visibility:hidden;'
+			var shrink = expand.cloneNode(false)
+
+			var expandChild = document.createElement('div')
+			expandChild.style.cssText = 'transition:0s;animation:none;'
+			var shrinkChild = expandChild.cloneNode(false)
+
+			expandChild.style.width = maxWidth + 'px'
+			expandChild.style.height = maxHeight + 'px'
+			shrinkChild.style.width = '250%'
+			shrinkChild.style.height = '250%'
+
+			expand.appendChild(expandChild)
+			shrink.appendChild(shrinkChild)
+			el.appendChild(expand)
+			el.appendChild(shrink)
+
+			if (expand.offsetParent !== el) {
+				el.style.position = 'relative'
+			}
+
+			expand.scrollTop = shrink.scrollTop = maxHeight
+			expand.scrollLeft = shrink.scrollLeft = maxWidth
+
+			var newWidth = 0
+			var newHeight = 0
+			function onResize () {
+				if (newWidth !== lastWidth || newHeight !== lastHeight) {
+				  	lastWidth = newWidth
+				  	lastHeight = newHeight
+				  	handler()
+				}
+			}
+
+			function onScroll () {
+				newWidth = el.offsetWidth || 1
+				newHeight = el.offsetHeight || 1
+				if (newWidth !== lastWidth || newHeight !== lastHeight) {
+				  	requestAnimationFrame(onResize)
+				}
+				expand.scrollTop = shrink.scrollTop = maxHeight
+				expand.scrollLeft = shrink.scrollLeft = maxWidth
+			}
+
+			expand.addEventListener('scroll', onScroll, false)
+			shrink.addEventListener('scroll', onScroll, false)
 		}
 	}
 	
