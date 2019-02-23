@@ -10,4 +10,26 @@
 			
 		.scrollbar_view {}
 	}
+	.scrollbar_bar {
+		position: absolute;
+		top: 2px;
+		bottom: 2px;
+		right: 2px;
+		z-index: 1;
+		width: 6px;
+		// opacity: 0;
+		border-radius: 4px;
+		transition: opacity 120ms ease-out;
+
+		.scrollbar__thumb {
+			position: relative;
+			display: block;
+			width: 100%;
+			height: 50%;
+			border-radius: inherit;
+			cursor: pointer;
+			background: rgba(144,147,153,.3);
+			transition: .3s background-color;
+		}
+	}
 }
