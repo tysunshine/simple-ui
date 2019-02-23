@@ -39,6 +39,13 @@ gulp.task("copyManual", function () {
 	.pipe(connect.reload());
 })
 
+// 拷贝lib
+gulp.task("copyLib", function () {
+	gulp.src("src/lib/**/*")
+	.pipe(gulp.dest("dist/lib"))
+	.pipe(connect.reload());
+})
+
 // 创建服务
 gulp.task('server', function () {
 	connect.server({
@@ -49,7 +56,7 @@ gulp.task('server', function () {
 
 // 监听变化
 gulp.task("watchAll", function () {
-	var watcher = gulp.watch("src/**/*", ["copyHtml", "copySass", "copyFont", "copyJs", "copyManual"]);
+	var watcher = gulp.watch("src/**/*", ["copyHtml", "copySass", "copyFont", "copyJs", "copyManual", "copyLib"]);
 	watcher.on("change", function (event) {
 		if ( event.type === 'deleted' ) {
 			var srcFile = event.path;

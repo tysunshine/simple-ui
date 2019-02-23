@@ -123,40 +123,43 @@ var manual = {
 			// 隐藏菜单
 			if ( this.type == 'show' ) {
 				this.type = 'hide';
-				tools.setStyle(_this.oRightCont, {
-					display: 'block'
-				})
-				_this.delay(function () {
+					
+				new Delay(function () {
+					tools.setStyle(_this.oRightCont, {
+						display: 'block'
+					})
+				}).then(function () {
 					tools.setStyle(_this.oLeftCont, {
 						transition: 'all .6s',
 						opacity: 0,
 						top: '-80%'
 					})
-				}, function () {
+				}).then(630, function () {
 					tools.setStyle(_this.oLeftCont, {
 						display: 'none'
 					})
-				}, 630)
+				}).do();
 
 			// 显示菜单
 			} else {
 				this.type = 'show';
-				tools.setStyle(_this.oRightCont, {
-					display: 'none'
-				})
-				_this.delay(function () {
+				
+				new Delay(function () {
+					tools.setStyle(_this.oRightCont, {
+						display: 'none'
+					})
 					tools.setStyle(_this.oLeftCont, {
 						display: 'block',
 						opacity: 0,
 						top: '-80%'
 					})
-				}, function () {
+				}).then(function () {
 					tools.setStyle(_this.oLeftCont, {
 						transition: 'all .6s',
 						opacity: 1,
 						top: '61px'
 					})
-				})
+				}).do();
 			}
 		}
 
@@ -235,16 +238,6 @@ var manual = {
 				tools.delClass(this.oLinkBtns[i], 'is-checked');
 			}
 		}
-	},
-
-	/**
-	 * 延迟事件
-	 */
-	delay: function (prevFn, nextFn, time) {
-		prevFn();
-		setTimeout(function () {
-			nextFn();
-		}, time || 30);
 	}
 }
 
