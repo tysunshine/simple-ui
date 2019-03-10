@@ -491,7 +491,7 @@
 			}
 		},
 
-		initEvent: function (oScrollbar, oWrap, oView) {
+		initEvent: function (oScrollbar, oWrap, oView, oBar, oThumb) {
 			var _this = this;
 
 			/**
@@ -501,6 +501,46 @@
 			this.onelresize(oWrap, function () {
 				_this.setScrollSize(oScrollbar, oWrap);	
 			})
+
+			/**
+			 * 鼠标在包裹层中时，监听滚轴上下滚动
+			 */
+			var sUserAgent = window.navigator.userAgent.toLowerCase();
+			// 火狐浏览器滚轴滚动
+			if ( sUserAgent.indexOf('firefox') != -1 ) {
+				oWrap.addEventListener('DOMMouseScroll', function (evt) {
+					// var e = evt || window.event;
+					// evt ? e.preventDefault() : e.returnValue = false;
+
+					// var iMaxTop = oScrollbar.params.size.iVH <= oScrollbar.params.size.iWH ? 0 : oScrollbar.params.size.iVH - oScrollbar.params.size.iWH;
+					// var iSTop = this.scrollTop;
+					// iSTop += e.detail > 0 ? 30 : -30;
+					// iSTop = iSTop <= 0 ? 0 : iSTop >= iMaxTop ? iMaxTop : iSTop;
+					// this.scrollTop = iSTop;
+					// if ( oScrollbar.params.isFixedH ) {
+					// 	_this.setBarScrollH(oScrollbar, oWrap, oView, oBar, oThumb);
+					// }
+				})
+
+			// 谷歌、ie滚轴滚动
+			} else {
+				oWrap.onmousewheel = function (evt) {
+					var e = evt || window.event;
+					evt ? e.preventDefault() : e.returnValue = false;
+
+					var iMaxTop = oScrollbar.params.size.iVH <= oScrollbar.params.size.iWH ? 0 : oScrollbar.params.size.iVH - oScrollbar.params.size.iWH;
+					var iSTop = this.iSTop || 0;
+					iSTop += e.wheelDelta < 0 ? 60 : -60;
+					iSTop = iSTop <= 0 ? 0 : iSTop >= iMaxTop ? iMaxTop : iSTop;
+					this.iSTop = iSTop;
+					tools.setStyle(oView, {
+						transform: "translateY(-" + iSTop + "px)"
+					})
+					if ( oScrollbar.params.isFixedH ) {
+						_this.setBarScrollH(oScrollbar, oWrap, oView, oBar, oThumb);
+					}
+				}
+			}
 		},
 
 		// 初始化参数
@@ -516,6 +556,16 @@
 			oScrollbar.params.hvW = 10000;
 			oScrollbar.params.hvH = 10000;
 		},
+		// 尺寸参数
+		setSizeParam: function (oScrollbar, oWrap, oView, oBar, oThumb) {
+			var oSize = {};
+			oSize.iWH = parseInt(tools.getStyle(oWrap, 'height'));
+			oSize.iVH = parseInt(tools.getStyle(oView, 'height'));
+			oSize.iBH = parseInt(tools.getStyle(oBar, 'height'));
+			oSize.iTH = parseInt(tools.getStyle(oThumb, 'height'));
+
+			oScrollbar.params.size = oSize;
+		},
 
 		// 初始化html代码
 		initHtml: function (oScrollbar) {
@@ -530,10 +580,27 @@
 			var oView = oWrap.children[0];
 			tools.addClass(oView, 'scrollbar_view');
 
+			// 滚动条
+			var oBar = document.createElement('div');
+			var oThumb = document.createElement('div');
+			oBar.className = 'scrollbar_bar';
+			oThumb.className = 'scrollbar__thumb';
+
+			// 讲滚动条添加到scrollbar中
+			oBar.appendChild(oThumb);
+			oScrollbar.appendChild(oBar);
+
 			// 给scrollbar设置高度以及wrap设置margin-right
 			this.setScrollSize(oScrollbar, oWrap);
+
+			// 给滚动条设置高度
+			this.setThumbH(oWrap, oView, oBar, oThumb);
+
+			// 设置尺寸参数
+			this.setSizeParam(oScrollbar, oWrap, oView, oBar, oThumb);
+
 			// 初始化方法
-			this.initEvent(oScrollbar, oWrap, oView);
+			this.initEvent(oScrollbar, oWrap, oView, oBar, oThumb);
 		},
 
 		// 根据wrap的高度设置scrollbar的高度
@@ -542,16 +609,46 @@
 			var iH = parseInt(tools.getStyle(oWrap, 'height'));
 			var iHeight = 'auto';
 			var iMLeft = 0;
+			var isFixedH = false;
 
 			if ( iH >= oScrollbar.params.maxh ) {
 				iHeight = oScrollbar.params.maxh + 'px';
 				iMLeft = '-17px';
+				isFixedH = true;
 			}
 			tools.setStyle(oScrollbar, {
 				height: iHeight
 			})
 			tools.setStyle(oWrap, {
 				marginRight: iMLeft
+			})
+			// scrollbar高度是否固定
+			oScrollbar.params.isFixedH = isFixedH;
+		},
+
+		// 给滚动条设置高度
+		setThumbH: function (oWrap, oView, oBar, oThumb) {
+			var iWH = parseInt(tools.getStyle(oWrap, 'height'));
+			var iVH = parseInt(tools.getStyle(oView, 'height'));
+			var iBH = parseInt(tools.getStyle(oBar, 'height'));
+			var iTH = iVH <= iWH ? iBH : parseInt(iWH / iVH * iBH);
+
+			tools.setStyle(oThumb, {
+				height: iTH + 'px'
+			})
+		},
+
+		// 根据滚动百分比设置滚动条的滚动高度
+		setBarScrollH: function (oScrollbar, oWrap, oView, oBar, oThumb) {
+			// var iSTop = oWrap.scrollTop;
+			var iSTop = oWrap.iSTop;
+			var iWH = oScrollbar.params.size.iWH;
+			var iVH = oScrollbar.params.size.iVH;
+			var iBH = oScrollbar.params.size.iBH;
+			var iTH = oScrollbar.params.size.iTH;
+			var iPrecent = iSTop / (iVH - iWH);			// 滚动高度百分比
+			tools.setStyle(oThumb, {
+				marginTop: iPrecent * (iBH - iTH) + 'px'
 			})
 		},
 
