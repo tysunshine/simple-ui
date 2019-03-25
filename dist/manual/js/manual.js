@@ -1,4 +1,9 @@
 
+/**
+ * ************************************
+ * basic
+ * ************************************
+ */
 var oLayout = {
 	init: function () {
 		this.oLayoutBox = document.querySelector('.layout-box');
@@ -29,6 +34,12 @@ var oLayout = {
 	}
 }
 
+
+/**
+ * ************************************
+ * form
+ * ************************************
+ */
 var oRadio = {
 	init: function () {
 		this.oRadioBox = document.querySelector('.radio-box');
@@ -77,6 +88,30 @@ var oRadio = {
 				}
 			}
 		}
+	}
+}
+
+
+/**
+ * ************************************
+ * other
+ * ************************************
+ */
+var oScrollbar = {
+	init: function () {
+		this.oScrollBox = document.querySelector('.scrollbar-box');
+		if (!this.oScrollBox) {
+			return;
+		}
+
+		this.oSb = null;
+
+		this.initState();
+	},
+	initState: function () {
+		this.oSb = new SpScrollBar({
+			el: '#sb1'
+		})
 	}
 }
 
@@ -243,7 +278,9 @@ var manual = {
 
 
 window.onload = function () {
-	manual.init();
+	// manual.init();
+
+	oScrollbar.init();
 
 	// 测试单项内容时需使用的配置
 	hljs.initHighlighting();

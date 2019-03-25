@@ -46,6 +46,9 @@ gulp.task("copyLib", function () {
 	.pipe(connect.reload());
 })
 
+// 拷贝所有
+gulp.task("copyAll", ["copyHtml", "copySass", "copyJs", "copyLib", "copyManual"]);
+
 // 创建服务
 gulp.task('server', function () {
 	connect.server({

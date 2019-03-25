@@ -2,181 +2,286 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>滚动</title>
-	<link rel="stylesheet" type="text/css" href="../css/scrollbar.css">
+	<title>使用方法</title>
 	<style>
 		* {
 			margin: 0;
 			padding: 0;
 		}
 		body {
-			padding: 50px 0;
-			background: #ddd;
+			padding: 40px;
+			background: #ccc;
 		}
 		.group {
 			margin: 0 auto;
-			padding: 10px 20px;
+			padding: 10px;
 			width: 600px;
-			box-sizing: border-box;
-			border-radius: 5px;
+			border-radius: 20px;
 			background: #fff;
+			font-size: 14px;
+			line-height: 30px;
 		}
 		.group+.group {
 			margin-top: 20px;
 		}
-		.group h3 {
+		.group > h3 {
+			font-size: 16px;
 			font-weight: normal;
-			margin-bottom: 10px;
+			line-height: 40px;
 		}
-		dl {
+		pre, code {
+			line-height: 20px;
+		}
+
+
+		.gp1 .sb1 {
+			overflow-y: hidden;
+			max-height: 300px;
+			border: 1px solid green;
+		}
+		.gp1 dl {
 			line-height: 30px;
 		}
-		dt {
+		.gp1 dt {
 			background: #cc0;
 			cursor: pointer;
 		}
-		dt:hover {
+		.gp1 dt:hover {
 			color: #0cf;
 		}
-		dd {
+		.gp1 dd {
 			transition: all .5s;
 			overflow: hidden;
-			height: 180px;
 		}
-		dl:nth-child(1) dd {
+		.gp1 dl:nth-child(1) dd {
 			height: 120px;
 		}
-		dl dd.is-hide {
-			height: 0;
+		.gp1 dl dd.is-hide {
+			height: 0 !important;
+		}
+		.gp1 .btn-box {
+			margin-top: 10px;
+		}
+		.gp1 .btn-box button {
+			padding: 0 10px;
+			line-height: 30px;
 		}
 
-		.box {
-			border-radius: 5px;
-			border: 10px solid #f8c;
+		.gp2 .sb2 {
+			overflow-x: hidden;
+			max-width: 300px;
+			border: 1px solid green;
 		}
-
-		.cs-box {
-			width: 300px;
-			height: 40px;
-			background: #fc0;
-			transition: width .5s;
+		.gp2 .scroll {
+			width: 500px;
 		}
-		.cs-box.is-hide {
-			width: 10px;
+		.gp2 .scroll::after {
+			content: '';
+			display: block;
+			clear: both;
+		}
+		.gp2 .scroll p {
+			float: left;
+			width: 50px;
+			line-height: 50px;
+			text-align: center;
+			background: #cde;
+		}
+		.gp2 .scroll p:nth-child(2n) {
+			background: #edc;
+		}
+		.gp2 .btn-box {
+			margin-top: 10px;
+		}
+		.gp2 .btn-box button {
+			padding: 0 10px;
+			line-height: 30px;
 		}
 	</style>
 </head>
 <body>
-
-	<div class="group">
-		<p>
-			包裹成scrollbar_warp<br>
-			滚动成scrollbar_view<br>
-			sp-scrollbar包裹scrollbar_wrap、scrollbar__bar（滚动条）、is-horizontal（横）、is-vertical（纵）<br>
-			通过设置warp最大高度，在view高度没有大过wrap的最大高度时，不能滚动<br>
-			判断高度是否超出<br>
-			鼠标移入显示滚动条<br>
-			鼠标移出隐藏滚动条<br>
-			高度小于最大高度隐藏滚动条<br>
-			滚动条改变、滚动高度改变应设置为两个函数<br>
-			滚动时、滚动条改变<br>
-			高度改变时、滚动条改变<br>
-			拖动滚动条时、滚动高度改变<br>
-		</p>
-
-
-		<div class="sp-scrollbar box" style="max-height: 300px;">
-			<div class="wrap">
-				<div class="view">
-					<dl>
-						<dt>第一章</dt>
-						<dd>
-							<p>道可道</p>
-							<p>非常道</p>
-							<p>名可名</p>
-							<p>非常名</p>
-						</dd>
-					</dl>
-					<dl>
-						<dt>第二章</dt>
-						<dd>
-							<p>天下皆知美之为美</p>
-							<p>斯恶已</p>
-							<p>皆知善之为善</p>
-							<p>斯不善已</p>
-							<p>故有无相生</p>
-							<p>难易相成</p>
-						</dd>
-					</dl>
-					<dl>
-						<dt>第三章</dt>
-						<dd>
-							<p>不尚贤</p>
-							<p>使民不争</p>
-							<p>不贵难得之货</p>
-							<p>使民不为盗</p>
-							<p>不见可欲</p>
-							<p>使民心不乱</p>
-						</dd>
-					</dl>
-				</div>
+	<div class="group gp1">
+		<h3>Y轴滚动</h3>
+		<p>要点：包裹成必须设置overflow-y:hidden、max-height之后创建滚动对象，Y轴滚动才会生效</p>
+		<div class="sb1" id="sb1">
+			<div>
+				<dl>
+					<dt>第一章</dt>
+					<dd style="height: 300px;">
+						<p>道可道，非常道</p>
+						<p>名可名，非常名</p>
+						<p>无，名天地之始</p>
+						<p>有，名万物之母</p>
+						<p>故常无，欲以观其妙</p>
+						<p>常有，欲以观其徼</p>
+						<p>此两者，同出而异名</p>
+						<p>同谓之玄</p>
+						<p>玄之又玄</p>
+						<p>众妙之门</p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>第二章</dt>
+					<dd style="height: 480px;">
+						<p>天下皆知美之为美，斯恶已</p>
+						<p>皆知善之为善，斯不善已</p>
+						<p>故有无相生</p>
+						<p>难易相成</p>
+						<p>长短相较</p>
+						<p>高下相倾</p>
+						<p>音声相和</p>
+						<p>前后相随</p>
+						<p>是以圣人处无为之事</p>
+						<p>行不言之教</p>
+						<p>万物做焉而不辞</p>
+						<p>生而不有</p>
+						<p>为而不恃</p>
+						<p>功成而不居</p>
+						<p>夫唯弗居</p>
+						<p>是以不去</p>
+					</dd>
+				</dl>
+				<dl>
+					<dt>第三章</dt>
+					<dd style="height: 330px;">
+						<p>不尚贤，使民不争</p>
+						<p>不贵难得之货，使民不为盗</p>
+						<p>不见可欲，使民心不乱</p>
+						<p>是以圣人之治</p>
+						<p>虚其心</p>
+						<p>实其腹</p>
+						<p>弱其志</p>
+						<p>强其骨</p>
+						<p>常使民无知无欲</p>
+						<p>使夫智者不敢为也</p>
+						<p>为无为，则无不治</p>
+					</dd>
+				</dl>
 			</div>
-			<!-- <div class="scrollbar_bar">
-				<div class="scrollbar__thumb"></div>
-			</div> -->
+		</div>
+		<div class="btn-box">
+			<button class="getDisBtn">通过实例的scrollTop方法，获取Y轴滚动距离</button>
+			<p>Y滚动距离：<span class="text"></span></p>
+		</div>
+		<div class="btn-box">
+			<button class="setDisBtn">设置Y轴滚动距离为200</button>
 		</div>
 	</div>
 
-	<div class="group">
-		<button class="cs-btn">点击</button>
-		<div class="cs-box"></div>
+	<div class="group gp2">
+		<h3>X轴滚动</h3>
+		<p>要点：包裹成必须设置overflow-x:hidden、max-width之后创建滚动对象，X轴滚动才会生效</p>
+		<p>注意：X轴滚动必须给滚动层scroll设置宽度。</p>
+		<p>注意：Y轴与X轴同在的情况下，鼠标滚动时，Y轴滚动</p>
+		<div class="sb2" id="sb2">
+			<div class="scroll">
+				<p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p><p>10</p>
+			</div>
+		</div>
+		<div class="btn-box">
+			<button class="getDisBtn">通过实例的scrollLeft方法，获取X轴滚动距离</button>
+			<p>X滚动距离：<span class="text"></span></p>
+		</div>
+		<div class="btn-box">
+			<button class="setDisBtn">设置X轴滚动距离为100</button>
+		</div>
 	</div>
 
 	<script src="../../lib/tools.js"></script>
 	<script src="../js/index.js"></script>
 	<script>
-		var oDts = document.querySelectorAll('dt');
+		var oGb1 = {
+			init: function () {
+				this.oGp = document.querySelector('.gp1');
+				this.oSb1 = this.oGp.querySelector('#sb1');
+				this.oDts = this.oGp.querySelectorAll('dt');
 
-		for ( var i = 0; i < oDts.length; i++ ) {
-			oDts[i].onclick = function () {
-				var oDds = this.parentNode.querySelectorAll('dd');
+				this.oGetDisBtn = this.oGp.querySelector('.getDisBtn');
+				this.oText =this.oGp.querySelector('.text');
 
-				for ( var i = 0; i < oDds.length; i++ ) {
-					if ( this.isShow ) {
-						// oDds[i].style.display = 'block';
-						(function (i) {
-							setTimeout(function () {
-								tools.delClass(oDds[i], 'is-hide');
-							}, 30);
-						})(i)
-					} else {
-						tools.addClass(oDds[i], 'is-hide');
-						// (function (i) {
-						// 	setTimeout(function () {
-						// 		oDds[i].style.display = 'none';
-						// 	}, 500);
-						// })(i)
+				this.oSetDisBtn = this.oGp.querySelector('.setDisBtn');
+
+				this.oSB = null;
+
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSB = new SpScrollBar({
+					el: '#sb1',
+					scrollTop: 300
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetDisBtn.onclick = function () {
+					_this.oText.innerHTML = _this.oSB.scrollTop();
+				}
+
+				this.oSetDisBtn.onclick = function () {
+					_this.oSB.scrollTop(200);
+				}
+
+
+				for ( var i = 0; i < this.oDts.length; i++ ) {
+					this.oDts[i].onclick = function () {
+						var oDds = this.parentNode.querySelectorAll('dd');
+
+						for ( var i = 0; i < oDds.length; i++ ) {
+							if ( this.isShow ) {
+								(function (i) {
+									setTimeout(function () {
+										tools.delClass(oDds[i], 'is-hide');
+									}, 30);
+								})(i)
+							} else {
+								tools.addClass(oDds[i], 'is-hide');
+							}
+						}
+
+						if ( i >= oDds.length ) {
+							this.isShow = !this.isShow;
+						}
 					}
 				}
+			}
+		}
 
-				if ( i >= oDds.length ) {
-					this.isShow = !this.isShow;
+		var oGb2 = {
+			init: function () {
+				this.oGp = document.querySelector('.gp2');
+
+				this.oGetDisBtn = this.oGp.querySelector('.getDisBtn');
+				this.oText =this.oGp.querySelector('.text');
+
+				this.oSetDisBtn = this.oGp.querySelector('.setDisBtn');
+
+				this.oSB = null;
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSB = new SpScrollBar({
+					el: '#sb2'
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetDisBtn.onclick = function () {
+					_this.oText.innerHTML = _this.oSB.scrollLeft();
+				}
+
+				this.oSetDisBtn.onclick = function () {
+					_this.oSB.scrollLeft(100);
 				}
 			}
 		}
 
 
-		var oCsBtn = document.querySelector('.cs-btn');
-		var oCsBox = document.querySelector('.cs-box');
-		oCsBtn.onclick = function () {
-			if ( this.hide ) {
-				this.hide = false;
-				tools.delClass(oCsBox, 'is-hide');
-			} else {
-				this.hide = true;
-				tools.addClass(oCsBox, 'is-hide');
-			}
-		}
+		oGb1.init();
+		// oGb2.init();
 	</script>
 </body>
 </html>

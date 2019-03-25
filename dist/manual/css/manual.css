@@ -38,6 +38,10 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .mt10 {margin-top: 10px;}
 .mt40 {margin-top: 40px;}
 
+
+/**
+ * basic
+ */
 .color-box .color-row {margin-left: -5px;margin-right: -5px;}
 .color-box .color-col {padding: 0 5px;}
 .color-box .demo-color-box {padding: 20px;width: 100%;height: 74px;border-radius: 4px;box-sizing: border-box;color: #fff;}
@@ -67,11 +71,27 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 
 .button-box .row+.row {margin-top: 20px;}
 
+
+/**
+ * form
+ */
 .radio-box .hoby-ipt {padding: 3px 5px;width: 90%;height: 30px;box-sizing: border-box;border-radius: 3px;border: 1px solid #999;outline: 0;}
 .radio-box .init-box {position: relative;}
 .radio-box .init-box+.init-box {margin-top: 10px;}
 .radio-box .init-radio-box {position: absolute; left: 140px; top: 0; line-height: 28px;}
 .radio-box .init-radio-box .init-hide-radio {display: none;}
+
+
+/**
+ * other
+ */
+.scrollbar-box dl {line-height: 30px;}
+.scrollbar-box dt {background: #cc0;cursor: pointer;}
+.scrollbar-box dt:hover {color: #0cf;}
+.scrollbar-box dd {transition: all .5s;overflow: hidden;}
+.scrollbar-box dl:nth-child(1) dd {height: 120px;}
+.scrollbar-box dl dd.is-hide {height: 0 !important;}
+.scrollbar-box dl p {margin: 0;}
 
 @media only screen and (max-width: 780px) {
 	.content {max-width: 100%; padding: 0 15px; box-sizing: border-box;}
