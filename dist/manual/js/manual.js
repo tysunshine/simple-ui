@@ -104,14 +104,101 @@ var oScrollbar = {
 			return;
 		}
 
-		this.oSb = null;
-
 		this.initState();
+		this.oGp1.init();
+		this.oGp2.init();
 	},
 	initState: function () {
-		this.oSb = new SpScrollBar({
-			el: '#sb1'
-		})
+		var _Sb = this;
+
+		this.oGp1 = {
+			init: function () {
+				this.oGp = _Sb.oScrollBox.querySelector('.gp1');
+
+				this.oDts = this.oGp.querySelectorAll('dt');
+
+				this.oGetBtn = this.oGp.querySelector('.get-btn');
+				this.oSetBtn = this.oGp.querySelector('.set-btn');
+
+				this.oDisText = this.oGp.querySelector('.dis-text');
+
+				this.oSb = null;
+
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSb = new SpScrollBar({
+					el: '#sb1'
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetBtn.onclick = function () {
+					_this.oDisText.innerHTML = _this.oSb.scrollTop();
+				}
+
+				this.oSetBtn.onclick = function () {
+					_this.oSb.scrollTop(200);
+				}
+
+				// 内容折叠
+				for ( var i = 0; i < this.oDts.length; i++ ) {
+					this.oDts[i].onclick = function () {
+						var oDds = this.parentNode.querySelectorAll('dd');
+
+						for ( var i = 0; i < oDds.length; i++ ) {
+							if ( this.isShow ) {
+								(function (i) {
+									setTimeout(function () {
+										tools.delClass(oDds[i], 'is-hide');
+									}, 30);
+								})(i)
+							} else {
+								tools.addClass(oDds[i], 'is-hide');
+							}
+						}
+
+						if ( i >= oDds.length ) {
+							this.isShow = !this.isShow;
+						}
+					}
+				}
+			}
+		}
+
+		this.oGp2 = {
+			init: function () {
+				this.oGp = _Sb.oScrollBox.querySelector('.gp2');
+
+				this.oGetBtn = this.oGp.querySelector('.get-btn');
+				this.oSetBtn = this.oGp.querySelector('.set-btn');
+
+				this.oDisText = this.oGp.querySelector('.dis-text');
+
+				this.oSb = null;
+
+				this.initState();
+				this.initEvent();
+			},
+			initState: function () {
+				this.oSb = new SpScrollBar({
+					el: '#sb2'
+				})
+			},
+			initEvent: function () {
+				var _this = this;
+
+				this.oGetBtn.onclick = function () {
+					_this.oDisText.innerHTML = _this.oSb.scrollLeft();
+				}
+
+				this.oSetBtn.onclick = function () {
+					_this.oSb.scrollLeft(200);
+				}
+			}
+		}
 	}
 }
 
@@ -260,6 +347,7 @@ var manual = {
 			case 'formRadio': oRadio.init(); SimpleUi.radio.init(); break;
 			case 'formCheckbox': SimpleUi.checkbox.init(); break;
 			case 'formInputnumber': SimpleUi.inputnumber.init(); break;
+			case 'othersScrollbar': oScrollbar.init(); break;
 		}
 
 		// 初始化代码块
@@ -278,9 +366,7 @@ var manual = {
 
 
 window.onload = function () {
-	// manual.init();
-
-	oScrollbar.init();
+	manual.init();
 
 	// 测试单项内容时需使用的配置
 	hljs.initHighlighting();

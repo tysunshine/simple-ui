@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>弹出框</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			padding: 40px;
+			background: #ccc;
+		}
+		.group {
+			margin: 0 auto;
+			padding: 10px;
+			width: 600px;
+			border-radius: 20px;
+			background: #fff;
+			font-size: 14px;
+			line-height: 30px;
+		}
+		.group+.group {
+			margin-top: 20px;
+		}
+		.group > h3 {
+			font-size: 16px;
+			font-weight: normal;
+			line-height: 40px;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="group">
+		<h3>弹出框功能</h3>
+		<div>
+			点击（点击其它地方）（默认）、点击（点击按钮）、移上（移出）、按下（松开）<br>
+
+			下（默认）、上、左、右<br>
+
+			在下上、左右，高度、宽度不足时，到另一边显示<br>
+
+			设置弹出框宽度<br>
+
+			作用主要是用来显示提示信息，标题，内容就完了<br>
+
+			或者用来嵌套（直接使用html代码，sp-popover）<br>
+
+			创建SpPopover实例，点击时调用该实例的显示方法<br>
+
+		</div>
+	</div>
+
+	<script src="../../lib/tools.js"></script>
+	<script src="../js/index.js"></script>
+	<script>
+		// var oSpo = new SpPopover({
+		// 	width: 200,
+		// 	title: '标题',
+		// 	content: '这是一段内容,这是一段内容,这是一段内容,这是一段内容。',
+		// 	placement: 'bottom',			// 出现位置
+		// 	transition: 'fade-in-linear'	// 渐变动画
+		// })
+
+		// oSpo.show();
+		// oSpo.hide();
+
+
+	</script>
+</body>
+</html>

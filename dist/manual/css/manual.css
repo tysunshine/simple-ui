@@ -27,8 +27,8 @@
 .main .jump-top-btn i {display: block;line-height: 38px;color: #409EFF;font-size: 20px;text-align: center;}
 
 /*cont内容样式*/
-h3 {margin: 55px 0 20px;font-size: 22px;line-height: 30px;font-weight:normal;}
-p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
+.right-cont > div > h3 {margin: 55px 0 20px;font-size: 22px;line-height: 30px;font-weight:normal;}
+.right-cont > div > p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .group {width: 100%; border: 1px solid #ebebeb; box-sizing: border-box;}
 .group .show-box {padding: 24px;}
 .group .code-box pre {display: none;border-top: 1px solid #ebebeb;}
@@ -85,6 +85,7 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 /**
  * other
  */
+.scrollbar-box #sb1 {border: 1px solid #ccc;}
 .scrollbar-box dl {line-height: 30px;}
 .scrollbar-box dt {background: #cc0;cursor: pointer;}
 .scrollbar-box dt:hover {color: #0cf;}
@@ -92,6 +93,14 @@ p {margin: 14px 0;font-size: 14px;color: #5e6d82;}
 .scrollbar-box dl:nth-child(1) dd {height: 120px;}
 .scrollbar-box dl dd.is-hide {height: 0 !important;}
 .scrollbar-box dl p {margin: 0;}
+.scrollbar-box .btn-handle {padding-top: 10px;}
+.scrollbar-box .btn-handle::after {content: ''; display: block; clear: both;}
+.scrollbar-box .btn-handle > * {float: left;}
+.scrollbar-box .btn-handle > *+* {margin-left: 20px;}
+.scrollbar-box .gp2 .scroll {width: 900px;}
+.scrollbar-box .gp2 .scroll::after {content: ''; display: block; clear: both;}
+.scrollbar-box .gp2 p {margin: 0; float: left; line-height: 50px; width: 50px; text-align: center; background: #cde;}
+.scrollbar-box .gp2 p:nth-child(2n) {background: #edc;}
 
 @media only screen and (max-width: 780px) {
 	.content {max-width: 100%; padding: 0 15px; box-sizing: border-box;}

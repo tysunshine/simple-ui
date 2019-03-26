@@ -1010,8 +1010,6 @@
 
 
 
-
-
 	window.SimpleUi = SimpleUi;
 	window.SpScrollBar = SpScrollBar;
 	tools.addEvent(window, 'load', function () {
@@ -1019,6 +1017,4 @@
 	})
 
 })(window, document)
-
-
 	
